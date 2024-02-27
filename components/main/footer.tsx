@@ -1,8 +1,16 @@
 import Image from "next/image"
 import Link from "next/link"
-import { IconExternalLink } from "@tabler/icons-react"
+import {
+  IconBrandInstagram,
+  IconBrandLinkedin,
+  IconBrandTiktok,
+  IconBrandTwitter,
+  IconBrandYoutube,
+  IconExternalLink
+} from "@tabler/icons-react"
 
 import ThemeToggle from "../theme/toggle"
+import { Button } from "../ui/button"
 import MainFooterArt from "./footer-art"
 
 export default function MainFooter() {
@@ -49,9 +57,33 @@ export default function MainFooter() {
               <p className="mb-1 font-medium tracking-tight">
                 Nabil Fatih © {new Date().getFullYear()}
               </p>
+              <p className="w-fit tracking-tight">
+                Developer based in Germany, from Indonesia.
+              </p>
             </div>
             <div className="sm:col-span-2">
-              <div className="flex flex-wrap items-center"></div>
+              <div className="flex flex-wrap items-center">
+                {socialMedia.map(social => {
+                  return (
+                    <Button
+                      title={`FibonacciKu ${social.name}`}
+                      key={social.link}
+                      variant="ghost"
+                      size="icon"
+                      asChild
+                    >
+                      <Link
+                        href={social.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <social.icon className="h-5 w-5" />
+                        <span className="sr-only">{social.name}</span>
+                      </Link>
+                    </Button>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </div>
@@ -68,3 +100,31 @@ export default function MainFooter() {
     </footer>
   )
 }
+
+const socialMedia = [
+  {
+    link: "https://www.youtube.com/@fibonacciku",
+    name: "YouTube",
+    icon: IconBrandYoutube
+  },
+  {
+    link: "https://www.tiktok.com/@fibonacciku",
+    name: "TikTok",
+    icon: IconBrandTiktok
+  },
+  {
+    link: "https://www.linkedin.com/in/nabilfatih",
+    name: "LinkedIn",
+    icon: IconBrandLinkedin
+  },
+  {
+    link: "https://twitter.com/nabilfatih_",
+    name: "Twitter",
+    icon: IconBrandTwitter
+  },
+  {
+    link: "https://www.instagram.com/nabilfatih_",
+    name: "Instagram",
+    icon: IconBrandInstagram
+  }
+]

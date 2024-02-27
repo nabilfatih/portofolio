@@ -18,7 +18,15 @@ export default function MainFooter() {
               <div className="flex gap-2">
                 <ThemeToggle />
               </div>
-              <div className="flex flex-col"></div>
+              <div className="flex flex-col">
+                <h1 className="mb-1 font-medium tracking-tight">Projects</h1>
+                <Link
+                  href="https://fibonacciku.com"
+                  className="w-fit tracking-tight underline-offset-4 hover:underline"
+                >
+                  FibonacciKu
+                </Link>
+              </div>
             </div>
           </div>
         </div>

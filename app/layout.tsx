@@ -22,14 +22,32 @@ export const metadata: Metadata = {
     default: "Nabil Akbarazzima Fatih",
     template: "%s | Nabil Fatih"
   },
-  description: "Developer, writer, and creator.",
+  description: "Developer, learner, and creator.",
+  generator: "Nabil Fatih",
+  applicationName: "Nabil Fatih",
+  creator: "Nabil Akbarazzima Fatih",
+  authors: [{ name: "Nabil Akbarazzima Fatih" }],
+  publisher: "Nabil Akbarazzima Fatih",
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: true
+  },
   openGraph: {
     title: "Nabil Fatih",
-    description: "Developer, writer, and creator.",
+    description: "Developer, learner, and creator.",
     url: "https://nabilfatih.com",
     siteName: "Nabil Fatih",
-    locale: "en_US",
-    type: "website"
+    locale: "en",
+    type: "website",
+    images: [
+      {
+        url: "https://www.nabilfatih.com/logo.png",
+        width: 1080,
+        height: 1080,
+        alt: "Nabil Fatih"
+      }
+    ]
   },
   robots: {
     index: true,
@@ -42,9 +60,37 @@ export const metadata: Metadata = {
       "max-snippet": -1
     }
   },
+  icons: {
+    icon: [
+      { url: "/logo.png" },
+      new URL("/logo.png", "https://www.nabilfatih.com")
+    ],
+    shortcut: ["/logo.png", "/logo.png"],
+    apple: [
+      { url: "/apple-touch-icon.png" },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }
+    ],
+    other: [
+      {
+        rel: "apple-touch-icon",
+        url: "/apple-touch-icon.png"
+      }
+    ]
+  },
   twitter: {
+    card: "summary_large_image",
     title: "Nabil Fatih",
-    card: "summary_large_image"
+    description: "Developer, learner, and creator.",
+    creator: "@nabilfatih_",
+    site: "@nabilfatih_",
+    images: [
+      {
+        url: "https://www.nabilfatih.com/logo.png",
+        width: 1080,
+        height: 1080,
+        alt: "Nabil Fatih"
+      }
+    ]
   }
 }
 

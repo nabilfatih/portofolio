@@ -7,6 +7,7 @@ import "@/styles/themes.css"
 
 import { Suspense } from "react"
 import type { Metadata, Viewport } from "next"
+import { Analytics } from "@vercel/analytics/react"
 
 import { themes } from "@/lib/data/themes"
 import { cn } from "@/lib/utils"
@@ -83,6 +84,7 @@ export default function RootLayout({
             </main>
             <MainFooter />
           </div>
+          <Analytics />
         </Providers>
       </body>
     </html>

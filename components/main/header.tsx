@@ -1,5 +1,7 @@
 import Link from "next/link"
 
+import ThemeToggle from "../theme/toggle"
+
 export default function MainHeader() {
   return (
     <header className="sticky top-0 z-50 flex h-16 border-b bg-background backdrop-blur-xl">
@@ -14,7 +16,9 @@ export default function MainHeader() {
             </Link>
           </h1>
         </div>
-        <div className="flex items-center justify-end space-x-2 sm:space-x-4"></div>
+        <div className="flex items-center justify-end space-x-2 sm:space-x-4">
+          <ThemeToggle side="bottom" align="end" />
+        </div>
       </div>
     </header>
   )

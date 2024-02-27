@@ -11,6 +11,8 @@ import type { Metadata, Viewport } from "next"
 import { themes } from "@/lib/data/themes"
 import { cn } from "@/lib/utils"
 
+import MainFooter from "@/components/main/footer"
+import MainHeader from "@/components/main/header"
 import { Providers } from "@/components/providers"
 
 export const metadata: Metadata = {
@@ -75,9 +77,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex min-h-[100dvh] flex-col">
+            <MainHeader />
             <main className="flex flex-1 flex-col overflow-hidden">
               <Suspense>{children}</Suspense>
             </main>
+            <MainFooter />
           </div>
         </Providers>
       </body>

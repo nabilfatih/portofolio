@@ -26,7 +26,7 @@ export default function MainFooter() {
           <div className="grid grid-cols-3">
             <div className="col-span-2 grid h-fit pt-2 sm:col-span-1">
               <p className="mb-1 font-medium tracking-tight">
-                FibonacciKu © {new Date().getFullYear()}
+                Nabil Fatih © {new Date().getFullYear()}
               </p>
             </div>
             <div className="sm:col-span-2">
@@ -37,7 +37,7 @@ export default function MainFooter() {
 
         <div className="mx-auto w-full max-w-7xl px-4 pt-12">
           <p className="text-balance tracking-tight">
-            All right reserved. Nabil Fatih Made with{" "}
+            All right reserved. Made with{" "}
             <span className="text-accent">❤️</span>
           </p>
         </div>

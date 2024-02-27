@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { IconExternalLink } from "@tabler/icons-react"
 
 import ThemeToggle from "../theme/toggle"
 import MainFooterArt from "./footer-art"
@@ -22,9 +23,11 @@ export default function MainFooter() {
                 <h1 className="mb-1 font-medium tracking-tight">Projects</h1>
                 <Link
                   href="https://fibonacciku.com"
+                  target="_blank"
                   className="w-fit tracking-tight underline-offset-4 hover:underline"
                 >
                   FibonacciKu
+                  <IconExternalLink className="ml-1 h-4 w-4" />
                 </Link>
               </div>
             </div>

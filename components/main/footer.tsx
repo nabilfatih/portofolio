@@ -24,7 +24,7 @@ export default function MainFooter() {
                 <Link
                   href="https://fibonacciku.com"
                   target="_blank"
-                  className="w-fit tracking-tight underline-offset-4 hover:underline"
+                  className="inline-flex w-fit items-center tracking-tight underline-offset-4 hover:underline"
                 >
                   FibonacciKu
                   <IconExternalLink className="ml-1 h-4 w-4" />

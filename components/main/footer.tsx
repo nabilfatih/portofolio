@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { IconExternalLink } from "@tabler/icons-react"
 
@@ -11,6 +12,15 @@ export default function MainFooter() {
         <div className="mx-auto w-full max-w-7xl shrink-0 space-y-2 px-4 pb-12">
           <div className="relative space-y-6">
             <Link href="/home" className="flex w-fit items-center">
+              <Image
+                src="/logo.webp"
+                alt="Nabil Fatih"
+                width={28}
+                height={28}
+                priority
+                sizes="28px"
+                className="rounded-full object-cover shadow"
+              />
               <h1 className="ml-1.5 flex items-center text-2xl font-semibold tracking-tighter">
                 Nabil Fatih
               </h1>

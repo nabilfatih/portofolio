@@ -1,21 +1,21 @@
-"use client";
+"use client"
 
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono"
+import { GeistSans } from "geist/font/sans"
 
-import "@/styles/globals.css";
-import "@/styles/themes.css";
+import "@/styles/globals.css"
+import "@/styles/themes.css"
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 
 export default function GlobalError({
   error,
-  reset,
+  reset
 }: {
-  error: Error & { digest?: string };
-  reset: () => void;
+  error: Error & { digest?: string }
+  reset: () => void
 }) {
   return (
     <html lang="en">
@@ -38,5 +38,5 @@ export default function GlobalError({
         </div>
       </body>
     </html>
-  );
+  )
 }

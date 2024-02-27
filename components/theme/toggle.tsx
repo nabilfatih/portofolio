@@ -1,31 +1,31 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { IconBrush } from "@tabler/icons-react";
-import { useTheme } from "next-themes";
+import * as React from "react"
+import { IconBrush } from "@tabler/icons-react"
+import { useTheme } from "next-themes"
 
-import { themes } from "@/lib/data/themes";
-import { capitalizeFirstLetter } from "@/lib/utils";
+import { themes } from "@/lib/data/themes"
+import { capitalizeFirstLetter } from "@/lib/utils"
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ScrollArea } from "@/components/ui/scroll-area";
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 type Props = {
-  side?: "right" | "top" | "bottom" | "left";
-  align?: "start" | "center" | "end";
-};
+  side?: "right" | "top" | "bottom" | "left"
+  align?: "start" | "center" | "end"
+}
 
 export default function ThemeToggle({ side = "right", align = "end" }: Props) {
-  const { setTheme } = useTheme();
-  const [_, startTransition] = React.useTransition();
+  const { setTheme } = useTheme()
+  const [_, startTransition] = React.useTransition()
 
   return (
     <DropdownMenu>
@@ -40,13 +40,13 @@ export default function ThemeToggle({ side = "right", align = "end" }: Props) {
           <DropdownMenuLabel className="mx-1 mt-1">Theme</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <div className="px-1 pb-1">
-            {themes.map((theme) => (
+            {themes.map(theme => (
               <DropdownMenuItem
                 key={theme}
                 onClick={() => {
                   startTransition(() => {
-                    setTheme(theme);
-                  });
+                    setTheme(theme)
+                  })
                 }}
               >
                 {capitalizeFirstLetter(theme)}
@@ -56,5 +56,5 @@ export default function ThemeToggle({ side = "right", align = "end" }: Props) {
         </ScrollArea>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

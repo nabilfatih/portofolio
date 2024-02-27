@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/link"
 
 export default function MainHeader() {
   return (
@@ -17,5 +17,5 @@ export default function MainHeader() {
         <div className="flex items-center justify-end space-x-2 sm:space-x-4"></div>
       </div>
     </header>
-  );
+  )
 }

@@ -1,6 +1,7 @@
-import Link from "next/link";
-import MainFooterArt from "./footer-art";
-import ThemeToggle from "../theme/toggle";
+import Link from "next/link"
+
+import ThemeToggle from "../theme/toggle"
+import MainFooterArt from "./footer-art"
 
 export default function MainFooter() {
   return (
@@ -44,5 +45,5 @@ export default function MainFooter() {
 
       <MainFooterArt />
     </footer>
-  );
+  )
 }

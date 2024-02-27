@@ -7,10 +7,10 @@ export default function MainFooterArt() {
           className="bg-card"
           style={{
             marginTop: `${0 + i}px`,
-            height: `${23 - i}px`,
+            height: `${23 - i}px`
           }}
         />
       ))}
     </div>
-  );
+  )
 }

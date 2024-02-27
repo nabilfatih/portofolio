@@ -1,20 +1,23 @@
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono"
+import { GeistSans } from "geist/font/sans"
 
-import "@/styles/globals.css";
-import "@/styles/config.css";
-import "@/styles/themes.css";
-import { Metadata, Viewport } from "next";
-import { cn } from "@/lib/utils";
-import { Providers } from "@/components/providers";
-import { Suspense } from "react";
-import { themes } from "@/lib/data/themes";
+import "@/styles/globals.css"
+import "@/styles/config.css"
+import "@/styles/themes.css"
+
+import { Suspense } from "react"
+import type { Metadata, Viewport } from "next"
+
+import { themes } from "@/lib/data/themes"
+import { cn } from "@/lib/utils"
+
+import { Providers } from "@/components/providers"
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nabilfatih.com"),
   title: {
     default: "Nabil Akbarazzima Fatih",
-    template: "%s | Nabil Fatih",
+    template: "%s | Nabil Fatih"
   },
   description: "Developer, writer, and creator.",
   openGraph: {
@@ -23,7 +26,7 @@ export const metadata: Metadata = {
     url: "https://nabilfatih.com",
     siteName: "Nabil Fatih",
     locale: "en_US",
-    type: "website",
+    type: "website"
   },
   robots: {
     index: true,
@@ -33,27 +36,27 @@ export const metadata: Metadata = {
       follow: true,
       "max-video-preview": -1,
       "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+      "max-snippet": -1
+    }
   },
   twitter: {
     title: "Nabil Fatih",
-    card: "summary_large_image",
-  },
-};
+    card: "summary_large_image"
+  }
+}
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  interactiveWidget: "resizes-visual",
-};
+  interactiveWidget: "resizes-visual"
+}
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -79,5 +82,5 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
-  );
+  )
 }

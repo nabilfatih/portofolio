@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion"
 
 type Props = {
-  children: React.ReactNode;
-  className?: string;
-};
+  children: React.ReactNode
+  className?: string
+}
 
 export default function MainTransition({ children, className }: Props) {
   return (
@@ -17,12 +17,12 @@ export default function MainTransition({ children, className }: Props) {
         exit={{ opacity: 0 }}
         transition={{
           duration: 0.5,
-          ease: "easeInOut",
+          ease: "easeInOut"
         }}
         className={className}
       >
         {children}
       </motion.main>
     </AnimatePresence>
-  );
+  )
 }

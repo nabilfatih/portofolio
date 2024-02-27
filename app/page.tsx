@@ -1,5 +1,5 @@
-import MainTransition from "@/components/main/transition";
-import Particles from "@/components/ui/particles";
+import Particles from "@/components/ui/particles"
+import MainTransition from "@/components/main/transition"
 
 export default function Home() {
   return (
@@ -9,5 +9,5 @@ export default function Home() {
         quantity={200}
       />
     </MainTransition>
-  );
+  )
 }

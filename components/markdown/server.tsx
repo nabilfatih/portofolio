@@ -1,27 +1,27 @@
-import "katex/dist/katex.min.css";
+import "katex/dist/katex.min.css"
 
-import React from "react";
-import Link from "next/link";
-import type { Element } from "hast";
-import ReactMarkdown from "react-markdown";
-import rehypeKatex from "rehype-katex";
-import rehypeRaw from "rehype-raw";
-import rehypeStringify from "rehype-stringify";
-import remarkBreaks from "remark-breaks";
-import emoji from "remark-emoji";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import remarkParse from "remark-parse";
+import React from "react"
+import Link from "next/link"
+import type { Element } from "hast"
+import ReactMarkdown from "react-markdown"
+import rehypeKatex from "rehype-katex"
+import rehypeRaw from "rehype-raw"
+import rehypeStringify from "rehype-stringify"
+import remarkBreaks from "remark-breaks"
+import emoji from "remark-emoji"
+import remarkGfm from "remark-gfm"
+import remarkMath from "remark-math"
+import remarkParse from "remark-parse"
 
-import { cn, replaceDelimiters } from "@/lib/utils";
+import { cn, replaceDelimiters } from "@/lib/utils"
 
-import CodeBlock from "@/components/ui/codeblock";
-import ImageMarkdown from "@/components/markdown/image";
+import CodeBlock from "@/components/ui/codeblock"
+import ImageMarkdown from "@/components/markdown/image"
 
 export type Props = {
-  content: string;
-  className?: string;
-};
+  content: string
+  className?: string
+}
 
 export default function ServerReactMarkdown({ content, className }: Props) {
   return (
@@ -34,18 +34,17 @@ export default function ServerReactMarkdown({ content, className }: Props) {
       rehypePlugins={[rehypeKatex, rehypeRaw, rehypeStringify]}
       components={{
         p({ children }) {
-          return <p className="mb-2 w-fit last:mb-0">{children}</p>;
+          return <p className="mb-2 w-fit last:mb-0">{children}</p>
         },
         hr() {
-          return <hr className="my-6 border-foreground/30" />;
+          return <hr className="my-6 border-foreground/30" />
         },
         pre(props) {
-          const { children, className, node, ...rest } = props;
+          const { children, className, node, ...rest } = props
 
-          const childrenNode = node?.children[0] as Element;
+          const childrenNode = node?.children[0] as Element
           // handle code block without properties (language)
-          const noProperties =
-            childrenNode?.properties?.className === undefined;
+          const noProperties = childrenNode?.properties?.className === undefined
 
           return noProperties ? (
             <div className={cn("codeblock relative font-sans")}>
@@ -69,12 +68,12 @@ export default function ServerReactMarkdown({ content, className }: Props) {
             >
               {children}
             </pre>
-          );
+          )
         },
         code(props) {
-          const { children, className, node, ...rest } = props;
+          const { children, className, node, ...rest } = props
 
-          const match = /language-(\w+)/.exec(className || "");
+          const match = /language-(\w+)/.exec(className || "")
 
           return match ? (
             <CodeBlock
@@ -93,7 +92,7 @@ export default function ServerReactMarkdown({ content, className }: Props) {
             >
               {children}
             </code>
-          );
+          )
         },
         table({ children }) {
           return (
@@ -102,18 +101,18 @@ export default function ServerReactMarkdown({ content, className }: Props) {
                 {children}
               </table>
             </div>
-          );
+          )
         },
         th({ children }) {
           return (
             <th className="break-words border-b text-foreground">{children}</th>
-          );
+          )
         },
         td({ children }) {
-          return <td className="break-words border-b">{children}</td>;
+          return <td className="break-words border-b">{children}</td>
         },
         a({ children, href }) {
-          const DynamicTag = href ? Link : "button";
+          const DynamicTag = href ? Link : "button"
           return (
             <DynamicTag
               name="link"
@@ -123,14 +122,14 @@ export default function ServerReactMarkdown({ content, className }: Props) {
             >
               {children}
             </DynamicTag>
-          );
+          )
         },
         img({ src, alt }) {
-          return <ImageMarkdown src={src} alt={alt} />;
-        },
+          return <ImageMarkdown src={src} alt={alt} />
+        }
       }}
     >
       {replaceDelimiters(content)}
     </ReactMarkdown>
-  );
+  )
 }

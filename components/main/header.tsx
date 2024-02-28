@@ -7,7 +7,7 @@ import { IconSeparator } from "../ui/icons"
 export default function MainHeader() {
   return (
     <header className="sticky top-0 z-50 flex h-16 border-b bg-background backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-7xl shrink-0 items-center justify-between px-4">
+      <div className="mx-auto flex w-full max-w-2xl shrink-0 items-center justify-between px-4">
         <div className="flex items-center">
           <Link href="/" className="hidden sm:block">
             <Image

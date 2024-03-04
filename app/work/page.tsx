@@ -37,6 +37,19 @@ export default function WorkPage() {
               Software Engineer, Jan 2024 - Jun 2024
             </p>
             <p></p>
+            <ul>
+              <li>
+                Led the development of an internal app for non-tech staff to
+                manage databases efficiently. Used Microsoft PowerApps, Power
+                Automate, and Dataverse to streamline operations and reduce IT
+                support reliance.
+              </li>
+              <li>
+                Created a user-friendly interface for seamless onboarding and
+                improved user experience. Conducted user testing and feedback
+                sessions to boost user adoption and satisfaction.
+              </li>
+            </ul>
 
             <Separator className="my-8" />
 
@@ -47,6 +60,29 @@ export default function WorkPage() {
               Full Stack Developer, May 2022 - Dec 2023
             </p>
             <p></p>
+            <ul>
+              <li>
+                Built a product from scratch that enables users to synchronize
+                their data across various applications. This involved designing
+                the database, automating backend processes using Zappier and
+                Azure functions, designing a payment gateway with NextJS and
+                Stripe, and creating a website with Tailwind CSS and NextJS.
+                Also developed serverless functions in NextJS API.
+              </li>
+              <li>
+                Significantly increased the revenue of the company’s product,
+                0codekit, by developing new features. This included creating an
+                AI endpoint in Microsoft Azure function that uses the latest
+                OpenAI API.
+              </li>
+              <li>
+                Conducted a successful migration of the repository from
+                JavaScript into TypeScript, leading to more robust and error-
+                free code. Additionally, fixed database errors in Supabase
+                (PostgreSQL), while ensuring the security of the database
+                through implementation of row level security.
+              </li>
+            </ul>
 
             <Separator className="my-8" />
 
@@ -57,6 +93,29 @@ export default function WorkPage() {
               Founder & Full Stack Developer, Feb 2021 - Present
             </p>
             <p></p>
+            <ul>
+              <li>
+                Led a successful rebranding of FibonacciKu, pivoting to an AI
+                focus and launching a personal assistant product for students
+                and teachers. This strategic shift significantly boosted user
+                acquisition, adding nearly 5000 new users and several customers
+                within just a month.
+              </li>
+              <li>
+                Drove technical enhancements across the platform, including the
+                development of a REST API using serverless functions in Vercel
+                and edge runtime for improved latency. Implemented OpenAI’s
+                streaming API for a superior user experience. Redesigned the
+                frontend using NextJS and Tailwind CSS, and integrated a secure
+                payment gateway with Stripe and NextJS.
+              </li>
+              <li>
+                Masterminded the design of a new Supabase database from scratch,
+                ensuring row-level security across tables. Enabled real-time
+                data usage for the chat discussion feature, fostering
+                interactive and dynamic user engagement.
+              </li>
+            </ul>
 
             <Separator className="my-8" />
 
@@ -67,6 +126,23 @@ export default function WorkPage() {
               Working Student in Artificial Intelligence, Aug 2021 - Sep 2022
             </p>
             <p></p>
+            <ul>
+              <li>
+                Spearheaded research in artificial intelligence, data science,
+                and sustainability, guided by rigorous analysis and evaluation
+                of key data.
+              </li>
+              <li>
+                Boosted engagement on the Institute’s social media platforms by
+                166%, through the creation of accessible and engaging articles
+                based on our research findings.
+              </li>
+              <li>
+                Contributed to the Institute’s sustainability mission through
+                impactful research and effective communication of sustain-
+                ability issues.
+              </li>
+            </ul>
 
             <Separator className="my-8" />
 
@@ -77,6 +153,17 @@ export default function WorkPage() {
               Data Collector, Apr 2021 - Feb 2022
             </p>
             <p></p>
+            <ul>
+              <li>
+                Collected videos to help drive advances in computer vision
+                applications for a major technology company.
+              </li>
+              <li>Reviewed Ads and News on social media Facebook.</li>
+              <li>
+                Improved the relevancy of the newsfeed for the leading global
+                social media platform.
+              </li>
+            </ul>
           </div>
         </div>
       </section>

@@ -13,6 +13,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { themes } from "@/lib/data/themes"
 import { cn } from "@/lib/utils"
 
+import Particles from "@/components/ui/particles"
 import MainFooter from "@/components/main/footer"
 import MainHeader from "@/components/main/header"
 import { Providers } from "@/components/providers"
@@ -126,7 +127,11 @@ export default function RootLayout({
         >
           <div className="flex min-h-[100dvh] flex-col">
             <MainHeader />
-            <main className="flex flex-1 flex-col overflow-hidden">
+            <main className="relative flex flex-1 flex-col overflow-hidden">
+              <Particles
+                className="pointer-events-none absolute inset-0 -z-10 animate-fade-in"
+                quantity={200}
+              />
               <Suspense>{children}</Suspense>
             </main>
             <MainFooter />

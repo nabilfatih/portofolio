@@ -3,6 +3,7 @@ import Link from "next/link"
 
 import ThemeToggle from "../theme/toggle"
 import { IconSeparator } from "../ui/icons"
+import MainSidebarMobile from "./sidebar-mobile"
 import logo from "/public/logo.webp"
 
 export default function MainHeader() {
@@ -10,6 +11,7 @@ export default function MainHeader() {
     <header className="sticky top-0 z-50 flex h-16 border-b bg-background backdrop-blur-xl">
       <div className="mx-auto flex w-full max-w-2xl shrink-0 items-center justify-between px-4">
         <div className="flex items-center">
+          <MainSidebarMobile />
           <Link href="/" className="hidden sm:block">
             <Image
               src={logo}

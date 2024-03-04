@@ -1,7 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
+import { IconBrandGithub } from "@tabler/icons-react"
 
 import ThemeToggle from "../theme/toggle"
+import { Button } from "../ui/button"
 import { IconSeparator } from "../ui/icons"
 import MainSidebarMobile from "./sidebar-mobile"
 import logo from "/public/logo.webp"
@@ -34,7 +36,7 @@ export default function MainHeader() {
             </Link>
           </h1>
         </div>
-        <div className="flex items-center justify-end space-x-2 sm:space-x-4">
+        <div className="flex items-center justify-end space-x-2">
           <Link
             href="/work"
             className="hidden pr-2 text-sm underline-offset-4 hover:underline sm:inline-flex"
@@ -42,6 +44,15 @@ export default function MainHeader() {
             Work
           </Link>
           <ThemeToggle side="bottom" align="end" />
+          <Button variant="outline" size="icon" asChild>
+            <Link
+              href="https://github.com/nabilfatih/portofolio"
+              target="_blank"
+            >
+              <IconBrandGithub className="h-5 w-5" />
+              <span className="sr-only">Toggle theme</span>
+            </Link>
+          </Button>
         </div>
       </div>
     </header>

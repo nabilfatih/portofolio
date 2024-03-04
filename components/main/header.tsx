@@ -3,6 +3,7 @@ import Link from "next/link"
 
 import ThemeToggle from "../theme/toggle"
 import { IconSeparator } from "../ui/icons"
+import logo from "/public/logo.webp"
 
 export default function MainHeader() {
   return (
@@ -11,7 +12,7 @@ export default function MainHeader() {
         <div className="flex items-center">
           <Link href="/" className="hidden sm:block">
             <Image
-              src="/logo.webp"
+              src={logo}
               alt="Nabil Fatih"
               width={24}
               height={24}
@@ -32,6 +33,12 @@ export default function MainHeader() {
           </h1>
         </div>
         <div className="flex items-center justify-end space-x-2 sm:space-x-4">
+          <Link
+            href="/work"
+            className="hidden pr-2 text-sm underline-offset-4 hover:underline sm:inline-flex"
+          >
+            Work
+          </Link>
           <ThemeToggle side="bottom" align="end" />
         </div>
       </div>

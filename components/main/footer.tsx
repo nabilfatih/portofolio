@@ -12,6 +12,7 @@ import {
 import ThemeToggle from "../theme/toggle"
 import { Button } from "../ui/button"
 import MainFooterArt from "./footer-art"
+import logo from "/public/logo.webp"
 
 export default function MainFooter() {
   return (
@@ -19,9 +20,9 @@ export default function MainFooter() {
       <div className="pt-24">
         <div className="mx-auto w-full max-w-2xl shrink-0 space-y-2 px-4 pb-12">
           <div className="relative space-y-6">
-            <Link href="/home" className="flex w-fit items-center">
+            <Link href="/" className="flex w-fit items-center">
               <Image
-                src="/logo.webp"
+                src={logo}
                 alt="Nabil Fatih"
                 width={28}
                 height={28}

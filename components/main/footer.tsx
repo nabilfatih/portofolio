@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import {
+  IconBrandGithub,
   IconBrandInstagram,
   IconBrandLinkedin,
   IconBrandTiktok,
@@ -103,6 +104,11 @@ export default function MainFooter() {
 }
 
 const socialMedia = [
+  {
+    link: "https://www.github.com/nabilfatih",
+    name: "GitHub",
+    icon: IconBrandGithub
+  },
   {
     link: "https://www.youtube.com/@fibonacciku",
     name: "YouTube",

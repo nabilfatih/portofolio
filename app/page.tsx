@@ -1,15 +1,16 @@
 import Image from "next/image"
 import Link from "next/link"
-import nabilCat from "@/public/nabil-cat.jpg"
-import nabilLake from "@/public/nabil-lake.jpg"
-import nabilMountain from "@/public/nabil-mountain.jpg"
-import nabilSwiss from "@/public/nabil-swiss.jpg"
-import nabilUlm from "@/public/nabil-ulm.jpg"
-import sunset from "@/public/sunset.jpg"
 
 import { Button } from "@/components/ui/button"
 import Particles from "@/components/ui/particles"
 import MainTransition from "@/components/main/transition"
+
+import nabilCat from "/public/nabil-cat.jpg"
+import nabilLake from "/public/nabil-lake.jpg"
+import nabilMountain from "/public/nabil-mountain.jpg"
+import nabilSwiss from "/public/nabil-swiss.jpg"
+import nabilUlm from "/public/nabil-ulm.jpg"
+import sunset from "/public/sunset.jpg"
 
 export default function Home() {
   return (

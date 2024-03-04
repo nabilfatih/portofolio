@@ -26,13 +26,13 @@ export default function Home() {
             hey, I&#39;m Nabil 👋
           </h1>
 
-          <p className="prose prose-neutral dark:prose-invert">
+          <p className="prose max-w-none break-words prose-p:leading-relaxed prose-pre:p-0">
             I&#39;m a full-stack developer, optimist, and learner. I currently{" "}
-            <Button asChild variant="link" className="p-0 text-base">
+            <Button asChild variant="link" className="h-auto p-0 text-base">
               <Link href="/work">work</Link>
             </Button>
             , in my free time, on my startup project{" "}
-            <Button asChild variant="link" className="p-0 text-base">
+            <Button asChild variant="link" className="h-auto p-0 text-base">
               <Link href="/https://fibonacciku.com" target="_blank">
                 FibonacciKu
               </Link>

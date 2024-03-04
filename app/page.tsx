@@ -41,7 +41,7 @@ export default function Home() {
           </p>
 
           <div className="my-8 columns-2 gap-4 sm:columns-3">
-            <div className="relative mb-4 h-60">
+            <div className="relative mb-4 h-64">
               <Image
                 alt="Me at Eibsee in bayern, germany"
                 src={nabilMountain}
@@ -61,7 +61,7 @@ export default function Home() {
                 className="rounded-xl border bg-muted/90 object-cover shadow"
               />
             </div>
-            <div className="relative h-60 sm:mb-4 sm:h-80">
+            <div className="relative h-64 sm:mb-4 sm:h-80">
               <Image
                 alt="Me with my cat floki at Eibsee, germany"
                 src={nabilCat}
@@ -71,7 +71,7 @@ export default function Home() {
                 className="rounded-xl border bg-muted/90 object-cover object-top shadow sm:object-center"
               />
             </div>
-            <div className="relative mb-4 h-60 sm:mb-0">
+            <div className="relative mb-4 h-64 sm:mb-0">
               <Image
                 alt="Me sitting in the middle of the road in grindelwald, swiss"
                 src={nabilSwiss}
@@ -81,7 +81,7 @@ export default function Home() {
                 className="rounded-xl border bg-muted/90 object-cover shadow"
               />
             </div>
-            <div className="relative mb-4 h-60">
+            <div className="relative mb-4 h-64">
               <Image
                 alt="Me at lake in interlaken, swiss"
                 src={nabilLake}

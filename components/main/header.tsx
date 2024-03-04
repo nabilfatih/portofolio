@@ -50,7 +50,7 @@ export default function MainHeader() {
               target="_blank"
             >
               <IconBrandGithub className="h-5 w-5" />
-              <span className="sr-only">Toggle theme</span>
+              <span className="sr-only">Github Repo</span>
             </Link>
           </Button>
         </div>

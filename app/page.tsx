@@ -28,18 +28,12 @@ export default function Home() {
 
           <p className="prose prose-neutral dark:prose-invert">
             I&#39;m a full-stack developer, optimist, and learner. I currently{" "}
-            <Button asChild variant="link" className="p-0">
-              <Link href="/work" className="text-base">
-                work
-              </Link>
+            <Button asChild variant="link" className="p-0 text-base">
+              <Link href="/work">work</Link>
             </Button>
             , in my free time, on my startup project{" "}
-            <Button asChild variant="link" className="p-0">
-              <Link
-                href="/https://fibonacciku.com"
-                target="_blank"
-                className="text-base"
-              >
+            <Button asChild variant="link" className="p-0 text-base">
+              <Link href="/https://fibonacciku.com" target="_blank">
                 FibonacciKu
               </Link>
             </Button>

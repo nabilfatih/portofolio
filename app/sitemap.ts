@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next"
 
 const pathnames = ["", "/", "/work"]
 
-export default function sitemap() {
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.nabilfatih.com"
   const paths: MetadataRoute.Sitemap = pathnames.map(pathname => {
     return {

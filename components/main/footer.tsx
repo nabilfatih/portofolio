@@ -110,16 +110,6 @@ const socialMedia = [
     icon: IconBrandGithub
   },
   {
-    link: "https://www.youtube.com/@fibonacciku",
-    name: "YouTube",
-    icon: IconBrandYoutube
-  },
-  {
-    link: "https://www.tiktok.com/@fibonacciku",
-    name: "TikTok",
-    icon: IconBrandTiktok
-  },
-  {
     link: "https://www.linkedin.com/in/nabilfatih",
     name: "LinkedIn",
     icon: IconBrandLinkedin
@@ -133,5 +123,15 @@ const socialMedia = [
     link: "https://www.instagram.com/nabilfatih_",
     name: "Instagram",
     icon: IconBrandInstagram
+  },
+  {
+    link: "https://www.youtube.com/@fibonacciku",
+    name: "YouTube",
+    icon: IconBrandYoutube
+  },
+  {
+    link: "https://www.tiktok.com/@fibonacciku",
+    name: "TikTok",
+    icon: IconBrandTiktok
   }
 ]

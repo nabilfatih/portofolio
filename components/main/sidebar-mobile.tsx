@@ -34,7 +34,7 @@ export default function MainSidebarMobile() {
 
               <Link
                 href="/work"
-                className="inline-flex justify-between border-t pt-4 text-sm underline-offset-4 hover:underline"
+                className="inline-flex justify-between border-y py-4 text-sm underline-offset-4 hover:underline"
               >
                 Work
               </Link>

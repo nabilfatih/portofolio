@@ -7,6 +7,7 @@ import nabilSwiss from "@/public/nabil-swiss.jpg"
 import nabilUlm from "@/public/nabil-ulm.jpg"
 import sunset from "@/public/sunset.jpg"
 
+import { Button } from "@/components/ui/button"
 import Particles from "@/components/ui/particles"
 import MainTransition from "@/components/main/transition"
 
@@ -26,11 +27,21 @@ export default function Home() {
 
           <p className="prose prose-neutral dark:prose-invert">
             I&#39;m a full-stack developer, optimist, and learner. I currently{" "}
-            <Link href="/work">work</Link>, in my free time, on my startup
-            project{" "}
-            <Link href="/https://fibonacciku.com" target="_blank">
-              FibonacciKu
-            </Link>
+            <Button asChild variant="link" className="p-0">
+              <Link href="/work" className="text-base">
+                work
+              </Link>
+            </Button>
+            , in my free time, on my startup project{" "}
+            <Button asChild variant="link" className="p-0">
+              <Link
+                href="/https://fibonacciku.com"
+                target="_blank"
+                className="text-base"
+              >
+                FibonacciKu
+              </Link>
+            </Button>
             , where I build AI personalized assistant designed specifically for
             students and teachers. I love maine coon and travel.
           </p>

@@ -13,6 +13,15 @@ export default function WorkPage() {
           <h1 className="mb-8 text-2xl font-medium tracking-tighter">
             my work ✨
           </h1>
+
+          <div className="prose max-w-none break-words prose-p:leading-relaxed prose-pre:p-0">
+            <p>
+              My mission is to build something that can big benefit for people.
+              Here are some of my work that I&#39;ve done.
+            </p>
+
+            <div className="my-8"></div>
+          </div>
         </div>
       </section>
     </MainTransition>

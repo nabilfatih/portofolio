@@ -49,7 +49,7 @@ export default function Home() {
                 fill
                 sizes="(max-width: 768px) 213px, 33vw"
                 priority
-                className="rounded-xl border bg-muted/90 object-cover"
+                className="rounded-xl border bg-muted/90 object-cover shadow"
               />
             </div>
             <div className="relative mb-4 h-80 sm:mb-0">
@@ -59,7 +59,7 @@ export default function Home() {
                 fill
                 sizes="(max-width: 768px) 213px, 33vw"
                 priority
-                className="rounded-xl border bg-muted/90 object-cover"
+                className="rounded-xl border bg-muted/90 object-cover shadow"
               />
             </div>
             <div className="relative h-60 sm:mb-4 sm:h-80">
@@ -69,7 +69,7 @@ export default function Home() {
                 fill
                 sizes="(max-width: 768px) 213px, 33vw"
                 priority
-                className="rounded-xl border bg-muted/90 object-cover object-top sm:object-center"
+                className="rounded-xl border bg-muted/90 object-cover object-top shadow sm:object-center"
               />
             </div>
             <div className="relative mb-4 h-60 sm:mb-0">
@@ -79,7 +79,7 @@ export default function Home() {
                 fill
                 sizes="(max-width: 768px) 213px, 33vw"
                 priority
-                className="rounded-xl border bg-muted/90 object-cover"
+                className="rounded-xl border bg-muted/90 object-cover shadow"
               />
             </div>
             <div className="relative mb-4 h-60">
@@ -89,7 +89,7 @@ export default function Home() {
                 fill
                 sizes="(max-width: 768px) 213px, 33vw"
                 priority
-                className="rounded-xl border bg-muted/90 object-cover"
+                className="rounded-xl border bg-muted/90 object-cover shadow"
               />
             </div>
             <div className="relative h-80">
@@ -99,7 +99,7 @@ export default function Home() {
                 fill
                 sizes="(min-width: 768px) 213px, 33vw"
                 priority
-                className="rounded-xl border bg-muted/90 object-cover"
+                className="rounded-xl border bg-muted/90 object-cover shadow"
               />
             </div>
           </div>

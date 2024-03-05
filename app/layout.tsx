@@ -5,7 +5,6 @@ import "@/styles/globals.css"
 import "@/styles/config.css"
 import "@/styles/themes.css"
 
-import { Suspense } from "react"
 import type { Metadata, Viewport } from "next"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -127,7 +126,7 @@ export default function RootLayout({
           <div className="flex min-h-[100dvh] flex-col">
             <MainHeader />
             <main className="flex flex-1 flex-col overflow-hidden">
-              <Suspense>{children}</Suspense>
+              {children}
             </main>
             <MainFooter />
           </div>

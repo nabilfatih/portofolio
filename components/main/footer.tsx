@@ -49,6 +49,14 @@ export default function MainFooter() {
                   FibonacciKu
                   <IconExternalLink className="ml-1 h-4 w-4" />
                 </Link>
+                <Link
+                  href="https://nakafa.com"
+                  target="_blank"
+                  className="inline-flex w-fit items-center tracking-tight underline-offset-4 hover:underline"
+                >
+                  Nakafa
+                  <IconExternalLink className="ml-1 h-4 w-4" />
+                </Link>
               </div>
             </div>
           </div>

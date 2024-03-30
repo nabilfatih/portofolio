@@ -32,7 +32,7 @@ export default function Home() {
             </Button>
             , in my free time, on my startup project{" "}
             <Button asChild variant="link" className="h-auto p-0 text-base">
-              <Link href="/https://fibonacciku.com" target="_blank">
+              <Link href="https://fibonacciku.com" target="_blank">
                 FibonacciKu
               </Link>
             </Button>

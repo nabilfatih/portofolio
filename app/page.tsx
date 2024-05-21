@@ -37,7 +37,13 @@ export default function Home() {
               </Link>
             </Button>
             , where I build AI personalized assistant designed specifically for
-            students and teachers. I love maine coon and travel.
+            students and teachers. I love maine coon, travel, and be with my
+            <Button asChild variant="link" className="h-auto p-0 text-base">
+              <Link href="https://instagram.com/nisrinahn_" target="_blank">
+                lovely person
+              </Link>
+            </Button>
+            .
           </p>
 
           <div className="my-8 columns-2 gap-4 sm:columns-3">

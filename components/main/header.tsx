@@ -1,6 +1,6 @@
 import Image from "next/image"
-import Link from "next/link"
 import { IconBrandGithub } from "@tabler/icons-react"
+import { Link } from "next-view-transitions"
 
 import ThemeToggle from "../theme/toggle"
 import { Button } from "../ui/button"

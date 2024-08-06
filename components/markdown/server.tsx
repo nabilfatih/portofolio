@@ -1,8 +1,8 @@
 import "katex/dist/katex.min.css"
 
 import React from "react"
-import Link from "next/link"
 import type { Element } from "hast"
+import { Link } from "next-view-transitions"
 import ReactMarkdown from "react-markdown"
 import rehypeKatex from "rehype-katex"
 import rehypeRaw from "rehype-raw"

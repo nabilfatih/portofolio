@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Link from "next/link"
+import { Link } from "next-view-transitions"
 
 import { Button } from "@/components/ui/button"
 import Particles from "@/components/ui/particles"

@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 
 import Particles from "@/components/ui/particles"
 import { Separator } from "@/components/ui/separator"
-import MainTransition from "@/components/main/transition"
 
 export const metadata: Metadata = {
   title: "Work",
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function WorkPage() {
   return (
-    <MainTransition className="relative">
+    <div className="relative">
       <Particles
         className="pointer-events-none absolute inset-0 -z-10 animate-fade-in"
         quantity={100}
@@ -27,6 +26,32 @@ export default function WorkPage() {
               My mission is to build something that can have big benefits for
               the people. Here are some of my work that I&#39;ve done.
             </p>
+
+            <Separator className="my-8" />
+
+            <h2 className="mb-1 mt-0 text-xl font-medium tracking-tighter">
+              StrategyBridgeAI GmbH
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Full-Stack Developer, Jul 2024 - Present
+            </p>
+            <p></p>
+            <ul>
+              <li>
+                Architected the frontend application, leveraging NextJS, React,
+                and Tailwind CSS to create a seamless user experience. Designed
+                the UI/UX for the application, ensuring a user-friendly and
+                intuitive interface.
+              </li>
+              <li>
+                Developed a REST API to connect the frontend and backend,
+                enabling users to access financial analysis and insights.
+              </li>
+              <li>
+                Implemented authentication and authorization mechanisms,
+                allowing users to securely access their financial data.
+              </li>
+            </ul>
 
             <Separator className="my-8" />
 
@@ -57,7 +82,7 @@ export default function WorkPage() {
               Wemakefuture AG
             </h2>
             <p className="text-sm text-muted-foreground">
-              Full Stack Developer, May 2022 - Dec 2023
+              Full-Stack Developer, May 2022 - Dec 2023
             </p>
             <p></p>
             <ul>
@@ -90,7 +115,7 @@ export default function WorkPage() {
               FibonacciKu
             </h2>
             <p className="text-sm text-muted-foreground">
-              Founder & Full Stack Developer, Feb 2021 - Present
+              Founder & Full-Stack Developer, Feb 2021 - Present
             </p>
             <p></p>
             <ul>
@@ -167,6 +192,6 @@ export default function WorkPage() {
           </div>
         </div>
       </section>
-    </MainTransition>
+    </div>
   )
 }

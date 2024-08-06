@@ -1,4 +1,4 @@
-import million from "million/compiler"
+import MillionLint from "@million/lint"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -30,15 +30,9 @@ const nextConfig = {
   }
 }
 
-const millionConfig = {
-  // if you're using RSC:
-  auto: {
-    threshold: 0.05, // default: 0.1,
-    rsc: true
-  }
-}
-
-export default million.next(nextConfig, millionConfig)
+export default MillionLint.next({
+  rsc: true
+})(nextConfig)
 
 const ContentSecurityPolicy = `
     default-src 'self';
@@ -54,7 +48,6 @@ const ContentSecurityPolicy = `
     base-uri 'self';
     object-src 'none';
 `
-
 const securityHeaders = [
   {
     key: "Content-Security-Policy",

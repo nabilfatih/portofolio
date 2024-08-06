@@ -8,6 +8,7 @@ import "@/styles/themes.css"
 import type { Metadata, Viewport } from "next"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { ViewTransitions } from "next-view-transitions"
 
 import { themes } from "@/lib/data/themes"
 import { cn } from "@/lib/utils"
@@ -108,32 +109,34 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "font-sans antialiased",
-          GeistSans.variable,
-          GeistMono.variable
-        )}
-        suppressHydrationWarning
-      >
-        <Providers
-          attribute="class"
-          enableSystem
-          themes={themes}
-          disableTransitionOnChange
+    <ViewTransitions>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={cn(
+            "font-sans antialiased",
+            GeistSans.variable,
+            GeistMono.variable
+          )}
+          suppressHydrationWarning
         >
-          <div className="flex min-h-[100dvh] flex-col">
-            <MainHeader />
-            <main className="flex flex-1 flex-col overflow-hidden">
-              {children}
-            </main>
-            <MainFooter />
-          </div>
-          <Analytics />
-          <SpeedInsights />
-        </Providers>
-      </body>
-    </html>
+          <Providers
+            attribute="class"
+            enableSystem
+            themes={themes}
+            disableTransitionOnChange
+          >
+            <div className="flex min-h-[100dvh] flex-col">
+              <MainHeader />
+              <main className="flex flex-1 flex-col overflow-hidden">
+                {children}
+              </main>
+              <MainFooter />
+            </div>
+            <Analytics />
+            <SpeedInsights />
+          </Providers>
+        </body>
+      </html>
+    </ViewTransitions>
   )
 }

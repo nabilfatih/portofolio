@@ -59,7 +59,7 @@ export default function WorkPage() {
               Schneider Electric GmbH
             </h2>
             <p className="text-sm text-muted-foreground">
-              Software Engineer, Jan 2024 - Jun 2024
+              Application Engineer, Jan 2024 - Jun 2024
             </p>
             <p></p>
             <ul>

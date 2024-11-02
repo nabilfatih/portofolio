@@ -4,6 +4,7 @@ import React from "react"
 import type { Element } from "hast"
 import { Link } from "next-view-transitions"
 import ReactMarkdown from "react-markdown"
+import Balancer from "react-wrap-balancer"
 import rehypeKatex from "rehype-katex"
 import rehypeRaw from "rehype-raw"
 import rehypeStringify from "rehype-stringify"
@@ -16,12 +17,21 @@ import remarkParse from "remark-parse"
 import { cn, replaceDelimiters } from "@/lib/utils"
 
 import CodeBlock from "@/components/ui/codeblock"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table"
 import ImageMarkdown from "@/components/markdown/image"
 
 export type Props = {
   content: string
-  className?: string
-}
+} & React.HTMLAttributes<HTMLDivElement>
 
 export default function ServerReactMarkdown({ content, className }: Props) {
   return (
@@ -34,13 +44,24 @@ export default function ServerReactMarkdown({ content, className }: Props) {
       rehypePlugins={[rehypeKatex, rehypeRaw, rehypeStringify]}
       components={{
         p({ children }) {
-          return <p className="mb-2 w-fit last:mb-0">{children}</p>
+          // @ts-expect-error: children[0]?.props?.node?.tagName might not exist
+          if (children[0]?.props?.node?.tagName === "img") {
+            // @ts-expect-error: node properties might not exist
+            const { src, alt } = children[0].props.node.properties
+            return <ImageMarkdown src={src} alt={alt} />
+          }
+
+          return (
+            <p className="mb-2 last:mb-0">
+              <Balancer>{children}</Balancer>
+            </p>
+          )
         },
         hr() {
           return <hr className="my-6 border-foreground/30" />
         },
         pre(props) {
-          const { children, className, node, ...rest } = props
+          const { children, className: classNameProps, node } = props
 
           const childrenNode = node?.children[0] as Element
           // handle code block without properties (language)
@@ -50,7 +71,7 @@ export default function ServerReactMarkdown({ content, className }: Props) {
             <div className={cn("codeblock relative font-sans")}>
               <pre
                 className={cn(
-                  className,
+                  classNameProps,
                   "no-before no-after rounded-xl border bg-muted"
                 )}
                 {...props}
@@ -71,9 +92,9 @@ export default function ServerReactMarkdown({ content, className }: Props) {
           )
         },
         code(props) {
-          const { children, className, node, ...rest } = props
+          const { children, className: classNameProps } = props
 
-          const match = /language-(\w+)/.exec(className || "")
+          const match = /language-(\w+)/.exec(classNameProps || "")
 
           return match ? (
             <CodeBlock
@@ -85,7 +106,7 @@ export default function ServerReactMarkdown({ content, className }: Props) {
           ) : (
             <code
               className={cn(
-                className,
+                classNameProps,
                 "no-before no-after rounded-xl bg-muted px-2 py-0.5 font-mono text-muted-foreground"
               )}
               {...props}
@@ -95,21 +116,28 @@ export default function ServerReactMarkdown({ content, className }: Props) {
           )
         },
         table({ children }) {
-          return (
-            <div className={cn("overflow-x-auto")}>
-              <table className="my-0 border-separate border-spacing-0 border-0">
-                {children}
-              </table>
-            </div>
-          )
+          return <Table>{children}</Table>
+        },
+        caption({ children }) {
+          return <TableCaption>{children}</TableCaption>
+        },
+        thead({ children }) {
+          return <TableHeader>{children}</TableHeader>
         },
         th({ children }) {
-          return (
-            <th className="break-words border-b text-foreground">{children}</th>
-          )
+          return <TableHead>{children}</TableHead>
         },
         td({ children }) {
-          return <td className="break-words border-b">{children}</td>
+          return <TableCell>{children}</TableCell>
+        },
+        tr({ children }) {
+          return <TableRow>{children}</TableRow>
+        },
+        tbody({ children }) {
+          return <TableBody>{children}</TableBody>
+        },
+        tfoot({ children }) {
+          return <TableFooter>{children}</TableFooter>
         },
         a({ children, href }) {
           const DynamicTag = href ? Link : "button"
@@ -118,7 +146,7 @@ export default function ServerReactMarkdown({ content, className }: Props) {
               name="link"
               href={String(href)}
               target="_blank"
-              className="text-primary underline-offset-4 transition-colors duration-200 hover:text-primary/90"
+              className="break-all text-primary underline-offset-4 transition-colors duration-200 hover:text-primary/90"
             >
               {children}
             </DynamicTag>

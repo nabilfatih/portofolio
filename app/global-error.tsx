@@ -6,6 +6,8 @@ import { GeistSans } from "geist/font/sans"
 import "@/styles/globals.css"
 import "@/styles/themes.css"
 
+import { useEffect } from "react"
+
 import { cn } from "@/lib/utils"
 
 import { Button } from "@/components/ui/button"
@@ -17,6 +19,10 @@ export default function GlobalError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  useEffect(() => {
+    console.error(error)
+  }, [error])
+
   return (
     <html lang="en">
       <body

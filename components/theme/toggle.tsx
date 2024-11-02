@@ -25,7 +25,7 @@ type Props = {
 
 export default function ThemeToggle({ side = "right", align = "end" }: Props) {
   const { setTheme } = useTheme()
-  const [_, startTransition] = React.useTransition()
+  const [, startTransition] = React.useTransition()
 
   return (
     <DropdownMenu>

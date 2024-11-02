@@ -29,10 +29,16 @@ export default function Home() {
             <Button asChild variant="link" className="h-auto p-0 text-base">
               <Link href="/work">work</Link>
             </Button>
-            , in my free time, on my startup project{" "}
+            , in my free time, on my startup projects, such as{" "}
             <Button asChild variant="link" className="h-auto p-0 text-base">
               <Link href="https://fibonacciku.com" target="_blank">
                 FibonacciKu
+              </Link>
+            </Button>{" "}
+            and{" "}
+            <Button asChild variant="link" className="h-auto p-0 text-base">
+              <Link href="https://nakafa.com" target="_blank">
+                Nakafa
               </Link>
             </Button>
             , where I build AI personalized assistant designed specifically for

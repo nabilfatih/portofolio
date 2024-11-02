@@ -28,14 +28,14 @@ export const getIp = async () => {
 }
 
 export const toDateTime = (secs: number) => {
-  var t = new Date("1970-01-01T00:30:00Z") // Unix epoch start.
+  const t = new Date("1970-01-01T00:30:00Z") // Unix epoch start.
   t.setSeconds(secs)
   return t
 }
 
 export const capitalizeFirstLetter = (word: string) => {
-  var splitStr = word.toLowerCase().split(" ")
-  for (var i = 0; i < splitStr.length; i++) {
+  const splitStr = word.toLowerCase().split(" ")
+  for (let i = 0; i < splitStr.length; i++) {
     // You do not need to check if i is larger than splitStr length, as your for does that for you
     // Assign it back to the array
     splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1)

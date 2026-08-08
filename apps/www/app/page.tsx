@@ -1,0 +1,111 @@
+import { Particles } from "@repo/design-system/components/ui/particles";
+import Image from "next/image";
+import Link from "next/link";
+import nabilCat from "@/public/nabil-cat.webp";
+import nabilLake from "@/public/nabil-lake.webp";
+import nabilMountain from "@/public/nabil-mountain.webp";
+import nabilSwiss from "@/public/nabil-swiss.webp";
+import nabilUlm from "@/public/nabil-ulm.webp";
+import sunset from "@/public/sunset.webp";
+
+const profileImages = [
+  {
+    alt: "Nabil at Eibsee in Bavaria, Germany",
+    className: "mb-4 h-64",
+    imageClassName: "object-cover",
+    src: nabilMountain,
+  },
+  {
+    alt: "Nabil in Ulm, Germany",
+    className: "mb-4 h-80 sm:mb-0",
+    imageClassName: "object-cover",
+    src: nabilUlm,
+  },
+  {
+    alt: "Nabil with his cat Floki at Eibsee, Germany",
+    className: "h-64 sm:mb-4 sm:h-80",
+    imageClassName: "object-cover object-top sm:object-center",
+    src: nabilCat,
+  },
+  {
+    alt: "Nabil sitting on a quiet road in Grindelwald, Switzerland",
+    className: "mb-4 h-64 sm:mb-0",
+    imageClassName: "object-cover",
+    src: nabilSwiss,
+  },
+  {
+    alt: "Nabil by a lake in Interlaken, Switzerland",
+    className: "mb-4 h-64",
+    imageClassName: "object-cover",
+    src: nabilLake,
+  },
+  {
+    alt: "Sunset at Eibsee, Germany",
+    className: "h-80",
+    imageClassName: "object-cover",
+    src: sunset,
+  },
+] as const;
+
+export default function Home() {
+  return (
+    <div className="relative">
+      <Particles
+        className="pointer-events-none absolute inset-0 -z-10 animate-fade-in"
+        quantity={100}
+      />
+      <section className="py-24">
+        <div className="mx-auto max-w-2xl px-4">
+          <h1 className="mb-8 font-medium text-2xl tracking-tighter">
+            hey, I&apos;m Nabil 👋
+          </h1>
+
+          <p className="prose max-w-none break-words leading-relaxed">
+            I&apos;m a product engineer, optimist, and learner. Most of my work
+            is in TypeScript, Next.js, React, and applied AI. Read more about{" "}
+            <Link
+              className="text-primary underline-offset-4 hover:underline"
+              href="/work"
+            >
+              my work
+            </Link>{" "}
+            or visit{" "}
+            <a
+              className="text-primary underline-offset-4 hover:underline"
+              href="https://nakafa.com"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Nakafa
+            </a>
+            , the open-source learning platform I started. Outside work, I love
+            Maine Coon cats, traveling, and being with my{" "}
+            <a
+              className="text-primary underline-offset-4 hover:underline"
+              href="https://instagram.com/nisrinahn_"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              lovely person
+            </a>
+            .
+          </p>
+
+          <div className="my-8 columns-2 gap-4 sm:columns-3">
+            {profileImages.map((image, index) => (
+              <div className={`relative ${image.className}`} key={image.alt}>
+                <Image
+                  alt={image.alt}
+                  className={`h-full w-full rounded-xl border bg-muted/90 shadow ${image.imageClassName}`}
+                  preload={index < 2}
+                  sizes="(max-width: 639px) calc((100vw - 3rem) / 2), 213px"
+                  src={image.src}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

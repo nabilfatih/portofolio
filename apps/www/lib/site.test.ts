@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { CONTACT_EMAIL, CONTACT_HREF, siteConfig } from "@/lib/site";
+import { renderHomeMarkdown } from "@/lib/agent-docs";
+import {
+  CONTACT_EMAIL,
+  CONTACT_HREF,
+  collaborationCta,
+  siteConfig,
+} from "@/lib/site";
 
 describe("portfolio contact link", () => {
   it("opens a complete contract and B2B email draft", () => {
@@ -19,5 +25,15 @@ describe("portfolio contact link", () => {
 
   it("keeps TikTok out of the public social links", () => {
     expect(siteConfig.social).not.toHaveProperty("tiktok");
+  });
+
+  it("keeps the collaboration offer available to agents", () => {
+    const homepageMarkdown = renderHomeMarkdown();
+
+    expect(homepageMarkdown).toContain(collaborationCta.heading);
+    expect(homepageMarkdown).toContain(collaborationCta.description);
+    expect(homepageMarkdown).toContain(
+      `[${collaborationCta.actionLabel}](${CONTACT_HREF})`
+    );
   });
 });

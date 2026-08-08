@@ -20,6 +20,14 @@ export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponen
   CONTACT_SUBJECT
 )}&body=${encodeURIComponent(CONTACT_BODY)}`;
 
+export const collaborationCta = {
+  actionLabel: "Discuss a project",
+  description:
+    "I work across product decisions and implementation, including interfaces, APIs, internal tools, data workflows, and applied AI. If you need a contractor or B2B partner who can keep the whole system connected, tell me what you are working on.",
+  eyebrow: "Open to collaborations",
+  heading: "I help turn product ideas into reliable software.",
+} as const;
+
 export const SOCIAL_IMAGE = {
   alt: "Nabil Fatih, Product Engineer",
   height: 630,

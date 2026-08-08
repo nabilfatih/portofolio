@@ -1,6 +1,10 @@
+import { Mail01Icon } from "@hugeicons/core-free-icons";
+import { HugeIcons } from "@repo/design-system/components/ui/huge-icons";
 import { Particles } from "@repo/design-system/components/ui/particles";
+import { buttonVariants } from "@repo/design-system/lib/button";
 import Image from "next/image";
 import Link from "next/link";
+import { CONTACT_HREF, collaborationCta } from "@/lib/site";
 import nabilCat from "@/public/nabil-cat.webp";
 import nabilLake from "@/public/nabil-lake.webp";
 import nabilMountain from "@/public/nabil-mountain.webp";
@@ -105,6 +109,36 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          <section
+            aria-labelledby="collaboration-heading"
+            className="mt-16 border-y py-12"
+          >
+            <div className="space-y-3">
+              <p className="font-medium text-primary text-sm">
+                {collaborationCta.eyebrow}
+              </p>
+              <h2
+                className="text-balance font-medium text-2xl tracking-tighter"
+                id="collaboration-heading"
+              >
+                {collaborationCta.heading}
+              </h2>
+              <p className="text-pretty text-muted-foreground leading-relaxed">
+                {collaborationCta.description}
+              </p>
+            </div>
+            <a
+              className={buttonVariants({
+                className: "mt-6 w-full sm:w-fit",
+                size: "lg",
+              })}
+              href={CONTACT_HREF}
+            >
+              <HugeIcons icon={Mail01Icon} />
+              {collaborationCta.actionLabel}
+            </a>
+          </section>
         </div>
       </section>
     </div>

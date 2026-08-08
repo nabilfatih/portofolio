@@ -46,7 +46,7 @@ export default function MainFooter() {
                 Nabil Fatih
               </span>
             </Link>
-            <div className="grid grid-cols-2 sm:grid-cols-4">
+            <div className="grid grid-cols-[1fr_auto_1fr] items-start">
               <div className="flex gap-2">
                 <ThemeToggle side="right" />
               </div>
@@ -68,7 +68,7 @@ export default function MainFooter() {
                   </a>
                 ))}
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col justify-self-end">
                 <h2 className="mb-1 font-medium tracking-tight">Legal</h2>
                 <Link
                   className="inline-flex w-fit items-center tracking-tight underline-offset-4 hover:underline"
@@ -91,7 +91,7 @@ export default function MainFooter() {
               </p>
             </div>
             <div className="col-span-1">
-              <div className="flex flex-wrap items-center">
+              <div className="flex flex-wrap items-center justify-end">
                 {socialMedia.map((social) => (
                   <a
                     aria-label={social.name}

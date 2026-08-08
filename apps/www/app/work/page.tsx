@@ -1,3 +1,8 @@
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@repo/design-system/components/ui/avatar";
 import { Particles } from "@repo/design-system/components/ui/particles";
 import { Separator } from "@repo/design-system/components/ui/separator";
 import type { Metadata } from "next";
@@ -54,12 +59,24 @@ export default function WorkPage() {
               <Fragment key={entry.company}>
                 <Separator className="my-8" />
                 <article>
-                  <h2 className="mt-0 mb-1 font-medium text-xl tracking-tighter">
-                    {entry.company}
-                  </h2>
-                  <p className="mt-0 text-muted-foreground text-sm">
-                    {entry.role}, {entry.period}
-                  </p>
+                  <div className="not-prose flex items-center gap-3">
+                    <Avatar aria-hidden="true" size="lg">
+                      <AvatarImage
+                        alt=""
+                        className="bg-white object-contain p-1"
+                        src={entry.logo}
+                      />
+                      <AvatarFallback>{entry.logoFallback}</AvatarFallback>
+                    </Avatar>
+                    <div className="min-w-0">
+                      <h2 className="font-medium text-xl tracking-tighter">
+                        {entry.company}
+                      </h2>
+                      <p className="text-muted-foreground text-sm">
+                        {entry.role}, {entry.period}
+                      </p>
+                    </div>
+                  </div>
                   <ul>
                     {entry.summary.map((item) => (
                       <li key={item}>{item}</li>

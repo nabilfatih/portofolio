@@ -78,8 +78,8 @@ export default function Home() {
             >
               Nakafa
             </a>
-            , the open-source learning platform I started. Outside work, I love
-            Maine Coon cats, traveling, and being with my{" "}
+            , the source-available learning platform I started. Outside work, I
+            love Maine Coon cats, traveling, and being with my{" "}
             <a
               className="text-primary underline-offset-4 hover:underline"
               href="https://instagram.com/nisrinahn_"

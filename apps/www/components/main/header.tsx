@@ -1,10 +1,10 @@
-import { GithubIcon } from "@hugeicons/core-free-icons";
+import { Mail01Icon } from "@hugeicons/core-free-icons";
 import { HugeIcons } from "@repo/design-system/components/ui/huge-icons";
 import { buttonVariants } from "@repo/design-system/lib/button";
 import Image from "next/image";
 import Link from "next/link";
 import MainSidebarMobile from "@/components/main/sidebar-mobile";
-import ThemeToggle from "@/components/theme/toggle";
+import { CONTACT_HREF } from "@/lib/site";
 import logo from "@/public/logo.webp";
 
 export default function MainHeader() {
@@ -43,20 +43,17 @@ export default function MainHeader() {
           className="flex items-center justify-end gap-2"
         >
           <Link
-            className="hidden pr-2 text-sm underline-offset-4 hover:underline sm:inline-flex"
+            className="text-sm underline-offset-4 hover:underline"
             href="/work"
           >
             Work
           </Link>
-          <ThemeToggle />
           <a
-            aria-label="Portfolio source on GitHub"
-            className={buttonVariants({ size: "icon", variant: "outline" })}
-            href="https://github.com/nabilfatih/portofolio"
-            rel="noopener noreferrer"
-            target="_blank"
+            className={buttonVariants({ size: "sm", variant: "outline" })}
+            href={CONTACT_HREF}
           >
-            <HugeIcons className="size-5" icon={GithubIcon} />
+            <HugeIcons icon={Mail01Icon} />
+            Contact
           </a>
         </nav>
       </div>

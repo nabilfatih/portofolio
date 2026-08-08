@@ -3,7 +3,7 @@ import {
   VERCEL_ANALYTICS_PRIVACY_URL,
   VERCEL_SPEED_INSIGHTS_URL,
 } from "@/lib/privacy";
-import { SITE_URL, siteConfig } from "@/lib/site";
+import { CONTACT_EMAIL, SITE_URL, siteConfig } from "@/lib/site";
 import { workEntries } from "@/lib/work";
 
 const AGENT_MARKDOWN_DIRECTIVE = `> For AI agents: use [llms.txt](${SITE_URL}/llms.txt) for the site index. Markdown versions are available at the \`.md\` routes or by sending \`Accept: text/markdown\`.`;
@@ -15,11 +15,12 @@ ${AGENT_MARKDOWN_DIRECTIVE}
 
 ${siteConfig.description}
 
-I am a product engineer, optimist, and learner. Most of my work is in TypeScript, Next.js, React, and applied AI. I started [Nakafa](https://nakafa.com), an open-source learning platform.
+I am a product engineer, optimist, and learner. Most of my work is in TypeScript, Next.js, React, and applied AI. I started [Nakafa](https://nakafa.com), a source-available learning platform.
 
 ## Explore
 
 - [Work](${SITE_URL}/work.md): Current product engineering experience and education.
+- [Email](mailto:${CONTACT_EMAIL}): Contract and B2B collaboration.
 - [GitHub](${siteConfig.social.github}): Open-source projects and source code.
 - [LinkedIn](${siteConfig.social.linkedin}): Professional profile.
 `;

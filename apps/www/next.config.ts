@@ -1,11 +1,17 @@
 import type { NextConfig } from "next";
 
+const scriptSources = ["'self'", "'unsafe-inline'"];
+
+if (process.env.NODE_ENV === "development") {
+  scriptSources.push("'unsafe-eval'");
+}
+
 const securityHeaders = [
   {
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline'",
+      `script-src ${scriptSources.join(" ")}`,
       "script-src-attr 'none'",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' blob: data:",

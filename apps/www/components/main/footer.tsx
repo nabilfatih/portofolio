@@ -17,7 +17,7 @@ import logo from "@/public/logo.webp";
 
 const projects = [
   { href: "https://nakafa.com", name: "Nakafa" },
-  { href: "https://fibonacciku.com", name: "FibonacciKu" },
+  { href: "https://github.com/nabilfatih/fibonacciku", name: "FibonacciKu" },
 ] as const;
 
 const socialMedia = [
@@ -107,7 +107,7 @@ export default function MainFooter() {
                     target="_blank"
                     title={social.name}
                   >
-                    <HugeIcons className="size-5" icon={social.icon} />
+                    <HugeIcons icon={social.icon} />
                   </a>
                 ))}
               </div>

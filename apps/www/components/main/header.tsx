@@ -48,10 +48,7 @@ export default function MainHeader() {
           >
             Work
           </Link>
-          <a
-            className={buttonVariants({ size: "sm", variant: "outline" })}
-            href={CONTACT_HREF}
-          >
+          <a className={buttonVariants({ size: "sm" })} href={CONTACT_HREF}>
             <HugeIcons icon={Mail01Icon} />
             Contact
           </a>

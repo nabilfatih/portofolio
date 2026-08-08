@@ -55,7 +55,9 @@ The Content Security Policy permits inline scripts and styles because Next.js ne
 
 ## Vercel
 
-For a Vercel project, set the Root Directory to `apps/www`. Vercel will detect the repository workspace and install from the root lockfile. No deployment is performed by this repository's local verification flow.
+The connected Vercel project uses `apps/www` as its Root Directory and Node.js 24. Vercel detects the repository workspace and installs from the root lockfile.
+
+Automatic Git deployments are disabled in `apps/www/vercel.json`. This keeps merges separate from releases. Run a deliberate deployment from Vercel only after the target commit has passed the repository checks.
 
 ## License
 

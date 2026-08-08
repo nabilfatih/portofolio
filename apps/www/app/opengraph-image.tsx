@@ -46,7 +46,7 @@ export default function OpenGraphImage() {
           Nabil Fatih
         </div>
         <div style={{ display: "flex", fontSize: 32 }}>
-          TypeScript, Next.js, React, and applied AI
+          Full-stack products, internal tools, and applied AI
         </div>
       </div>
     </div>,

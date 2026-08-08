@@ -1,6 +1,6 @@
 import { access } from "node:fs/promises";
 import { describe, expect, it } from "vitest";
-import { workEntries } from "@/lib/work";
+import { educationEntry, workEntries } from "@/lib/work";
 
 const EMPLOYMENT_TYPE_LABEL =
   /\b(?:part[ -]?time|full[ -]?time|intern(?:ship)?|working student)\b/i;
@@ -29,6 +29,19 @@ describe("work entries", () => {
 
     await expect(
       access(new URL(`../public${entry.logo}`, import.meta.url))
+    ).resolves.toBeUndefined();
+  });
+
+  it.each(workEntries)("links $company to its official website", (entry) => {
+    expect(new URL(entry.companyUrl).protocol).toBe("https:");
+  });
+
+  it("has an official website and local logo for OTH Regensburg", async () => {
+    expect(new URL(educationEntry.institutionUrl).protocol).toBe("https:");
+    expect(educationEntry.logo).toMatch(COMPANY_LOGO_PATH);
+
+    await expect(
+      access(new URL(`../public${educationEntry.logo}`, import.meta.url))
     ).resolves.toBeUndefined();
   });
 });

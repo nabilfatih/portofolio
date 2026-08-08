@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CONTACT_EMAIL, CONTACT_HREF } from "@/lib/site";
+import { CONTACT_EMAIL, CONTACT_HREF, siteConfig } from "@/lib/site";
 
 describe("portfolio contact link", () => {
   it("opens a complete contract and B2B email draft", () => {
@@ -15,5 +15,9 @@ describe("portfolio contact link", () => {
     );
     expect(contactUrl.searchParams.get("body")).toContain("Timeline:");
     expect(contactUrl.searchParams.get("body")).toContain("Budget range:");
+  });
+
+  it("keeps TikTok out of the public social links", () => {
+    expect(siteConfig.social).not.toHaveProperty("tiktok");
   });
 });

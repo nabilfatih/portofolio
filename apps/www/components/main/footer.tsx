@@ -4,7 +4,6 @@ import {
   InstagramIcon,
   LinkedinIcon,
   NewTwitterIcon,
-  TiktokIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeIcons } from "@repo/design-system/components/ui/huge-icons";
 import { buttonVariants } from "@repo/design-system/lib/button";
@@ -25,7 +24,6 @@ const socialMedia = [
   { href: siteConfig.social.linkedin, icon: LinkedinIcon, name: "LinkedIn" },
   { href: siteConfig.social.twitter, icon: NewTwitterIcon, name: "X" },
   { href: siteConfig.social.instagram, icon: InstagramIcon, name: "Instagram" },
-  { href: siteConfig.social.tiktok, icon: TiktokIcon, name: "TikTok" },
 ] as const;
 
 export default function MainFooter() {

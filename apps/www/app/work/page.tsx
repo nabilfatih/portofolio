@@ -8,10 +8,10 @@ import { Separator } from "@repo/design-system/components/ui/separator";
 import type { Metadata } from "next";
 import { Fragment } from "react";
 import { SOCIAL_IMAGE } from "@/lib/site";
-import { workEntries } from "@/lib/work";
+import { educationEntry, workEntries } from "@/lib/work";
 
 const WORK_DESCRIPTION =
-  "A clear look at Nabil Fatih's product engineering work across full-stack systems, applied AI, education products, and enterprise tools.";
+  "Nabil Fatih's work across full-stack products, internal tools, data workflows, and applied AI.";
 
 export const metadata: Metadata = {
   alternates: {
@@ -51,8 +51,8 @@ export default function WorkPage() {
 
           <div className="prose max-w-none break-words prose-pre:p-0 prose-p:leading-relaxed">
             <p>
-              I like building products that make difficult work feel simpler.
-              This is what I&apos;ve worked on so far.
+              I build software from early product ideas through production. Here
+              are the products and systems I&apos;ve worked on.
             </p>
 
             {workEntries.map((entry) => (
@@ -70,7 +70,14 @@ export default function WorkPage() {
                     </Avatar>
                     <div className="min-w-0">
                       <h2 className="font-medium text-xl tracking-tighter">
-                        {entry.company}
+                        <a
+                          className="underline-offset-4 hover:underline"
+                          href={entry.companyUrl}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          {entry.company}
+                        </a>
                       </h2>
                       <p className="text-muted-foreground text-sm">
                         {entry.role}, {entry.period}
@@ -88,19 +95,39 @@ export default function WorkPage() {
 
             <Separator className="my-8" />
             <section aria-labelledby="education-heading">
-              <h2
-                className="mt-0 mb-1 font-medium text-xl tracking-tighter"
-                id="education-heading"
-              >
-                OTH Regensburg
-              </h2>
-              <p className="mt-0 text-muted-foreground text-sm">
-                B.Sc. Artificial Intelligence and Data Science, completed Feb
-                2025
-              </p>
-              <p>
-                Completed a 210 ECTS degree with a bachelor thesis grade of 1.3.
-              </p>
+              <div className="not-prose flex items-center gap-3">
+                <Avatar aria-hidden="true" size="lg">
+                  <AvatarImage
+                    alt=""
+                    className="bg-white object-contain p-1"
+                    src={educationEntry.logo}
+                  />
+                  <AvatarFallback>{educationEntry.logoFallback}</AvatarFallback>
+                </Avatar>
+                <div className="min-w-0">
+                  <h2
+                    className="font-medium text-xl tracking-tighter"
+                    id="education-heading"
+                  >
+                    <a
+                      className="underline-offset-4 hover:underline"
+                      href={educationEntry.institutionUrl}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {educationEntry.institution}
+                    </a>
+                  </h2>
+                  <p className="text-muted-foreground text-sm">
+                    {educationEntry.program}
+                  </p>
+                </div>
+              </div>
+              <ul>
+                {educationEntry.summary.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </section>
           </div>
         </div>

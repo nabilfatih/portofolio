@@ -4,7 +4,7 @@ import {
   VERCEL_SPEED_INSIGHTS_URL,
 } from "@/lib/privacy";
 import { CONTACT_EMAIL, SITE_URL, siteConfig } from "@/lib/site";
-import { workEntries } from "@/lib/work";
+import { educationEntry, workEntries } from "@/lib/work";
 
 const AGENT_MARKDOWN_DIRECTIVE = `> For AI agents: use [llms.txt](${SITE_URL}/llms.txt) for the site index. Markdown versions are available at the \`.md\` routes or by sending \`Accept: text/markdown\`.`;
 
@@ -15,7 +15,7 @@ ${AGENT_MARKDOWN_DIRECTIVE}
 
 ${siteConfig.description}
 
-I am a product engineer, optimist, and learner. Most of my work is in TypeScript, Next.js, React, and applied AI. I started [Nakafa](https://nakafa.com), a source-available learning platform.
+I am a product engineer who takes software from idea to production. I build web products and the APIs, data workflows, internal tools, and applied AI behind them. I started [Nakafa](https://nakafa.com), a source-available learning platform.
 
 ## Explore
 
@@ -31,7 +31,7 @@ export function renderWorkMarkdown() {
     .map((entry) => {
       const summary = entry.summary.map((item) => `- ${item}`).join("\n");
 
-      return `## ${entry.company}
+      return `## [${entry.company}](${entry.companyUrl})
 
 ${entry.role}, ${entry.period}
 
@@ -39,17 +39,23 @@ ${summary}`;
     })
     .join("\n\n");
 
+  const educationSummary = educationEntry.summary
+    .map((item) => `- ${item}`)
+    .join("\n");
+
   return `# Work
 
 ${AGENT_MARKDOWN_DIRECTIVE}
 
-I like building products that make difficult work feel simpler. This is what I have worked on so far.
+I build software from early product ideas through production. Here are the products and systems I have worked on.
 
 ${experience}
 
-## OTH Regensburg
+## [${educationEntry.institution}](${educationEntry.institutionUrl})
 
-B.Sc. Artificial Intelligence and Data Science, completed February 2025. The 210 ECTS degree included a bachelor thesis graded 1.3.
+${educationEntry.program}
+
+${educationSummary}
 `;
 }
 

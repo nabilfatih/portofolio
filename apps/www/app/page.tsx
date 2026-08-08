@@ -61,8 +61,9 @@ export default function Home() {
           </h1>
 
           <p className="prose max-w-none break-words leading-relaxed">
-            I&apos;m a product engineer, optimist, and learner. Most of my work
-            is in TypeScript, Next.js, React, and applied AI. Read more about{" "}
+            I&apos;m a product engineer who takes software from idea to
+            production. I build web products and the APIs, data workflows,
+            internal tools, and applied AI behind them. Read more about{" "}
             <Link
               className="text-primary underline-offset-4 hover:underline"
               href="/work"

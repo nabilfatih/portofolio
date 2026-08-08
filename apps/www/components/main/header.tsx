@@ -43,7 +43,7 @@ export default function MainHeader() {
           className="flex items-center justify-end gap-2"
         >
           <Link
-            className="text-sm underline-offset-4 hover:underline"
+            className={buttonVariants({ size: "sm", variant: "ghost" })}
             href="/work"
           >
             Work

@@ -16,5 +16,8 @@ minimumReleaseAgeExclude:
   - "@turbo/windows-64@2.10.9"
   - "@turbo/windows-arm64@2.10.9"
 
+overrides:
+  "@vercel/routing-utils@6.4.1>path-to-regexp": "6.3.0"
+
 allowBuilds:
   sharp: true

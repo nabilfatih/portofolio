@@ -55,9 +55,9 @@ The Content Security Policy permits inline scripts and styles because Next.js ne
 
 ## Vercel
 
-The connected Vercel project uses `apps/www` as its Root Directory and Node.js 24. Vercel detects the repository workspace and installs from the root lockfile.
+The connected Vercel project uses `apps/www` as its Root Directory and Node.js 24. Vercel detects the repository workspace and installs from the root lockfile. Corepack is enabled in the project so every deployment honors the root `pnpm@11.20.0` pin.
 
-Automatic Git deployments are disabled in `apps/www/vercel.json`. This keeps merges separate from releases. Run a deliberate deployment from Vercel only after the target commit has passed the repository checks.
+Automatic Git deployments are enabled through the type-safe `apps/www/vercel.ts` configuration. Feature branches create preview deployments, while a merge to `main` creates the production deployment after the repository checks pass.
 
 ## License
 

@@ -29,14 +29,13 @@ export const SOCIAL_IMAGE = {
 
 export const siteConfig = {
   description:
-    "Portfolio of Nabil Fatih, a product engineer building thoughtful web products with TypeScript, Next.js, React, and applied AI, including Nakafa.",
+    "Portfolio of Nabil Fatih, a product engineer building web products, APIs, internal tools, and applied AI systems, including Nakafa.",
   name: "Nabil Akbarazzima Fatih",
   shortName: "Nabil Fatih",
   social: {
     github: "https://github.com/nabilfatih",
     instagram: "https://www.instagram.com/nabilfatih_",
     linkedin: "https://www.linkedin.com/in/nabilfatih",
-    tiktok: "https://www.tiktok.com/@fibonacciku",
     twitter: "https://twitter.com/nabilfatih_",
   },
   title: "Nabil Fatih | Product Engineer",

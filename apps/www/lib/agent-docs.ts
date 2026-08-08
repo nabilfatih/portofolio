@@ -3,7 +3,13 @@ import {
   VERCEL_ANALYTICS_PRIVACY_URL,
   VERCEL_SPEED_INSIGHTS_URL,
 } from "@/lib/privacy";
-import { CONTACT_EMAIL, SITE_URL, siteConfig } from "@/lib/site";
+import {
+  CONTACT_EMAIL,
+  CONTACT_HREF,
+  collaborationCta,
+  SITE_URL,
+  siteConfig,
+} from "@/lib/site";
 import { educationEntry, workEntries } from "@/lib/work";
 
 const AGENT_MARKDOWN_DIRECTIVE = `> For AI agents: use [llms.txt](${SITE_URL}/llms.txt) for the site index. Markdown versions are available at the \`.md\` routes or by sending \`Accept: text/markdown\`.`;
@@ -16,6 +22,14 @@ ${AGENT_MARKDOWN_DIRECTIVE}
 ${siteConfig.description}
 
 I am a product engineer who takes software from idea to production. I build web products and the APIs, data workflows, internal tools, and applied AI behind them. I started [Nakafa](https://nakafa.com), a source-available learning platform.
+
+## ${collaborationCta.eyebrow}
+
+### ${collaborationCta.heading}
+
+${collaborationCta.description}
+
+[${collaborationCta.actionLabel}](${CONTACT_HREF})
 
 ## Explore
 

@@ -1,0 +1,14 @@
+url: http://localhost:3100
+pages:
+  - http://localhost:3100/
+  - http://localhost:3100/privacy
+  - http://localhost:3100/work
+options:
+  canonicalOrigin: https://nabilfatih.com
+  maxLinksToTest: 20
+  requestDelay: 0
+  requestTimeout: 20000
+  samplingStrategy: curated
+  thresholds:
+    fail: 30000
+    pass: 12000

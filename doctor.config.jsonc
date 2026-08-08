@@ -1,0 +1,14 @@
+{
+  "$schema": "https://react.doctor/schema/config.json",
+  "ignore": {
+    "overrides": [
+      {
+        // deslop 0.9.7 misses the package referenced by tsconfig.json#extends
+        // when React Doctor supplies its monorepo file-summary cache.
+        "files": ["package.json"],
+        "rules": ["deslop/unused-dev-dependency"]
+      }
+    ]
+  },
+  "projects": ["apps/www"]
+}

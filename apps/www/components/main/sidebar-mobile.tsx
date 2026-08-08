@@ -31,7 +31,7 @@ export default function MainSidebarMobile() {
             size="icon"
             variant="ghost"
           >
-            <HugeIcons className="size-6" icon={SidebarLeft01Icon} />
+            <HugeIcons icon={SidebarLeft01Icon} />
           </Button>
         }
       />
@@ -46,6 +46,7 @@ export default function MainSidebarMobile() {
           {navigation.map((item, index) => (
             <SheetClose
               key={item.href}
+              nativeButton={false}
               render={
                 <Link
                   className={

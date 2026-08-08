@@ -73,7 +73,7 @@ export default function ThemeToggle({
       <DropdownMenuTrigger
         render={
           <Button aria-label="Choose theme" size="icon" variant="outline">
-            <HugeIcons className="size-5" icon={PaintBoardIcon} />
+            <HugeIcons icon={PaintBoardIcon} />
           </Button>
         }
       />

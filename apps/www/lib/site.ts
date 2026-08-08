@@ -1,5 +1,25 @@
 export const SITE_URL = "https://nabilfatih.com";
 
+export const CONTACT_EMAIL = "nabilakbarazzima@gmail.com";
+
+const CONTACT_SUBJECT = "Project collaboration";
+const CONTACT_BODY = `Hi Nabil,
+
+I found your portfolio and would like to discuss a contract or B2B project.
+
+Company:
+Project:
+What I need help with:
+Timeline:
+Budget range:
+
+Best,
+[Your name]`;
+
+export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+  CONTACT_SUBJECT
+)}&body=${encodeURIComponent(CONTACT_BODY)}`;
+
 export const SOCIAL_IMAGE = {
   alt: "Nabil Fatih, Product Engineer",
   height: 630,

@@ -112,7 +112,7 @@ export default function Home() {
 
           <section
             aria-labelledby="collaboration-heading"
-            className="mt-16 border-y py-12"
+            className="mt-16 py-12"
           >
             <div className="space-y-3">
               <p className="font-medium text-primary text-sm">

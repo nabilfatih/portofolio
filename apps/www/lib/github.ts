@@ -1,4 +1,11 @@
-import { Context, Effect, Layer, Schema } from "effect";
+import {
+  Context,
+  Effect,
+  Array as EffectArray,
+  Layer,
+  Order,
+  Schema,
+} from "effect";
 
 const CONTRIBUTIONS_URL = "https://github.com/users/nabilfatih/contributions";
 const CONTRIBUTIONS_CACHE_SECONDS = 86_400;
@@ -184,8 +191,10 @@ export const parseGitHubContributionSummary = Effect.fn(
         })
     )
   );
-  const sortedDays = [...summary.days].sort((left, right) =>
-    left.date.localeCompare(right.date)
+  const sortedDays = EffectArray.sortWith(
+    summary.days,
+    (day) => day.date,
+    Order.string
   );
   const uniqueDates = new Set(sortedDays.map((day) => day.date));
 

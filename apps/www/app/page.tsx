@@ -1,9 +1,14 @@
-import { Mail01Icon } from "@hugeicons/core-free-icons";
+import { GithubIcon, Mail01Icon } from "@hugeicons/core-free-icons";
 import { HugeIcons } from "@repo/design-system/components/ui/huge-icons";
 import { Particles } from "@repo/design-system/components/ui/particles";
 import { buttonVariants } from "@repo/design-system/lib/button";
+import { Effect } from "effect";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  GitHubContributionSourceLive,
+  getGitHubContributionCountOrFallback,
+} from "@/lib/github";
 import { CONTACT_HREF, collaborationCta } from "@/lib/site";
 import nabilCat from "@/public/nabil-cat.webp";
 import nabilLake from "@/public/nabil-lake.webp";
@@ -51,7 +56,13 @@ const profileImages = [
   },
 ] as const;
 
-export default function Home() {
+export default async function Home() {
+  const githubContributionCount = await Effect.runPromise(
+    getGitHubContributionCountOrFallback().pipe(
+      Effect.provide(GitHubContributionSourceLive)
+    )
+  );
+
   return (
     <div className="relative">
       <Particles
@@ -96,13 +107,28 @@ export default function Home() {
             .
           </p>
 
+          <a
+            className="mt-8 inline-flex items-center gap-2 rounded-sm text-muted-foreground text-sm underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            href="https://github.com/nabilfatih"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <HugeIcons className="size-4 text-primary" icon={GithubIcon} />
+            <span>
+              <span className="font-medium text-foreground tabular-nums">
+                {githubContributionCount.toLocaleString("en-US")}
+              </span>{" "}
+              contributions in the last year
+            </span>
+          </a>
+
           <div className="my-8 columns-2 gap-4 sm:columns-3">
             {profileImages.map((image, index) => (
               <div className={`relative ${image.className}`} key={image.alt}>
                 <Image
                   alt={image.alt}
                   className={`h-full w-full rounded-xl border bg-muted/90 shadow ${image.imageClassName}`}
-                  preload={index < 2}
+                  preload={index < 3}
                   sizes="(max-width: 639px) calc((100vw - 3rem) / 2), 213px"
                   src={image.src}
                 />

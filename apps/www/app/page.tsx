@@ -1,13 +1,14 @@
-import { GithubIcon, Mail01Icon } from "@hugeicons/core-free-icons";
+import { Mail01Icon } from "@hugeicons/core-free-icons";
 import { HugeIcons } from "@repo/design-system/components/ui/huge-icons";
 import { Particles } from "@repo/design-system/components/ui/particles";
 import { buttonVariants } from "@repo/design-system/lib/button";
 import { Effect } from "effect";
 import Image from "next/image";
 import Link from "next/link";
+import { GitHubContributions } from "@/components/home/github-contributions";
 import {
   GitHubContributionSourceLive,
-  getGitHubContributionCountOrFallback,
+  getGitHubContributionSummaryOrFallback,
 } from "@/lib/github";
 import { CONTACT_HREF, collaborationCta } from "@/lib/site";
 import nabilCat from "@/public/nabil-cat.webp";
@@ -57,8 +58,8 @@ const profileImages = [
 ] as const;
 
 export default async function Home() {
-  const githubContributionCount = await Effect.runPromise(
-    getGitHubContributionCountOrFallback().pipe(
+  const githubContributionSummary = await Effect.runPromise(
+    getGitHubContributionSummaryOrFallback().pipe(
       Effect.provide(GitHubContributionSourceLive)
     )
   );
@@ -107,20 +108,7 @@ export default async function Home() {
             .
           </p>
 
-          <a
-            className="mt-8 inline-flex items-center gap-2 rounded-sm text-muted-foreground text-sm underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            href="https://github.com/nabilfatih"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <HugeIcons className="size-4 text-primary" icon={GithubIcon} />
-            <span>
-              <span className="font-medium text-foreground tabular-nums">
-                {githubContributionCount.toLocaleString("en-US")}
-              </span>{" "}
-              contributions in the last year
-            </span>
-          </a>
+          <GitHubContributions summary={githubContributionSummary} />
 
           <div className="my-8 columns-2 gap-4 sm:columns-3">
             {profileImages.map((image, index) => (

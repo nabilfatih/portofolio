@@ -12,6 +12,7 @@ const MONTH_FORMATTER = new Intl.DateTimeFormat("en-US", {
   month: "short",
   timeZone: "UTC",
 });
+const GITHUB_PROFILE_URL = "https://github.com/nabilfatih";
 
 const contributionLevelClassName = {
   0: "bg-muted",
@@ -138,8 +139,8 @@ export function GitHubContributions({
   return (
     <div className="mt-8">
       <a
-        className="inline-flex items-center gap-2 rounded-sm text-muted-foreground text-sm underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        href="https://github.com/nabilfatih"
+        className="inline-flex items-center gap-2 rounded-sm text-base text-muted-foreground underline-offset-4 outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        href={GITHUB_PROFILE_URL}
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -158,41 +159,49 @@ export function GitHubContributions({
             Daily GitHub contribution activity for the last year.
           </figcaption>
           <div className="overflow-x-auto pb-2">
-            <div className="w-max" role="presentation">
-              <div
-                aria-hidden="true"
-                className="mb-1 grid h-4 gap-0.5 text-[10px] text-muted-foreground"
-                style={{
-                  gridTemplateColumns: `repeat(${weeks.length}, 0.625rem)`,
-                }}
-              >
-                {monthLabels.map((month) => (
-                  <span
-                    className="whitespace-nowrap"
-                    key={`${month.column}-${month.label}`}
-                    style={{ gridColumnStart: month.column }}
-                  >
-                    {month.label}
-                  </span>
-                ))}
+            <a
+              aria-label="View GitHub contribution activity"
+              className="block w-max rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              href={GITHUB_PROFILE_URL}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <div role="presentation">
+                <div
+                  aria-hidden="true"
+                  className="mb-1 grid h-5 gap-0.5 text-muted-foreground text-sm"
+                  style={{
+                    gridTemplateColumns: `repeat(${weeks.length}, 0.625rem)`,
+                  }}
+                >
+                  {monthLabels.map((month) => (
+                    <span
+                      className="whitespace-nowrap"
+                      key={`${month.column}-${month.label}`}
+                      style={{ gridColumnStart: month.column }}
+                    >
+                      {month.label}
+                    </span>
+                  ))}
+                </div>
+                <div aria-hidden="true" className="flex gap-0.5">
+                  {weeks.map((week) => (
+                    <div className="grid grid-rows-7 gap-0.5" key={week.key}>
+                      {week.days.map((day) =>
+                        day.contribution ? (
+                          <span
+                            className={`size-2.5 rounded-[2px] ${contributionLevelClassName[day.contribution.level]}`}
+                            key={day.date}
+                          />
+                        ) : (
+                          <span className="size-2.5" key={day.date} />
+                        )
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div aria-hidden="true" className="flex gap-0.5">
-                {weeks.map((week) => (
-                  <div className="grid grid-rows-7 gap-0.5" key={week.key}>
-                    {week.days.map((day) =>
-                      day.contribution ? (
-                        <span
-                          className={`size-2.5 rounded-[2px] ${contributionLevelClassName[day.contribution.level]}`}
-                          key={day.date}
-                        />
-                      ) : (
-                        <span className="size-2.5" key={day.date} />
-                      )
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+            </a>
           </div>
         </figure>
       ) : null}

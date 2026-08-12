@@ -6,17 +6,13 @@ import {
   Order,
   Schema,
 } from "effect";
+import { parse } from "node-html-parser";
 
 const CONTRIBUTIONS_URL = "https://github.com/users/nabilfatih/contributions";
-const CONTRIBUTIONS_CACHE_SECONDS = 86_400;
-const CONTRIBUTION_HEADING_PATTERN =
-  /<h2[^>]*id="js-contribution-activity-description"[^>]*>([\s\S]*?)<\/h2>/i;
-const CONTRIBUTION_COUNT_PATTERN =
-  /^([\d,]+) contributions? in the last year$/i;
-const CONTRIBUTION_DAY_PATTERN =
-  /<td\b(?=[^>]*\bdata-date="(\d{4}-\d{2}-\d{2})")(?=[^>]*\bdata-level="([0-4])")[^>]*><\/td>/gi;
-
-const FALLBACK_GITHUB_CONTRIBUTIONS = 3718;
+const CONTRIBUTIONS_CACHE_SECONDS = 60 * 60;
+const CONTRIBUTION_HEADING_SELECTOR = "#js-contribution-activity-description";
+const CONTRIBUTION_DAY_SELECTOR =
+  "td.ContributionCalendar-day[data-date][data-level]";
 
 const NonNegativeInteger = Schema.Number.pipe(
   Schema.int(),
@@ -119,48 +115,67 @@ export const GitHubContributionSourceLive = Layer.succeed(
   }
 );
 
-export const parseGitHubContributionCount = Effect.fn(
-  "www.github.parseContributionCount"
+const parseGitHubContributionDocument = Effect.fn(
+  "www.github.parseContributionDocument"
 )(function* (html: string) {
-  const heading = html.match(CONTRIBUTION_HEADING_PATTERN);
+  return yield* Effect.try({
+    catch: () =>
+      new GitHubContributionParseError({
+        message: "GitHub contribution markup could not be parsed.",
+      }),
+    try: () => parse(html),
+  });
+});
 
-  if (!heading?.[1]) {
+const parseGitHubContributionTotal = Effect.fn(
+  "www.github.parseContributionTotal"
+)(function* (headingText: string) {
+  const totalText = headingText.trim().split(" ").at(0)?.replaceAll(",", "");
+
+  if (!totalText) {
     return yield* new GitHubContributionParseError({
-      message: "GitHub contribution heading was not found.",
+      message: "GitHub contribution total was not found.",
     });
   }
 
-  const headingText = heading[1]
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-  const count = headingText.match(CONTRIBUTION_COUNT_PATTERN);
-
-  if (!count?.[1]) {
-    return yield* new GitHubContributionParseError({
-      message: "GitHub contribution count was not found.",
-    });
-  }
-
-  const parsedCount = Number.parseInt(count[1].replaceAll(",", ""), 10);
-
-  if (!Number.isSafeInteger(parsedCount) || parsedCount < 0) {
-    return yield* new GitHubContributionParseError({
-      message: "GitHub contribution count was invalid.",
-    });
-  }
-
-  return parsedCount;
+  return yield* Schema.decodeUnknown(NonNegativeInteger)(
+    Number(totalText)
+  ).pipe(
+    Effect.mapError(
+      () =>
+        new GitHubContributionParseError({
+          message: "GitHub contribution total was invalid.",
+        })
+    )
+  );
 });
 
 export const parseGitHubContributionSummary = Effect.fn(
   "www.github.parseContributionSummary"
 )(function* (html: string) {
-  const total = yield* parseGitHubContributionCount(html);
+  const document = yield* parseGitHubContributionDocument(html);
+  const heading = document.querySelector(CONTRIBUTION_HEADING_SELECTOR);
+
+  if (!heading) {
+    return yield* new GitHubContributionParseError({
+      message: "GitHub contribution heading was not found.",
+    });
+  }
+
+  const total = yield* parseGitHubContributionTotal(heading.structuredText);
+  const dayElements = document.querySelectorAll(CONTRIBUTION_DAY_SELECTOR);
+
+  if (dayElements.length === 0) {
+    return yield* new GitHubContributionParseError({
+      message: "GitHub contribution days were not found.",
+    });
+  }
+
   const candidates: unknown[] = [];
 
-  for (const match of html.matchAll(CONTRIBUTION_DAY_PATTERN)) {
-    const [, date, level] = match;
+  for (const dayElement of dayElements) {
+    const date = dayElement.getAttribute("data-date");
+    const level = dayElement.getAttribute("data-level");
 
     if (!(date && level)) {
       return yield* new GitHubContributionParseError({
@@ -170,13 +185,7 @@ export const parseGitHubContributionSummary = Effect.fn(
 
     candidates.push({
       date,
-      level: Number.parseInt(level, 10),
-    });
-  }
-
-  if (candidates.length === 0) {
-    return yield* new GitHubContributionParseError({
-      message: "GitHub contribution days were not found.",
+      level: Number(level),
     });
   }
 
@@ -210,23 +219,6 @@ export const parseGitHubContributionSummary = Effect.fn(
   } satisfies GitHubContributionSummary;
 });
 
-export const getGitHubContributionCount = Effect.fn(
-  "www.github.getContributionCount"
-)(function* () {
-  const source = yield* GitHubContributionSource;
-  const html = yield* source.read;
-
-  return yield* parseGitHubContributionCount(html);
-});
-
-export const getGitHubContributionCountOrFallback = Effect.fn(
-  "www.github.getContributionCountOrFallback"
-)(function* () {
-  return yield* getGitHubContributionCount().pipe(
-    Effect.orElseSucceed(() => FALLBACK_GITHUB_CONTRIBUTIONS)
-  );
-});
-
 export const getGitHubContributionSummary = Effect.fn(
   "www.github.getContributionSummary"
 )(function* () {
@@ -234,17 +226,4 @@ export const getGitHubContributionSummary = Effect.fn(
   const html = yield* source.read;
 
   return yield* parseGitHubContributionSummary(html);
-});
-
-export const getGitHubContributionSummaryOrFallback = Effect.fn(
-  "www.github.getContributionSummaryOrFallback"
-)(function* () {
-  return yield* getGitHubContributionSummary().pipe(
-    Effect.orElseSucceed(
-      (): GitHubContributionSummary => ({
-        days: [],
-        total: FALLBACK_GITHUB_CONTRIBUTIONS,
-      })
-    )
-  );
 });

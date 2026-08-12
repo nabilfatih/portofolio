@@ -2,13 +2,13 @@ import { Mail01Icon } from "@hugeicons/core-free-icons";
 import { HugeIcons } from "@repo/design-system/components/ui/huge-icons";
 import { Particles } from "@repo/design-system/components/ui/particles";
 import { buttonVariants } from "@repo/design-system/lib/button";
-import { Effect } from "effect";
+import { Effect, Option } from "effect";
 import Image from "next/image";
 import Link from "next/link";
 import { GitHubContributions } from "@/components/home/github-contributions";
 import {
   GitHubContributionSourceLive,
-  getGitHubContributionSummaryOrFallback,
+  getGitHubContributionSummary,
 } from "@/lib/github";
 import { CONTACT_HREF, collaborationCta } from "@/lib/site";
 import nabilCat from "@/public/nabil-cat.webp";
@@ -58,9 +58,12 @@ const profileImages = [
 ] as const;
 
 export default async function Home() {
-  const githubContributionSummary = await Effect.runPromise(
-    getGitHubContributionSummaryOrFallback().pipe(
-      Effect.provide(GitHubContributionSourceLive)
+  const githubContributionSummary = Option.getOrNull(
+    await Effect.runPromise(
+      getGitHubContributionSummary().pipe(
+        Effect.provide(GitHubContributionSourceLive),
+        Effect.option
+      )
     )
   );
 
@@ -108,7 +111,9 @@ export default async function Home() {
             .
           </p>
 
-          <GitHubContributions summary={githubContributionSummary} />
+          {githubContributionSummary ? (
+            <GitHubContributions summary={githubContributionSummary} />
+          ) : null}
 
           <div className="my-8 columns-2 gap-4 sm:columns-3">
             {profileImages.map((image, index) => (

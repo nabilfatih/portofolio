@@ -112,7 +112,7 @@ export default function CollaboratePage() {
               {collaborationProof.description}
             </p>
             <Link
-              className="inline-flex font-medium text-primary underline-offset-4 hover:underline"
+              className="inline-flex text-primary underline-offset-4 hover:underline"
               href={NAKAFA_GROWTH_CASE_STUDY_HREF}
             >
               {collaborationProof.actionLabel}

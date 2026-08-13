@@ -3,11 +3,7 @@
 import {
   type ChartConfig,
   EvilAreaChart,
-} from "@repo/design-system/components/evilcharts/charts/recharts-area-chart";
-import {
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@repo/design-system/components/evilcharts/ui/recharts-tooltip";
+} from "@repo/design-system/components/evilcharts/area-chart";
 import { Suspense } from "react";
 import {
   nakafaGrowthCaseStudy,
@@ -37,7 +33,7 @@ const longMonthFormatter = new Intl.DateTimeFormat("en", {
   year: "numeric",
 });
 
-export function NakafaOrganicGrowthChart() {
+export function NakafaGrowthChart() {
   return (
     <figure aria-labelledby="organic-clicks-chart-title" className="space-y-4">
       <div className="space-y-1">
@@ -78,9 +74,11 @@ export function NakafaOrganicGrowthChart() {
             tickFormatter={formatCompactNumber}
             width={48}
           />
-          <ChartTooltip
+          <EvilAreaChart.Tooltip
             content={
-              <ChartTooltipContent labelFormatter={formatTooltipMonth} />
+              <EvilAreaChart.TooltipContent
+                labelFormatter={formatTooltipMonth}
+              />
             }
             cursor={{ strokeDasharray: "3 3", strokeWidth: 1 }}
           />

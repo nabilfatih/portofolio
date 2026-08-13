@@ -194,13 +194,13 @@ export default async function Home() {
 
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
               <Link
-                className="font-medium text-primary underline-offset-4 hover:underline"
+                className="text-primary underline-offset-4 hover:underline"
                 href={NAKAFA_GROWTH_CASE_STUDY_HREF}
               >
                 Read the case study
               </Link>
               <Link
-                className="font-medium underline-offset-4 hover:underline"
+                className="underline-offset-4 hover:underline"
                 href={COLLABORATE_HREF}
               >
                 See how I can help

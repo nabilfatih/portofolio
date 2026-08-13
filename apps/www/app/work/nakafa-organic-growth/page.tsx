@@ -213,7 +213,6 @@ export default function NakafaOrganicGrowthPage() {
               <a
                 className={buttonVariants({
                   className: "w-full sm:w-fit",
-                  size: "lg",
                 })}
                 href={CONTACT_HREF}
               >
@@ -223,7 +222,6 @@ export default function NakafaOrganicGrowthPage() {
               <Link
                 className={buttonVariants({
                   className: "w-full sm:w-fit",
-                  size: "lg",
                   variant: "ghost",
                 })}
                 href={COLLABORATE_HREF}

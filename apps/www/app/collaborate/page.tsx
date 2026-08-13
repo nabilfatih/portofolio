@@ -64,7 +64,6 @@ export default function CollaboratePage() {
             <a
               className={buttonVariants({
                 className: "mt-2 w-full sm:w-fit",
-                size: "lg",
               })}
               href={CONTACT_HREF}
             >
@@ -153,7 +152,6 @@ export default function CollaboratePage() {
             <a
               className={buttonVariants({
                 className: "w-full sm:w-fit",
-                size: "lg",
               })}
               href={CONTACT_HREF}
             >

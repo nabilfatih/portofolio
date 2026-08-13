@@ -229,7 +229,6 @@ export default async function Home() {
             <a
               className={buttonVariants({
                 className: "mt-6 w-full sm:w-fit",
-                size: "lg",
               })}
               href={CONTACT_HREF}
             >

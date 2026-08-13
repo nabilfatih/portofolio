@@ -1,7 +1,9 @@
 const MARKDOWN_ROUTES = new Map([
   ["/", "/index.md"],
+  ["/collaborate", "/collaborate.md"],
   ["/privacy", "/privacy.md"],
   ["/work", "/work.md"],
+  ["/work/nakafa-organic-growth", "/work/nakafa-organic-growth.md"],
 ]);
 
 export function resolveMarkdownRoute({

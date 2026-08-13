@@ -23,6 +23,12 @@ describe("work entries", () => {
     expect(strategyBridge?.period).toBe("Jul 2024 - Jul 2026");
   });
 
+  it("links the Nakafa entry to the organic growth case study", () => {
+    const nakafa = workEntries.find((entry) => entry.company === "Nakafa");
+
+    expect(nakafa?.caseStudyHref).toBe("/work/nakafa-organic-growth");
+  });
+
   it.each(workEntries)("has a local logo for $company", async (entry) => {
     expect(entry.logo).toMatch(COMPANY_LOGO_PATH);
     expect(entry.logoFallback.length).toBeGreaterThan(0);

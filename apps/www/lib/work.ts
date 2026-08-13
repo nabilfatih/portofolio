@@ -1,4 +1,5 @@
 export interface WorkEntry {
+  caseStudyHref: string | null;
   company: string;
   companyUrl: string;
   logo: string;
@@ -19,6 +20,7 @@ export interface EducationEntry {
 
 export const workEntries = [
   {
+    caseStudyHref: null,
     company: "StrategyBridgeAI GmbH",
     companyUrl: "https://www.strategybridge.ai/",
     logo: "/company-logos/strategybridge.svg",
@@ -32,6 +34,7 @@ export const workEntries = [
     ],
   },
   {
+    caseStudyHref: null,
     company: "Schneider Electric GmbH",
     companyUrl: "https://www.se.com/de/de/",
     logo: "/company-logos/schneider-electric.svg",
@@ -45,6 +48,7 @@ export const workEntries = [
     ],
   },
   {
+    caseStudyHref: null,
     company: "Wemakefuture AG",
     companyUrl: "https://www.wemakefuture.com/",
     logo: "/company-logos/wemakefuture.svg",
@@ -58,6 +62,7 @@ export const workEntries = [
     ],
   },
   {
+    caseStudyHref: "/work/nakafa-organic-growth",
     company: "Nakafa",
     companyUrl: "https://nakafa.com",
     logo: "/company-logos/nakafa.svg",
@@ -72,6 +77,7 @@ export const workEntries = [
     ],
   },
   {
+    caseStudyHref: null,
     company: "eco2050 Institute for Sustainability",
     companyUrl: "https://eco2050.de/en/",
     logo: "/company-logos/eco2050.svg",

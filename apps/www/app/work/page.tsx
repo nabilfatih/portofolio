@@ -6,7 +6,9 @@ import {
 import { Particles } from "@repo/design-system/components/ui/particles";
 import { Separator } from "@repo/design-system/components/ui/separator";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Fragment } from "react";
+import { NAKAFA_GROWTH_CASE_STUDY_LABEL } from "@/lib/nakafa-growth";
 import { SOCIAL_IMAGE } from "@/lib/site";
 import { educationEntry, workEntries } from "@/lib/work";
 
@@ -89,6 +91,13 @@ export default function WorkPage() {
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
+                  {entry.caseStudyHref ? (
+                    <p>
+                      <Link href={entry.caseStudyHref}>
+                        {NAKAFA_GROWTH_CASE_STUDY_LABEL}
+                      </Link>
+                    </p>
+                  ) : null}
                 </article>
               </Fragment>
             ))}

@@ -19,5 +19,8 @@
     "ui": "@repo/design-system/components/ui",
     "lib": "@repo/design-system/lib",
     "hooks": "@repo/design-system/hooks"
+  },
+  "registries": {
+    "@evilcharts": "https://evilcharts.com/r/{name}.json"
   }
 }

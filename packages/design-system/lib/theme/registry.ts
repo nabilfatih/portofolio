@@ -2,176 +2,140 @@
 export type ThemeAppearance = "light" | "dark";
 
 type ThemeAppearancePolicy = ThemeAppearance | "dynamic";
-type ThemeShaderColor = `rgb(${number}, ${number}, ${number})`;
 
 interface ThemeDefinition {
   readonly appearance: ThemeAppearancePolicy;
-  readonly shaderColor: ThemeShaderColor;
   readonly value: string;
 }
-
-const LIGHT_SHADER_COLOR = "rgb(21, 41, 79)";
 
 /** Selectable Nakafa themes and the appearance policy owned by each theme. */
 export const themes = [
   {
     appearance: "light",
-    shaderColor: LIGHT_SHADER_COLOR,
     value: "light",
   },
   {
     appearance: "dark",
-    shaderColor: "rgb(57, 199, 244)",
     value: "dark",
   },
   {
     appearance: "dynamic",
-    shaderColor: LIGHT_SHADER_COLOR,
     value: "system",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(180, 88, 30)",
     value: "darkmatter",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(137, 96, 78)",
     value: "bean",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(179, 51, 128)",
     value: "bubblegum",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(99, 73, 63)",
     value: "caffeine",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(182, 81, 46)",
     value: "claude",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(110, 85, 207)",
     value: "cosmic",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(167, 67, 112)",
     value: "cute",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(120, 90, 197)",
     value: "dreamy",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(98, 101, 24)",
     value: "ghibli",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(155, 44, 44)",
     value: "luxury",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(96, 115, 102)",
     value: "matcha",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(48, 123, 52)",
     value: "nature",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(231, 8, 28)",
     value: "neo",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(96, 96, 96)",
     value: "notebook",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(144, 106, 0)",
     value: "pacman",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(0, 117, 125)",
     value: "perpetuity",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(213, 0, 112)",
     value: "pinky",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(79, 70, 229)",
     value: "popsicle",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(190, 32, 113)",
     value: "retro",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(62, 67, 240)",
     value: "shell",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(179, 81, 0)",
     value: "solar",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(194, 74, 45)",
     value: "sunset",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(186, 59, 19)",
     value: "tangerine",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(97, 39, 205)",
     value: "tokyo",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(84, 97, 0)",
     value: "tree",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(0, 116, 184)",
     value: "twitter",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(141, 99, 56)",
     value: "vintage",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(57, 90, 161)",
     value: "windy",
   },
   {
     appearance: "light",
-    shaderColor: "rgb(130, 102, 0)",
     value: "zelda",
   },
 ] as const satisfies readonly ThemeDefinition[];
@@ -204,11 +168,4 @@ export function getThemeAppearance(
   }
 
   return "light";
-}
-
-/** Returns the deterministic sRGB projection used by shader-only renderers. */
-export function getThemeShaderColor(resolvedTheme: string | undefined) {
-  const definition = themes.find((theme) => theme.value === resolvedTheme);
-
-  return definition?.shaderColor ?? LIGHT_SHADER_COLOR;
 }

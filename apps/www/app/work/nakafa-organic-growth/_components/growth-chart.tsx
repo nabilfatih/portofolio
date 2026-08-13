@@ -3,7 +3,7 @@
 import {
   type ChartConfig,
   EvilAreaChart,
-} from "@repo/design-system/components/evilcharts/area-chart";
+} from "@repo/design-system/components/evilcharts/area/chart";
 import { Suspense } from "react";
 import {
   nakafaGrowthCaseStudy,

@@ -4,13 +4,13 @@ import { Particles } from "@repo/design-system/components/ui/particles";
 import { buttonVariants } from "@repo/design-system/lib/button";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { NakafaOrganicGrowthChart } from "@/components/work/nakafa-organic-growth-chart";
 import { COLLABORATE_HREF } from "@/lib/collaboration";
 import {
   nakafaGrowthCaseStudy,
   nakafaGrowthEvidence,
 } from "@/lib/nakafa-growth";
 import { CONTACT_HREF, SOCIAL_IMAGE } from "@/lib/site";
+import { NakafaGrowthChart } from "./_components/growth-chart";
 
 const CASE_STUDY_DESCRIPTION =
   "How Nabil Fatih built Nakafa's product, technical SEO, content system, and measurement around one organic growth loop.";
@@ -148,7 +148,7 @@ export default function NakafaOrganicGrowthPage() {
                 {nakafaGrowthCaseStudy.trend.description}
               </p>
             </div>
-            <NakafaOrganicGrowthChart />
+            <NakafaGrowthChart />
           </section>
 
           <section aria-labelledby="ai-heading" className="mt-20 space-y-4">
@@ -213,7 +213,6 @@ export default function NakafaOrganicGrowthPage() {
               <a
                 className={buttonVariants({
                   className: "w-full sm:w-fit",
-                  size: "lg",
                 })}
                 href={CONTACT_HREF}
               >
@@ -223,7 +222,6 @@ export default function NakafaOrganicGrowthPage() {
               <Link
                 className={buttonVariants({
                   className: "w-full sm:w-fit",
-                  size: "lg",
                   variant: "ghost",
                 })}
                 href={COLLABORATE_HREF}

@@ -1,20 +1,17 @@
 "use client";
 
-import {
-  type RechartsModule,
-  rechartsPromise,
-} from "@repo/design-system/components/evilcharts/lib/recharts-runtime";
 import { type ComponentProps, use } from "react";
+import { type RechartsModule, rechartsPromise } from "./runtime";
 
-export type EvilGridProps = Omit<
+type ChartGridProps = Omit<
   ComponentProps<RechartsModule["CartesianGrid"]>,
   "vertical"
 >;
 
-export function EvilGrid({
+export function ChartGrid({
   strokeDasharray = "3 3",
   ...properties
-}: EvilGridProps) {
+}: ChartGridProps) {
   const { CartesianGrid } = use(rechartsPromise);
 
   return (

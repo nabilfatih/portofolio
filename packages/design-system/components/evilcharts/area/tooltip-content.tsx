@@ -1,13 +1,8 @@
 "use client";
 
-import { useEvilChart } from "@repo/design-system/components/evilcharts/lib/chart-context";
-import {
-  type RechartsModule,
-  rechartsPromise,
-} from "@repo/design-system/components/evilcharts/lib/recharts-runtime";
 import { cn } from "@repo/design-system/lib/utils";
-import { type ComponentProps, use } from "react";
 import type { TooltipContentProps } from "recharts";
+import { useChart } from "./context";
 
 interface ChartTooltipContentProps {
   active?: TooltipContentProps["active"];
@@ -17,23 +12,14 @@ interface ChartTooltipContentProps {
   payload?: TooltipContentProps["payload"];
 }
 
-function ChartTooltip({
-  animationDuration = 150,
-  ...properties
-}: ComponentProps<RechartsModule["Tooltip"]>) {
-  const { Tooltip } = use(rechartsPromise);
-
-  return <Tooltip animationDuration={animationDuration} {...properties} />;
-}
-
-function ChartTooltipContent({
+export function ChartTooltipContent({
   active,
   className,
   label,
   labelFormatter,
   payload,
 }: ChartTooltipContentProps) {
-  const { config } = useEvilChart();
+  const { config } = useChart();
   const item = payload?.[0];
 
   if (!(active && item)) {
@@ -72,5 +58,3 @@ function ChartTooltipContent({
     </div>
   );
 }
-
-export { ChartTooltip, ChartTooltipContent };

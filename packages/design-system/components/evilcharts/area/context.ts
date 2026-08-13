@@ -1,20 +1,20 @@
 import { createContext, use } from "react";
 
-export interface ChartConfigItem {
+interface ChartConfigItem {
   color: string;
   label: string;
 }
 
 export type ChartConfig = Record<string, ChartConfigItem>;
 
-export interface ChartContextValue {
+interface ChartContextValue {
   config: ChartConfig;
 }
 
-export const EvilChartContext = createContext<ChartContextValue | null>(null);
+export const ChartContext = createContext<ChartContextValue | null>(null);
 
-export function useEvilChart() {
-  const context = use(EvilChartContext);
+export function useChart() {
+  const context = use(ChartContext);
 
   if (!context) {
     throw new Error(

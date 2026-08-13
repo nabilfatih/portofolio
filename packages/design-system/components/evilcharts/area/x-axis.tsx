@@ -1,12 +1,9 @@
 "use client";
 
-import {
-  type RechartsModule,
-  rechartsPromise,
-} from "@repo/design-system/components/evilcharts/lib/recharts-runtime";
 import { type ComponentProps, use } from "react";
+import { type RechartsModule, rechartsPromise } from "./runtime";
 
-export function EvilXAxis({
+export function ChartXAxis({
   axisLine = false,
   minTickGap = 8,
   tick = { fontSize: 14 },
@@ -14,10 +11,10 @@ export function EvilXAxis({
   tickMargin = 8,
   ...properties
 }: ComponentProps<RechartsModule["XAxis"]>) {
-  const { XAxis: RechartsXAxis } = use(rechartsPromise);
+  const { XAxis } = use(rechartsPromise);
 
   return (
-    <RechartsXAxis
+    <XAxis
       axisLine={axisLine}
       minTickGap={minTickGap}
       tick={tick}

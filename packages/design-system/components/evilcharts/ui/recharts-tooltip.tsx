@@ -1,9 +1,13 @@
 "use client";
 
-import { useEvilChart } from "@repo/design-system/components/evilcharts/charts/recharts-area-chart";
+import { useEvilChart } from "@repo/design-system/components/evilcharts/lib/chart-context";
+import {
+  type RechartsModule,
+  rechartsPromise,
+} from "@repo/design-system/components/evilcharts/lib/recharts-runtime";
 import { cn } from "@repo/design-system/lib/utils";
-import type { ComponentProps } from "react";
-import { Tooltip, type TooltipContentProps } from "recharts";
+import { type ComponentProps, use } from "react";
+import type { TooltipContentProps } from "recharts";
 
 interface ChartTooltipContentProps {
   active?: TooltipContentProps["active"];
@@ -16,7 +20,9 @@ interface ChartTooltipContentProps {
 function ChartTooltip({
   animationDuration = 150,
   ...properties
-}: ComponentProps<typeof Tooltip>) {
+}: ComponentProps<RechartsModule["Tooltip"]>) {
+  const { Tooltip } = use(rechartsPromise);
+
   return <Tooltip animationDuration={animationDuration} {...properties} />;
 }
 

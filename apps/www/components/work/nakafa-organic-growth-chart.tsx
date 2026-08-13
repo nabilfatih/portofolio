@@ -8,6 +8,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@repo/design-system/components/evilcharts/ui/recharts-tooltip";
+import { Suspense } from "react";
 import {
   nakafaGrowthCaseStudy,
   nakafaMonthlyOrganicClicks,
@@ -51,30 +52,41 @@ export function NakafaOrganicGrowthChart() {
         </p>
       </div>
 
-      <EvilAreaChart
-        chartProps={{ margin: { bottom: 0, left: 4, right: 12, top: 16 } }}
-        className="aspect-auto h-72 min-h-72 w-full sm:h-80"
-        config={chartConfig}
-        data={[...nakafaMonthlyOrganicClicks]}
+      <Suspense
+        fallback={
+          <div
+            aria-hidden="true"
+            className="h-72 min-h-72 w-full animate-pulse rounded-xl bg-muted/50 sm:h-80"
+          />
+        }
       >
-        <EvilAreaChart.Grid />
-        <EvilAreaChart.XAxis
-          dataKey="month"
-          height={48}
-          minTickGap={28}
-          tickFormatter={formatMonth}
-        />
-        <EvilAreaChart.YAxis
-          allowDecimals={false}
-          tickFormatter={formatCompactNumber}
-          width={48}
-        />
-        <ChartTooltip
-          content={<ChartTooltipContent labelFormatter={formatTooltipMonth} />}
-          cursor={{ strokeDasharray: "3 3", strokeWidth: 1 }}
-        />
-        <EvilAreaChart.Area dataKey="clicks" strokeWidth={2} />
-      </EvilAreaChart>
+        <EvilAreaChart
+          chartProps={{ margin: { bottom: 0, left: 4, right: 12, top: 16 } }}
+          className="aspect-auto h-72 min-h-72 w-full sm:h-80"
+          config={chartConfig}
+          data={[...nakafaMonthlyOrganicClicks]}
+        >
+          <EvilAreaChart.Grid />
+          <EvilAreaChart.XAxis
+            dataKey="month"
+            height={48}
+            minTickGap={28}
+            tickFormatter={formatMonth}
+          />
+          <EvilAreaChart.YAxis
+            allowDecimals={false}
+            tickFormatter={formatCompactNumber}
+            width={48}
+          />
+          <ChartTooltip
+            content={
+              <ChartTooltipContent labelFormatter={formatTooltipMonth} />
+            }
+            cursor={{ strokeDasharray: "3 3", strokeWidth: 1 }}
+          />
+          <EvilAreaChart.Area dataKey="clicks" strokeWidth={2} />
+        </EvilAreaChart>
+      </Suspense>
 
       <figcaption className="text-pretty text-muted-foreground text-sm leading-relaxed">
         {nakafaGrowthCaseStudy.trend.sourceNote}

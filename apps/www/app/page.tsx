@@ -6,10 +6,16 @@ import { Effect, Option } from "effect";
 import Image from "next/image";
 import Link from "next/link";
 import { GitHubContributions } from "@/components/home/github-contributions";
+import { COLLABORATE_HREF } from "@/lib/collaboration";
 import {
   GitHubContributionSourceLive,
   getGitHubContributionSummary,
 } from "@/lib/github";
+import {
+  NAKAFA_GROWTH_CASE_STUDY_HREF,
+  nakafaGrowthEvidence,
+  nakafaGrowthSummary,
+} from "@/lib/nakafa-growth";
 import { CONTACT_HREF, collaborationCta } from "@/lib/site";
 import nabilCat from "@/public/nabil-cat.webp";
 import nabilLake from "@/public/nabil-lake.webp";
@@ -17,6 +23,11 @@ import nabilMountain from "@/public/nabil-mountain.webp";
 import nabilSwiss from "@/public/nabil-swiss.webp";
 import nabilUlm from "@/public/nabil-ulm.webp";
 import sunset from "@/public/sunset.webp";
+
+const compactMetricFormatter = new Intl.NumberFormat("en", {
+  maximumFractionDigits: 2,
+  notation: "compact",
+});
 
 const profileImages = [
   {
@@ -128,6 +139,74 @@ export default async function Home() {
               </div>
             ))}
           </div>
+
+          <section
+            aria-labelledby="selected-work-heading"
+            className="mt-16 py-12"
+          >
+            <div className="space-y-3">
+              <p className="font-medium text-primary text-sm">
+                {nakafaGrowthSummary.eyebrow}
+              </p>
+              <h2
+                className="text-balance font-medium text-2xl tracking-tighter"
+                id="selected-work-heading"
+              >
+                {nakafaGrowthSummary.heading}
+              </h2>
+              <p className="text-pretty text-muted-foreground leading-relaxed">
+                {nakafaGrowthSummary.description}
+              </p>
+            </div>
+
+            <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3">
+              <div className="flex flex-col">
+                <dt className="order-2 mt-1 text-muted-foreground text-sm">
+                  organic clicks
+                </dt>
+                <dd className="order-1 font-medium text-2xl tracking-tight">
+                  {nakafaGrowthEvidence.searchConsole.clicks.toLocaleString(
+                    "en"
+                  )}
+                </dd>
+              </div>
+              <div className="flex flex-col">
+                <dt className="order-2 mt-1 text-muted-foreground text-sm">
+                  search impressions
+                </dt>
+                <dd className="order-1 font-medium text-2xl tracking-tight">
+                  {compactMetricFormatter.format(
+                    nakafaGrowthEvidence.searchConsole.impressions
+                  )}
+                </dd>
+              </div>
+              <div className="flex flex-col">
+                <dt className="order-2 mt-1 text-muted-foreground text-sm">
+                  Google AI impressions
+                </dt>
+                <dd className="order-1 font-medium text-2xl tracking-tight">
+                  {compactMetricFormatter.format(
+                    nakafaGrowthEvidence.googleAi.impressions
+                  )}
+                </dd>
+              </div>
+            </dl>
+
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
+              <Link
+                className="font-medium text-primary underline-offset-4 hover:underline"
+                href={NAKAFA_GROWTH_CASE_STUDY_HREF}
+              >
+                Read the case study
+              </Link>
+              <Link
+                className="font-medium underline-offset-4 hover:underline"
+                href={COLLABORATE_HREF}
+              >
+                See how I can help
+              </Link>
+            </div>
+          </section>
 
           <section
             aria-labelledby="collaboration-heading"

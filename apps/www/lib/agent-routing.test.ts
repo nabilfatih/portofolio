@@ -4,8 +4,10 @@ import { resolveMarkdownRoute } from "@/lib/agent-routing";
 describe("resolveMarkdownRoute", () => {
   it.each([
     ["/", "/index.md"],
+    ["/collaborate", "/collaborate.md"],
     ["/privacy", "/privacy.md"],
     ["/work", "/work.md"],
+    ["/work/nakafa-organic-growth", "/work/nakafa-organic-growth.md"],
   ])("maps %s to its Markdown route", (pathname, expected) => {
     expect(
       resolveMarkdownRoute({

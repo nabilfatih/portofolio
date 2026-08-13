@@ -27,5 +27,11 @@ export function proxy(request: NextRequest) {
 }
 
 export const config: ProxyConfig = {
-  matcher: ["/", "/privacy", "/work"],
+  matcher: [
+    "/",
+    "/collaborate",
+    "/privacy",
+    "/work",
+    "/work/nakafa-organic-growth",
+  ],
 };

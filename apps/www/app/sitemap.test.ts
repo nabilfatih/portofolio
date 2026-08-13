@@ -7,7 +7,9 @@ describe("sitemap", () => {
 
     expect(urls).toEqual([
       "https://nabilfatih.com",
+      "https://nabilfatih.com/collaborate",
       "https://nabilfatih.com/work",
+      "https://nabilfatih.com/work/nakafa-organic-growth",
       "https://nabilfatih.com/privacy",
     ]);
     expect(new Set(urls).size).toBe(urls.length);

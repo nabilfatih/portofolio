@@ -1,5 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { renderHomeMarkdown } from "@/lib/agent-docs";
+import {
+  renderCollaborateMarkdown,
+  renderHomeMarkdown,
+  renderLlmsText,
+  renderNakafaGrowthMarkdown,
+} from "@/lib/agent-docs";
+import {
+  NAKAFA_GROWTH_CASE_STUDY_HREF,
+  nakafaGrowthCaseStudy,
+} from "@/lib/nakafa-growth";
 import {
   CONTACT_EMAIL,
   CONTACT_HREF,
@@ -35,5 +44,20 @@ describe("portfolio contact link", () => {
     expect(homepageMarkdown).toContain(
       `[${collaborationCta.actionLabel}](${CONTACT_HREF})`
     );
+  });
+
+  it("publishes the collaboration and case study pages to agents", () => {
+    const collaborationMarkdown = renderCollaborateMarkdown();
+    const caseStudyMarkdown = renderNakafaGrowthMarkdown();
+    const llmsText = renderLlmsText();
+
+    expect(collaborationMarkdown).toContain("Growth engineering");
+    expect(collaborationMarkdown).toContain(CONTACT_HREF);
+    expect(caseStudyMarkdown).toContain("14,479 organic clicks");
+    expect(caseStudyMarkdown).toContain(
+      nakafaGrowthCaseStudy.evidenceLimits.heading
+    );
+    expect(llmsText).toContain("/collaborate.md");
+    expect(llmsText).toContain(`${NAKAFA_GROWTH_CASE_STUDY_HREF}.md`);
   });
 });

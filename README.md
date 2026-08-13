@@ -10,7 +10,7 @@ This repository is a pnpm and Turborepo monorepo:
 - `packages/design-system` contains the shared shadcn Base UI components and Nakafa theme system.
 - `packages/typescript-config` contains shared strict TypeScript settings.
 
-The app uses Next.js 16, React 19, Tailwind CSS 4, shadcn, Base UI, Hugeicons, Vitest, Biome, and Ultracite.
+The app uses Next.js 16, React 19, Tailwind CSS 4, shadcn, Base UI, Hugeicons, EvilCharts, Recharts, Vitest, Biome, and Ultracite.
 
 ## Local development
 
@@ -39,7 +39,7 @@ pnpm shadcn:diff
 
 `pnpm check` runs linting, type checks, tests, and a production build across the workspace.
 
-`pnpm react-doctor` runs React Doctor against the web app. Agent-friendly routes are available at `/llms.txt`, `/llms-full.txt`, `/index.md`, `/work.md`, and `/privacy.md`. Each matching HTML page also returns Markdown when a request sends `Accept: text/markdown`. With the production app running on port 3100, use `pnpm agent-docs` to validate the full setup with AFDocs.
+`pnpm react-doctor` runs React Doctor against the web app. Agent-friendly routes are available at `/llms.txt`, `/llms-full.txt`, and matching `.md` routes for every public content page. Each matching HTML page also returns Markdown when a request sends `Accept: text/markdown`. With the production app running on port 3100, use `pnpm agent-docs` to validate the full setup with AFDocs.
 
 To refresh dependencies and the lockfile:
 

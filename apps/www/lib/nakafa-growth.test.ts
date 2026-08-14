@@ -1,8 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
+  nakafaCumulativeOrganicClicks,
   nakafaGrowthCaseStudy,
   nakafaGrowthEvidence,
+  nakafaMonthlyGooglePageviews,
   nakafaMonthlyOrganicClicks,
+  nakafaPartialMonthGooglePageviews,
   nakafaPartialMonthOrganicClicks,
 } from "@/lib/nakafa-growth";
 
@@ -40,6 +43,47 @@ describe("Nakafa growth evidence", () => {
     );
   });
 
+  it("builds a truthful cumulative series from the monthly clicks", () => {
+    expect(nakafaCumulativeOrganicClicks).toHaveLength(
+      nakafaMonthlyOrganicClicks.length
+    );
+    expect(nakafaCumulativeOrganicClicks.at(0)).toEqual({
+      clicks: 82,
+      month: "2025-05",
+    });
+    expect(nakafaCumulativeOrganicClicks.at(-1)).toEqual({
+      clicks: 14_372,
+      month: "2026-07",
+    });
+
+    for (const [index, point] of nakafaCumulativeOrganicClicks.entries()) {
+      const previous = nakafaCumulativeOrganicClicks[index - 1];
+
+      if (!previous) {
+        continue;
+      }
+
+      expect(point.clicks).toBeGreaterThan(previous.clicks);
+    }
+  });
+
+  it("reconciles complete and partial PostHog months", () => {
+    const completeMonthPageviews = nakafaMonthlyGooglePageviews.reduce(
+      (total, point) => total + point.pageviews,
+      0
+    );
+    const partialMonthPageviews = nakafaPartialMonthGooglePageviews.reduce(
+      (total, point) => total + point.pageviews,
+      0
+    );
+
+    expect(completeMonthPageviews).toBe(25_040);
+    expect(partialMonthPageviews).toBe(1779);
+    expect(completeMonthPageviews + partialMonthPageviews).toBe(
+      nakafaGrowthEvidence.postHog.pageviewsFromGoogleSearch
+    );
+  });
+
   it("records a source and exact date range for every metric set", () => {
     for (const evidence of Object.values(nakafaGrowthEvidence)) {
       expect(evidence.source.length).toBeGreaterThan(0);
@@ -57,6 +101,10 @@ describe("Nakafa growth evidence", () => {
     expect(nakafaGrowthCaseStudy.googleAi.description).toContain("71,802");
     expect(nakafaGrowthCaseStudy.googleAi.description).toContain("549");
     expect(nakafaGrowthCaseStudy.postHog.description).toContain("26,819");
+    expect(nakafaGrowthCaseStudy.trend.sourceNote).toContain("14,372");
+    expect(nakafaGrowthCaseStudy.postHog.sourceNote).toContain(
+      "August 1 to 13, 2026"
+    );
     expect(nakafaGrowthCaseStudy.evidenceSnapshot).toContain(
       "verified on August 13, 2026"
     );

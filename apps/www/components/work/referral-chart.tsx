@@ -6,15 +6,14 @@ import {
 } from "@repo/design-system/components/evilcharts/series-chart";
 import { Suspense } from "react";
 import {
-  nakafaCumulativeOrganicClicks,
   nakafaGrowthCaseStudy,
-  nakafaMonthlyOrganicClicks,
+  nakafaMonthlyGooglePageviews,
 } from "@/lib/nakafa-growth";
 
 const chartConfig = {
-  clicks: {
+  pageviews: {
     color: "var(--chart-1)",
-    label: "Organic clicks",
+    label: "Pageviews",
   },
 } satisfies ChartConfig;
 
@@ -25,7 +24,6 @@ const compactNumberFormatter = new Intl.NumberFormat("en", {
 const monthFormatter = new Intl.DateTimeFormat("en", {
   month: "short",
   timeZone: "UTC",
-  year: "2-digit",
 });
 
 const longMonthFormatter = new Intl.DateTimeFormat("en", {
@@ -34,21 +32,21 @@ const longMonthFormatter = new Intl.DateTimeFormat("en", {
   year: "numeric",
 });
 
-export function NakafaGrowthChart() {
+export function NakafaReferralChart() {
   return (
     <figure
-      aria-labelledby="organic-clicks-chart-title"
+      aria-labelledby="google-referral-chart-title"
       className="flex flex-col gap-4"
     >
       <div className="flex flex-col gap-1">
         <h3
           className="font-medium text-lg tracking-tight"
-          id="organic-clicks-chart-title"
+          id="google-referral-chart-title"
         >
-          {nakafaGrowthCaseStudy.trend.chartTitle}
+          {nakafaGrowthCaseStudy.postHog.chartTitle}
         </h3>
         <p className="text-muted-foreground text-sm">
-          {nakafaGrowthCaseStudy.trend.chartDescription}
+          {nakafaGrowthCaseStudy.postHog.chartDescription}
         </p>
       </div>
 
@@ -56,25 +54,25 @@ export function NakafaGrowthChart() {
         fallback={
           <div
             aria-hidden="true"
-            className="h-72 min-h-72 w-full animate-pulse rounded-xl bg-muted/50 sm:h-80"
+            className="h-64 min-h-64 w-full animate-pulse rounded-xl bg-muted/50"
           />
         }
       >
         <EvilSeriesChart
-          className="aspect-auto h-72 min-h-72 w-full sm:h-80"
+          className="aspect-auto h-64 min-h-64 w-full"
           config={chartConfig}
-          data={nakafaCumulativeOrganicClicks}
+          data={nakafaMonthlyGooglePageviews}
           margin={{ bottom: 0, left: 4, right: 12, top: 16 }}
-          series={{ dataKey: "clicks", strokeWidth: 2 }}
+          series={{ dataKey: "pageviews", radius: 4 }}
           tooltip={{
-            cursor: { strokeDasharray: "3 3", strokeWidth: 1 },
+            cursor: { fill: "var(--muted)" },
             labelFormatter: formatTooltipMonth,
           }}
-          variant="area"
+          variant="bar"
           xAxis={{
             dataKey: "month",
             height: 48,
-            minTickGap: 28,
+            minTickGap: 16,
             tickFormatter: formatMonth,
           }}
           yAxis={{
@@ -86,27 +84,23 @@ export function NakafaGrowthChart() {
       </Suspense>
 
       <figcaption className="text-pretty text-muted-foreground text-sm leading-relaxed">
-        {nakafaGrowthCaseStudy.trend.sourceNote}
+        {nakafaGrowthCaseStudy.postHog.sourceNote}
       </figcaption>
 
       <div className="sr-only">
         <table>
-          <caption>
-            Monthly and cumulative organic clicks from Google Search Console
-          </caption>
+          <caption>Monthly pageviews attributed to Google search</caption>
           <thead>
             <tr>
               <th scope="col">Month</th>
-              <th scope="col">Monthly clicks</th>
-              <th scope="col">Cumulative clicks</th>
+              <th scope="col">Pageviews</th>
             </tr>
           </thead>
           <tbody>
-            {nakafaMonthlyOrganicClicks.map((point, index) => (
+            {nakafaMonthlyGooglePageviews.map((point) => (
               <tr key={point.month}>
                 <th scope="row">{formatLongMonth(point.month)}</th>
-                <td>{point.clicks}</td>
-                <td>{nakafaCumulativeOrganicClicks[index]?.clicks}</td>
+                <td>{point.pageviews}</td>
               </tr>
             ))}
           </tbody>

@@ -60,33 +60,27 @@ export function NakafaGrowthChart() {
         }
       >
         <EvilAreaChart
-          chartProps={{ margin: { bottom: 0, left: 4, right: 12, top: 16 } }}
+          area={{ dataKey: "clicks", strokeWidth: 2 }}
           className="aspect-auto h-72 min-h-72 w-full sm:h-80"
           config={chartConfig}
           data={[...nakafaMonthlyOrganicClicks]}
-        >
-          <EvilAreaChart.Grid />
-          <EvilAreaChart.XAxis
-            dataKey="month"
-            height={48}
-            minTickGap={28}
-            tickFormatter={formatMonth}
-          />
-          <EvilAreaChart.YAxis
-            allowDecimals={false}
-            tickFormatter={formatCompactNumber}
-            width={48}
-          />
-          <EvilAreaChart.Tooltip
-            content={
-              <EvilAreaChart.TooltipContent
-                labelFormatter={formatTooltipMonth}
-              />
-            }
-            cursor={{ strokeDasharray: "3 3", strokeWidth: 1 }}
-          />
-          <EvilAreaChart.Area dataKey="clicks" strokeWidth={2} />
-        </EvilAreaChart>
+          margin={{ bottom: 0, left: 4, right: 12, top: 16 }}
+          tooltip={{
+            cursor: { strokeDasharray: "3 3", strokeWidth: 1 },
+            labelFormatter: formatTooltipMonth,
+          }}
+          xAxis={{
+            dataKey: "month",
+            height: 48,
+            minTickGap: 28,
+            tickFormatter: formatMonth,
+          }}
+          yAxis={{
+            allowDecimals: false,
+            tickFormatter: formatCompactNumber,
+            width: 48,
+          }}
+        />
       </Suspense>
 
       <figcaption className="text-pretty text-muted-foreground text-sm leading-relaxed">

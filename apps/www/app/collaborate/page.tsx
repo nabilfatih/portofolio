@@ -1,21 +1,32 @@
-import { Mail01Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight02Icon, Mail01Icon } from "@hugeicons/core-free-icons";
+import { Badge } from "@repo/design-system/components/ui/badge";
 import { HugeIcons } from "@repo/design-system/components/ui/huge-icons";
 import { Particles } from "@repo/design-system/components/ui/particles";
 import { buttonVariants } from "@repo/design-system/lib/button";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { NakafaGrowthChart } from "@/components/work/growth-chart";
 import {
   collaborationCapabilities,
   collaborationContact,
+  collaborationLoop,
   collaborationPage,
   collaborationProof,
   collaborationWorkingModel,
 } from "@/lib/collaboration";
-import { NAKAFA_GROWTH_CASE_STUDY_HREF } from "@/lib/nakafa-growth";
+import {
+  NAKAFA_GROWTH_CASE_STUDY_HREF,
+  nakafaGrowthEvidence,
+} from "@/lib/nakafa-growth";
 import { CONTACT_HREF, SOCIAL_IMAGE } from "@/lib/site";
 
 const COLLABORATE_DESCRIPTION =
   "Work with Nabil Fatih on product engineering, growth systems, and applied AI as a contractor or B2B partner.";
+
+const compactMetricFormatter = new Intl.NumberFormat("en", {
+  maximumFractionDigits: 2,
+  notation: "compact",
+});
 
 export const metadata: Metadata = {
   alternates: {
@@ -50,8 +61,8 @@ export default function CollaboratePage() {
         quantity={100}
       />
       <article className="py-24">
-        <div className="mx-auto max-w-2xl px-4">
-          <header className="space-y-4">
+        <div className="mx-auto max-w-4xl px-4">
+          <header className="flex max-w-2xl flex-col gap-4">
             <p className="font-medium text-primary text-sm">
               {collaborationPage.eyebrow}
             </p>
@@ -67,7 +78,7 @@ export default function CollaboratePage() {
               })}
               href={CONTACT_HREF}
             >
-              <HugeIcons icon={Mail01Icon} />
+              <HugeIcons data-icon="inline-start" icon={Mail01Icon} />
               Discuss a project
             </a>
           </header>
@@ -79,18 +90,22 @@ export default function CollaboratePage() {
             >
               {collaborationPage.capabilitiesHeading}
             </h2>
-            <div className="mt-8 space-y-12">
+            <div className="mt-8 grid gap-10 sm:grid-cols-3 sm:gap-6">
               {collaborationCapabilities.map((capability) => (
-                <section className="space-y-3" key={capability.title}>
-                  <h3 className="font-medium text-xl tracking-tight">
-                    {capability.title}
-                  </h3>
-                  <p className="text-pretty text-muted-foreground leading-relaxed">
-                    {capability.description}
-                  </p>
-                  <ul className="grid gap-2 text-sm sm:grid-cols-2">
+                <section className="flex flex-col gap-4" key={capability.title}>
+                  <div className="flex flex-col gap-3">
+                    <h3 className="font-medium text-xl tracking-tight">
+                      {capability.title}
+                    </h3>
+                    <p className="text-pretty text-muted-foreground text-sm leading-relaxed">
+                      {capability.description}
+                    </p>
+                  </div>
+                  <ul className="flex flex-wrap gap-2">
                     {capability.examples.map((example) => (
-                      <li key={example}>{example}</li>
+                      <li key={example}>
+                        <Badge variant="secondary">{example}</Badge>
+                      </li>
                     ))}
                   </ul>
                 </section>
@@ -98,30 +113,97 @@ export default function CollaboratePage() {
             </div>
           </section>
 
-          <section aria-labelledby="proof-heading" className="mt-20 space-y-4">
-            <p className="font-medium text-primary text-sm">
-              {collaborationProof.eyebrow}
-            </p>
-            <h2
-              className="text-balance font-medium text-2xl tracking-tighter"
-              id="proof-heading"
-            >
-              {collaborationProof.heading}
-            </h2>
-            <p className="text-pretty text-muted-foreground leading-relaxed">
-              {collaborationProof.description}
-            </p>
+          <section aria-labelledby="loop-heading" className="mt-20">
+            <div className="flex max-w-2xl flex-col gap-3">
+              <p className="font-medium text-primary text-sm">
+                {collaborationLoop.eyebrow}
+              </p>
+              <h2
+                className="text-balance font-medium text-2xl tracking-tighter"
+                id="loop-heading"
+              >
+                {collaborationLoop.heading}
+              </h2>
+              <p className="text-pretty text-muted-foreground leading-relaxed">
+                {collaborationLoop.description}
+              </p>
+            </div>
+            <ol className="mt-8 grid gap-3 sm:grid-cols-4">
+              {collaborationLoop.steps.map((step, index) => (
+                <li
+                  className="flex flex-col gap-4 rounded-xl bg-muted/50 p-4"
+                  key={step.title}
+                >
+                  <Badge variant="outline">{index + 1}</Badge>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-medium text-sm">{step.title}</h3>
+                    <p className="text-pretty text-muted-foreground text-sm leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section
+            aria-labelledby="proof-heading"
+            className="mt-20 rounded-2xl bg-muted/40 p-5 sm:p-8"
+          >
+            <div className="flex max-w-2xl flex-col gap-4">
+              <p className="font-medium text-primary text-sm">
+                {collaborationProof.eyebrow}
+              </p>
+              <h2
+                className="text-balance font-medium text-2xl tracking-tighter"
+                id="proof-heading"
+              >
+                {collaborationProof.heading}
+              </h2>
+              <p className="text-pretty text-muted-foreground leading-relaxed">
+                {collaborationProof.description}
+              </p>
+            </div>
+
+            <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3">
+              <Metric
+                label="organic clicks"
+                value={nakafaGrowthEvidence.searchConsole.clicks.toLocaleString(
+                  "en"
+                )}
+              />
+              <Metric
+                label="search impressions"
+                value={compactMetricFormatter.format(
+                  nakafaGrowthEvidence.searchConsole.impressions
+                )}
+              />
+              <Metric
+                label="Google AI impressions"
+                value={compactMetricFormatter.format(
+                  nakafaGrowthEvidence.googleAi.impressions
+                )}
+              />
+            </dl>
+
+            <div className="mt-10">
+              <NakafaGrowthChart />
+            </div>
+
             <Link
-              className="inline-flex text-primary underline-offset-4 hover:underline"
+              className={buttonVariants({
+                className: "mt-8 w-full sm:w-fit",
+              })}
               href={NAKAFA_GROWTH_CASE_STUDY_HREF}
             >
               {collaborationProof.actionLabel}
+              <HugeIcons data-icon="inline-end" icon={ArrowRight02Icon} />
             </Link>
           </section>
 
           <section
             aria-labelledby="working-model-heading"
-            className="mt-20 space-y-4"
+            className="mt-20 max-w-2xl"
           >
             <h2
               className="font-medium text-2xl tracking-tighter"
@@ -129,16 +211,21 @@ export default function CollaboratePage() {
             >
               {collaborationPage.workingModelHeading}
             </h2>
-            <ul className="space-y-3 text-pretty text-muted-foreground leading-relaxed">
-              {collaborationWorkingModel.map((item) => (
-                <li key={item}>{item}</li>
+            <ol className="mt-6 flex flex-col gap-4">
+              {collaborationWorkingModel.map((item, index) => (
+                <li className="flex items-start gap-3" key={item}>
+                  <Badge variant="secondary">{index + 1}</Badge>
+                  <p className="text-pretty text-muted-foreground leading-relaxed">
+                    {item}
+                  </p>
+                </li>
               ))}
-            </ul>
+            </ol>
           </section>
 
           <section
             aria-labelledby="contact-heading"
-            className="mt-20 space-y-4"
+            className="mt-20 flex max-w-2xl flex-col gap-4"
           >
             <h2
               className="text-balance font-medium text-2xl tracking-tighter"
@@ -155,12 +242,21 @@ export default function CollaboratePage() {
               })}
               href={CONTACT_HREF}
             >
-              <HugeIcons icon={Mail01Icon} />
+              <HugeIcons data-icon="inline-start" icon={Mail01Icon} />
               {collaborationContact.actionLabel}
             </a>
           </section>
         </div>
       </article>
+    </div>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col">
+      <dt className="order-2 mt-1 text-muted-foreground text-sm">{label}</dt>
+      <dd className="order-1 font-medium text-2xl tracking-tight">{value}</dd>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import {
-  NAKAFA_GROWTH_EVIDENCE_VERIFIED_AT,
   nakafaGrowthCaseStudy,
   nakafaGrowthEvidence,
   nakafaMonthlyOrganicClicks,
@@ -46,10 +45,9 @@ describe("Nakafa growth evidence", () => {
       expect(evidence.source.length).toBeGreaterThan(0);
       expect(evidence.startDate).toMatch(ISO_DATE_PATTERN);
       expect(evidence.endDate).toMatch(ISO_DATE_PATTERN);
+      expect(evidence.verifiedAt).toMatch(ISO_DATE_PATTERN);
       expect(evidence.startDate < evidence.endDate).toBe(true);
     }
-
-    expect(NAKAFA_GROWTH_EVIDENCE_VERIFIED_AT).toMatch(ISO_DATE_PATTERN);
   });
 
   it("builds public evidence copy from the canonical metrics", () => {
@@ -58,9 +56,12 @@ describe("Nakafa growth evidence", () => {
     );
     expect(nakafaGrowthCaseStudy.googleAi.description).toContain("71,802");
     expect(nakafaGrowthCaseStudy.googleAi.description).toContain("549");
-    expect(nakafaGrowthCaseStudy.postHog.description).toContain("26,803");
+    expect(nakafaGrowthCaseStudy.postHog.description).toContain("26,819");
     expect(nakafaGrowthCaseStudy.evidenceSnapshot).toContain(
       "verified on August 13, 2026"
+    );
+    expect(nakafaGrowthCaseStudy.evidenceSnapshot).toContain(
+      "verified on August 14, 2026"
     );
   });
 });

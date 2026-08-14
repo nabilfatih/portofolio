@@ -49,7 +49,7 @@ export default function MainHeader() {
             Work
           </Link>
           <a className={buttonVariants({ size: "sm" })} href={CONTACT_HREF}>
-            <HugeIcons icon={Mail01Icon} />
+            <HugeIcons data-icon="inline-start" icon={Mail01Icon} />
             Contact
           </a>
         </nav>

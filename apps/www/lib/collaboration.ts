@@ -3,7 +3,7 @@ export const COLLABORATE_HREF = "/collaborate";
 export const collaborationPage = {
   capabilitiesHeading: "Where I can help",
   description:
-    "I am available as a contractor or B2B partner for teams that need one person to connect product decisions, implementation, and measurement.",
+    "I am available as a contractor or B2B partner when a team needs hands-on ownership across product decisions, implementation, and measurement.",
   eyebrow: "Work with me",
   heading: "I help teams turn product problems into working software.",
   workingModelHeading: "A useful engagement starts with",
@@ -12,7 +12,7 @@ export const collaborationPage = {
 export const collaborationCapabilities = [
   {
     description:
-      "I can own technical SEO, programmatic content systems, localization, search measurement, and the product work needed to support them.",
+      "I take ownership of the product work behind organic growth. That includes search architecture, reusable content routes, measurement, and the releases needed to improve them.",
     examples: [
       "Search and content architecture",
       "Programmatic page systems",
@@ -22,7 +22,7 @@ export const collaborationCapabilities = [
   },
   {
     description:
-      "I can take a product from an unclear brief to a production release across the interface, API, data model, internal tools, and operations.",
+      "I turn an unclear brief into a production release. Depending on the problem, I can own the interface, API, data model, internal workflow, or the whole slice.",
     examples: [
       "Web products and APIs",
       "Internal workflows and automation",
@@ -32,7 +32,7 @@ export const collaborationCapabilities = [
   },
   {
     description:
-      "I can build applied AI features with retrieval, tool use, evaluations, and the product controls required to make them useful in production.",
+      "I build AI features people can use in production, with retrieval, tools, evaluations, and product controls designed into the system.",
     examples: [
       "Retrieval and tool use",
       "Evaluation systems",
@@ -42,6 +42,34 @@ export const collaborationCapabilities = [
   },
 ] as const;
 
+export const collaborationLoop = {
+  description:
+    "I work through one loop so search demand, software, and product data inform the next decision.",
+  eyebrow: "How the work connects",
+  heading: "The product and its growth loop should share one system.",
+  steps: [
+    {
+      description:
+        "Start with search demand, user behavior, or a product bottleneck.",
+      title: "Find the signal",
+    },
+    {
+      description:
+        "Turn the evidence into a clear product and content architecture.",
+      title: "Shape the system",
+    },
+    {
+      description: "Build the interface, API, workflow, or page system.",
+      title: "Ship the change",
+    },
+    {
+      description:
+        "Use search and product analytics to decide what changes next.",
+      title: "Measure what happened",
+    },
+  ],
+} as const;
+
 export const collaborationWorkingModel = [
   "A focused product or growth problem with a clear owner on your side.",
   "Access to the people, product context, and measurement needed to make sound decisions.",
@@ -49,11 +77,11 @@ export const collaborationWorkingModel = [
 ] as const;
 
 export const collaborationProof = {
-  actionLabel: "Read the Nakafa growth case study",
+  actionLabel: "Open the case study",
   description:
-    "I own the learning product, its technical foundations, and the search system around it. The case study explains the work, the measured results, and the limits of the data.",
+    "You can inspect the architecture, monthly click trend, measured results, and evidence limits in the case study.",
   eyebrow: "Proof of work",
-  heading: "Nakafa combines product ownership with measurable organic growth.",
+  heading: "Nakafa shows how I connect product work with organic growth.",
 } as const;
 
 export const collaborationContact = {

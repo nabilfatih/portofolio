@@ -13,8 +13,9 @@ interface ChartConfigItem {
 
 export type ChartConfig = Record<string, ChartConfigItem>;
 
-interface AreaSeriesConfig<TData> {
+interface SeriesConfig<TData> {
   dataKey: Extract<keyof TData, string>;
+  radius?: number;
   strokeWidth?: number;
 }
 
@@ -27,6 +28,7 @@ interface ChartMargin {
 
 interface TooltipConfig {
   cursor?: {
+    fill?: string;
     strokeDasharray?: string;
     strokeWidth?: number;
   };
@@ -46,38 +48,41 @@ interface YAxisConfig {
   width?: number;
 }
 
-interface AreaChartProps<TData extends Record<string, unknown>> {
-  area: AreaSeriesConfig<TData>;
+interface SeriesChartProps<TData extends Record<string, unknown>> {
   className?: string;
   config: ChartConfig;
   data: readonly TData[];
   margin?: ChartMargin;
+  series: SeriesConfig<TData>;
   tooltip?: TooltipConfig;
+  variant: "area" | "bar";
   xAxis: XAxisConfig<TData>;
   yAxis?: YAxisConfig;
 }
 
-export function EvilAreaChart<TData extends Record<string, unknown>>({
-  area,
+export function EvilSeriesChart<TData extends Record<string, unknown>>({
   className,
   config,
   data,
   margin,
+  series,
   tooltip,
+  variant,
   xAxis,
   yAxis,
-}: AreaChartProps<TData>) {
+}: SeriesChartProps<TData>) {
   const {
     Area,
-    AreaChart,
+    Bar,
     CartesianGrid,
+    ComposedChart,
     ResponsiveContainer,
     Tooltip,
     XAxis,
     YAxis,
   } = use(rechartsPromise);
   const id = useId().replaceAll(":", "");
-  const series = config[area.dataKey];
+  const seriesConfig = config[series.dataKey];
   const renderTooltip = useCallback(
     (properties: TooltipContentProps) => {
       if (!tooltip) {
@@ -89,13 +94,13 @@ export function EvilAreaChart<TData extends Record<string, unknown>>({
     [config, tooltip]
   );
 
-  if (!series) {
+  if (!seriesConfig) {
     throw new Error(
-      `Missing EvilCharts config for the "${area.dataKey}" series.`
+      `Missing EvilCharts config for the "${series.dataKey}" series.`
     );
   }
 
-  const gradientId = `evil-area-${id}-${area.dataKey}`;
+  const gradientId = `evil-series-${id}-${series.dataKey}`;
 
   return (
     <div
@@ -103,18 +108,26 @@ export function EvilAreaChart<TData extends Record<string, unknown>>({
         "min-h-0 w-full text-sm [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line]:stroke-border/60 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-layer]:outline-hidden [&_.recharts-surface]:outline-hidden",
         className
       )}
-      data-slot="evil-area-chart"
+      data-slot="evil-series-chart"
     >
       <ResponsiveContainer
         initialDimension={{ height: 288, width: 640 }}
         minHeight={0}
         minWidth={0}
       >
-        <AreaChart accessibilityLayer data={[...data]} margin={margin}>
+        <ComposedChart accessibilityLayer data={[...data]} margin={margin}>
           <defs>
             <linearGradient id={gradientId} x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor={series.color} stopOpacity={0.28} />
-              <stop offset="100%" stopColor={series.color} stopOpacity={0.02} />
+              <stop
+                offset="0%"
+                stopColor={seriesConfig.color}
+                stopOpacity={0.28}
+              />
+              <stop
+                offset="100%"
+                stopColor={seriesConfig.color}
+                stopOpacity={0.02}
+              />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
@@ -144,19 +157,29 @@ export function EvilAreaChart<TData extends Record<string, unknown>>({
               cursor={tooltip.cursor}
             />
           ) : null}
-          <Area
-            activeDot={{ r: 4 }}
-            dataKey={area.dataKey}
-            fill={`url(#${gradientId})`}
-            fillOpacity={1}
-            isAnimationActive={false}
-            name={series.label}
-            stroke={series.color}
-            strokeLinecap="round"
-            strokeWidth={area.strokeWidth ?? 2}
-            type="monotone"
-          />
-        </AreaChart>
+          {variant === "area" ? (
+            <Area
+              activeDot={{ r: 4 }}
+              dataKey={series.dataKey}
+              fill={`url(#${gradientId})`}
+              fillOpacity={1}
+              isAnimationActive={false}
+              name={seriesConfig.label}
+              stroke={seriesConfig.color}
+              strokeLinecap="round"
+              strokeWidth={series.strokeWidth ?? 2}
+              type="monotone"
+            />
+          ) : (
+            <Bar
+              dataKey={series.dataKey}
+              fill={seriesConfig.color}
+              isAnimationActive={false}
+              name={seriesConfig.label}
+              radius={series.radius ?? 4}
+            />
+          )}
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   );

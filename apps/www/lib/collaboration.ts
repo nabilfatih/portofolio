@@ -79,7 +79,7 @@ export const collaborationWorkingModel = [
 export const collaborationProof = {
   actionLabel: "Open the case study",
   description:
-    "You can inspect the architecture, monthly click trend, measured results, and evidence limits in the case study.",
+    "The case study shows the system, measured results, and the limits of what the data can prove.",
   eyebrow: "Proof of work",
   heading: "Nakafa shows how I connect product work with organic growth.",
 } as const;

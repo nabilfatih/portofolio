@@ -5,6 +5,7 @@ import { buttonVariants } from "@repo/design-system/lib/button";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { NakafaGrowthChart } from "@/components/work/growth-chart";
+import { NakafaReferralChart } from "@/components/work/referral-chart";
 import { COLLABORATE_HREF } from "@/lib/collaboration";
 import {
   nakafaGrowthCaseStudy,
@@ -165,17 +166,20 @@ export default function NakafaOrganicGrowthPage() {
 
           <section
             aria-labelledby="supporting-heading"
-            className="mt-20 space-y-4"
+            className="mt-20 space-y-8"
           >
-            <h2
-              className="font-medium text-2xl tracking-tighter"
-              id="supporting-heading"
-            >
-              {nakafaGrowthCaseStudy.postHog.heading}
-            </h2>
-            <p className="text-pretty text-muted-foreground leading-relaxed">
-              {nakafaGrowthCaseStudy.postHog.description}
-            </p>
+            <div className="space-y-4">
+              <h2
+                className="font-medium text-2xl tracking-tighter"
+                id="supporting-heading"
+              >
+                {nakafaGrowthCaseStudy.postHog.heading}
+              </h2>
+              <p className="text-pretty text-muted-foreground leading-relaxed">
+                {nakafaGrowthCaseStudy.postHog.description}
+              </p>
+            </div>
+            <NakafaReferralChart />
           </section>
 
           <section aria-labelledby="limits-heading" className="mt-20 space-y-4">

@@ -1,11 +1,9 @@
 import { ArrowRight02Icon, Mail01Icon } from "@hugeicons/core-free-icons";
-import { Badge } from "@repo/design-system/components/ui/badge";
 import { HugeIcons } from "@repo/design-system/components/ui/huge-icons";
 import { Particles } from "@repo/design-system/components/ui/particles";
 import { buttonVariants } from "@repo/design-system/lib/button";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { NakafaGrowthChart } from "@/components/work/growth-chart";
 import {
   collaborationCapabilities,
   collaborationContact,
@@ -61,7 +59,7 @@ export default function CollaboratePage() {
         quantity={100}
       />
       <article className="py-24">
-        <div className="mx-auto max-w-4xl px-4">
+        <div className="mx-auto max-w-3xl px-4">
           <header className="flex max-w-2xl flex-col gap-4">
             <p className="font-medium text-primary text-sm">
               {collaborationPage.eyebrow}
@@ -90,27 +88,28 @@ export default function CollaboratePage() {
             >
               {collaborationPage.capabilitiesHeading}
             </h2>
-            <div className="mt-8 grid gap-10 sm:grid-cols-3 sm:gap-6">
+            <ul className="mt-8 flex flex-col gap-10">
               {collaborationCapabilities.map((capability) => (
-                <section className="flex flex-col gap-4" key={capability.title}>
-                  <div className="flex flex-col gap-3">
-                    <h3 className="font-medium text-xl tracking-tight">
-                      {capability.title}
-                    </h3>
+                <li
+                  className="grid gap-3 sm:grid-cols-[12rem_1fr] sm:gap-8"
+                  key={capability.title}
+                >
+                  <h3 className="font-medium text-xl tracking-tight">
+                    {capability.title}
+                  </h3>
+                  <div>
                     <p className="text-pretty text-muted-foreground text-sm leading-relaxed">
                       {capability.description}
                     </p>
+                    <ul className="mt-4 list-disc space-y-2 pl-5 text-sm">
+                      {capability.examples.map((example) => (
+                        <li key={example}>{example}</li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="flex flex-wrap gap-2">
-                    {capability.examples.map((example) => (
-                      <li key={example}>
-                        <Badge variant="secondary">{example}</Badge>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
+                </li>
               ))}
-            </div>
+            </ul>
           </section>
 
           <section aria-labelledby="loop-heading" className="mt-20">
@@ -128,13 +127,15 @@ export default function CollaboratePage() {
                 {collaborationLoop.description}
               </p>
             </div>
-            <ol className="mt-8 grid gap-3 sm:grid-cols-4">
+            <ol className="mt-8 grid gap-3 sm:grid-cols-2">
               {collaborationLoop.steps.map((step, index) => (
                 <li
                   className="flex flex-col gap-4 rounded-xl bg-muted/50 p-4"
                   key={step.title}
                 >
-                  <Badge variant="outline">{index + 1}</Badge>
+                  <span className="text-muted-foreground text-sm tabular-nums">
+                    {index + 1}
+                  </span>
                   <div className="flex flex-col gap-2">
                     <h3 className="font-medium text-sm">{step.title}</h3>
                     <p className="text-pretty text-muted-foreground text-sm leading-relaxed">
@@ -186,13 +187,9 @@ export default function CollaboratePage() {
               />
             </dl>
 
-            <div className="mt-10">
-              <NakafaGrowthChart />
-            </div>
-
             <Link
               className={buttonVariants({
-                className: "mt-8 w-full sm:w-fit",
+                className: "mt-10 w-full sm:w-fit",
               })}
               href={NAKAFA_GROWTH_CASE_STUDY_HREF}
             >
@@ -211,16 +208,13 @@ export default function CollaboratePage() {
             >
               {collaborationPage.workingModelHeading}
             </h2>
-            <ol className="mt-6 flex flex-col gap-4">
-              {collaborationWorkingModel.map((item, index) => (
-                <li className="flex items-start gap-3" key={item}>
-                  <Badge variant="secondary">{index + 1}</Badge>
-                  <p className="text-pretty text-muted-foreground leading-relaxed">
-                    {item}
-                  </p>
+            <ul className="mt-6 list-disc space-y-4 pl-5 text-muted-foreground">
+              {collaborationWorkingModel.map((item) => (
+                <li className="pl-1" key={item}>
+                  <p className="text-pretty leading-relaxed">{item}</p>
                 </li>
               ))}
-            </ol>
+            </ul>
           </section>
 
           <section

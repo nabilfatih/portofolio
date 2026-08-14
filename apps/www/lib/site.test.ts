@@ -54,6 +54,8 @@ describe("portfolio contact link", () => {
     expect(collaborationMarkdown).toContain("Growth engineering");
     expect(collaborationMarkdown).toContain(CONTACT_HREF);
     expect(caseStudyMarkdown).toContain("14,479 organic clicks");
+    expect(caseStudyMarkdown).toContain("Cumulative organic clicks");
+    expect(caseStudyMarkdown).toContain("Pageviews from Google search");
     expect(caseStudyMarkdown).toContain(
       nakafaGrowthCaseStudy.evidenceLimits.heading
     );

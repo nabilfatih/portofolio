@@ -9,9 +9,11 @@ import {
 import {
   NAKAFA_GROWTH_CASE_STUDY_HREF,
   NAKAFA_GROWTH_CASE_STUDY_LABEL,
+  nakafaCumulativeOrganicClicks,
   nakafaGrowthCaseStudy,
   nakafaGrowthEvidence,
   nakafaGrowthSummary,
+  nakafaMonthlyGooglePageviews,
   nakafaMonthlyOrganicClicks,
 } from "@/lib/nakafa-growth";
 import {
@@ -162,12 +164,6 @@ ${collaborationProof.description}
 - ${nakafaGrowthEvidence.searchConsole.impressions.toLocaleString("en")} search impressions
 - ${nakafaGrowthEvidence.googleAi.impressions.toLocaleString("en")} Google AI impressions
 
-#### ${nakafaGrowthCaseStudy.trend.chartTitle}
-
-${nakafaGrowthCaseStudy.trend.chartDescription}
-
-${nakafaGrowthCaseStudy.trend.sourceNote}
-
 [${collaborationProof.actionLabel}](${SITE_URL}${NAKAFA_GROWTH_CASE_STUDY_HREF})
 
 ## ${collaborationPage.workingModelHeading}
@@ -186,7 +182,14 @@ export function renderNakafaGrowthMarkdown() {
   const { searchConsole } = nakafaGrowthEvidence;
   const monthlyClicks = nakafaMonthlyOrganicClicks
     .map(
-      (point) => `- ${point.month}: ${point.clicks.toLocaleString("en")} clicks`
+      (point, index) =>
+        `- ${point.month}: ${point.clicks.toLocaleString("en")} monthly clicks, ${nakafaCumulativeOrganicClicks[index]?.clicks.toLocaleString("en")} cumulative clicks`
+    )
+    .join("\n");
+  const monthlyGooglePageviews = nakafaMonthlyGooglePageviews
+    .map(
+      (point) =>
+        `- ${point.month}: ${point.pageviews.toLocaleString("en")} pageviews`
     )
     .join("\n");
 
@@ -237,6 +240,14 @@ ${nakafaGrowthCaseStudy.googleAi.description}
 
 ${nakafaGrowthCaseStudy.postHog.description}
 
+### ${nakafaGrowthCaseStudy.postHog.chartTitle}
+
+${nakafaGrowthCaseStudy.postHog.chartDescription}
+
+${monthlyGooglePageviews}
+
+${nakafaGrowthCaseStudy.postHog.sourceNote}
+
 ## ${nakafaGrowthCaseStudy.evidenceLimits.heading}
 
 ${nakafaGrowthCaseStudy.evidenceLimits.paragraphs.join("\n\n")}
@@ -247,7 +258,9 @@ ${nakafaGrowthCaseStudy.clientValue.eyebrow}
 
 ${nakafaGrowthCaseStudy.clientValue.description}
 
-[${nakafaGrowthCaseStudy.clientValue.primaryActionLabel}](${CONTACT_HREF})[${nakafaGrowthCaseStudy.clientValue.secondaryActionLabel}](${SITE_URL}/collaborate)
+[${nakafaGrowthCaseStudy.clientValue.primaryActionLabel}](${CONTACT_HREF})
+
+[${nakafaGrowthCaseStudy.clientValue.secondaryActionLabel}](${SITE_URL}/collaborate)
 
 ${nakafaGrowthCaseStudy.evidenceSnapshot}
 `;

@@ -59,9 +59,31 @@ export const nakafaMonthlyOrganicClicks = [
   { clicks: 227, month: "2026-07" },
 ] as const;
 
+export const nakafaCumulativeOrganicClicks = toCumulativeClicks(
+  nakafaMonthlyOrganicClicks
+);
+
 export const nakafaPartialMonthOrganicClicks = [
   { clicks: 18, endDate: "2025-04-30", startDate: "2025-04-12" },
   { clicks: 89, endDate: "2026-08-11", startDate: "2026-08-01" },
+] as const;
+
+export const nakafaMonthlyGooglePageviews = [
+  { month: "2026-01", pageviews: 3958 },
+  { month: "2026-02", pageviews: 3085 },
+  { month: "2026-03", pageviews: 2147 },
+  { month: "2026-04", pageviews: 4655 },
+  { month: "2026-05", pageviews: 2662 },
+  { month: "2026-06", pageviews: 2877 },
+  { month: "2026-07", pageviews: 5656 },
+] as const;
+
+export const nakafaPartialMonthGooglePageviews = [
+  {
+    endDate: "2026-08-13",
+    pageviews: 1779,
+    startDate: "2026-08-01",
+  },
 ] as const;
 
 export const nakafaGrowthCaseStudy = {
@@ -109,8 +131,13 @@ export const nakafaGrowthCaseStudy = {
   ],
   ownershipHeading: "What I owned",
   postHog: {
+    chartDescription:
+      "Complete calendar months from January through July 2026.",
+    chartTitle: "Pageviews from Google search",
     description: `PostHog recorded ${nakafaGrowthEvidence.postHog.pageviewsFromGoogleSearch.toLocaleString("en")} pageviews attributed to Google search from ${formatEvidenceDate(nakafaGrowthEvidence.postHog.startDate)} through ${formatEvidenceDate(nakafaGrowthEvidence.postHog.endDate)}. The project has no recorded Google-search pageviews before January in this dataset, so I do not present it as a full-period traffic total.`,
-    heading: "Supporting product analytics",
+    heading: "Google referral traffic",
+    sourceNote:
+      "Source: PostHog, pageviews attributed to Google search. August 1 to 13, 2026 is excluded from the chart because it is a partial month. Search Console and PostHog measure different parts of the journey and are not added together.",
   },
   problem: {
     heading: "The problem",
@@ -124,14 +151,29 @@ export const nakafaGrowthCaseStudy = {
   trend: {
     chartDescription:
       "Complete calendar months from May 2025 through July 2026.",
-    chartTitle: "Monthly organic clicks",
+    chartTitle: "Cumulative organic clicks",
     description:
-      "The monthly series shows the shape of the traffic without treating incomplete boundary months as comparable periods.",
-    heading: "The complete-month trend",
+      "The cumulative view shows how organic clicks added up across complete months. The source data remains available month by month in the accessible table.",
+    heading: "Organic reach earned over time",
     sourceNote:
-      "Source: Google Search Console, Web search performance. The chart omits April 12 to 30, 2025 and August 1 to 11, 2026 because those are partial months.",
+      "Source: Google Search Console, Web search performance. Complete months account for 14,372 clicks. The 14,479 aggregate also includes 18 clicks from April 12 to 30, 2025 and 89 clicks from August 1 to 11, 2026.",
   },
 } as const;
+
+function toCumulativeClicks(
+  points: readonly { clicks: number; month: string }[]
+) {
+  let total = 0;
+
+  return points.map((point) => {
+    total += point.clicks;
+
+    return {
+      clicks: total,
+      month: point.month,
+    };
+  });
+}
 
 export const nakafaGrowthSummary = {
   description:

@@ -59,7 +59,7 @@ export default function CollaboratePage() {
         quantity={100}
       />
       <article className="py-24">
-        <div className="mx-auto max-w-3xl px-4">
+        <div className="mx-auto max-w-2xl px-4">
           <header className="flex max-w-2xl flex-col gap-4">
             <p className="font-medium text-primary text-sm">
               {collaborationPage.eyebrow}

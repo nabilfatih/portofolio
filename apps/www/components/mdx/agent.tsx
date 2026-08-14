@@ -226,7 +226,6 @@ export function createAgentMdxComponents(
     ChartSection: Section,
     ContactAction,
     ContactRow: Container,
-    EvidenceNote: Container,
     Eyebrow: Container,
     GhostAction: Action,
     GitHubActivity: () => <AgentGitHubActivity summary={githubSummary} />,

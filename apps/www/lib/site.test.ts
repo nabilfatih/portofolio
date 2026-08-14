@@ -60,8 +60,6 @@ describe("portfolio contact link", () => {
     expect(caseStudyMarkdown).toContain("549");
     expect(caseStudyMarkdown).toContain("26,819");
     expect(caseStudyMarkdown).toContain("August 1 to 13, 2026");
-    expect(caseStudyMarkdown).toContain("verified on August 13, 2026");
-    expect(caseStudyMarkdown).toContain("verified on August 14, 2026");
     expect(llmsText).toContain("/collaborate.md");
     expect(llmsText).toContain(NAKAFA_GROWTH_MARKDOWN_HREF);
     expect(fullPortfolioMarkdown).toContain(caseStudyMarkdown.trim());

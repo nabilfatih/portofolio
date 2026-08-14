@@ -245,14 +245,6 @@ export function BackLink({
   );
 }
 
-export function EvidenceNote({ children }: { readonly children: ReactNode }) {
-  return (
-    <p className="mt-20 text-pretty text-muted-foreground text-sm leading-relaxed">
-      {children}
-    </p>
-  );
-}
-
 export function AgentDirective() {
   return null;
 }

@@ -4,7 +4,7 @@
 
 I'm a product engineer who takes software from idea to production. I build web products and the APIs, data workflows, internal tools, and applied AI behind them. Read more about [my work](https://nabilfatih.com/work) or visit [Nakafa](https://nakafa.com), the source-available learning platform I started. Outside work, I love Maine Coon cats, traveling, and being with my [lovely person](https://instagram.com/nisrinahn%5F).
 
-[3,782 contributions in the last year](https://github.com/nabilfatih)
+[3,784 contributions in the last year](https://github.com/nabilfatih)
 
 Selected work
 

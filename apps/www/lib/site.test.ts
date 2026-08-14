@@ -2,19 +2,12 @@ import { describe, expect, it } from "vitest";
 import {
   renderCollaborateMarkdown,
   renderHomeMarkdown,
+  renderLlmsFullText,
   renderLlmsText,
   renderNakafaGrowthMarkdown,
 } from "@/lib/agent-docs";
-import {
-  NAKAFA_GROWTH_CASE_STUDY_HREF,
-  nakafaGrowthCaseStudy,
-} from "@/lib/nakafa-growth";
-import {
-  CONTACT_EMAIL,
-  CONTACT_HREF,
-  collaborationCta,
-  siteConfig,
-} from "@/lib/site";
+import { NAKAFA_GROWTH_MARKDOWN_HREF } from "@/lib/nakafa-growth";
+import { CONTACT_EMAIL, CONTACT_HREF, siteConfig } from "@/lib/site";
 
 describe("portfolio contact link", () => {
   it("opens a complete contract and B2B email draft", () => {
@@ -39,16 +32,19 @@ describe("portfolio contact link", () => {
   it("keeps the collaboration offer available to agents", () => {
     const homepageMarkdown = renderHomeMarkdown();
 
-    expect(homepageMarkdown).toContain(collaborationCta.heading);
-    expect(homepageMarkdown).toContain(collaborationCta.description);
     expect(homepageMarkdown).toContain(
-      `[${collaborationCta.actionLabel}](${CONTACT_HREF})`
+      "I help turn product ideas into reliable software."
     );
+    expect(homepageMarkdown).toContain(
+      "If you need a contractor or B2B partner"
+    );
+    expect(homepageMarkdown).toContain(`[Discuss a project](${CONTACT_HREF})`);
   });
 
   it("publishes the collaboration and case study pages to agents", () => {
     const collaborationMarkdown = renderCollaborateMarkdown();
     const caseStudyMarkdown = renderNakafaGrowthMarkdown();
+    const fullPortfolioMarkdown = renderLlmsFullText();
     const llmsText = renderLlmsText();
 
     expect(collaborationMarkdown).toContain("Growth engineering");
@@ -56,10 +52,18 @@ describe("portfolio contact link", () => {
     expect(caseStudyMarkdown).toContain("14,479 organic clicks");
     expect(caseStudyMarkdown).toContain("Cumulative organic clicks");
     expect(caseStudyMarkdown).toContain("Pageviews from Google search");
+    expect(caseStudyMarkdown).toContain("What the evidence can support");
     expect(caseStudyMarkdown).toContain(
-      nakafaGrowthCaseStudy.evidenceLimits.heading
+      "April 12, 2025 through August 11, 2026"
     );
+    expect(caseStudyMarkdown).toContain("71,802");
+    expect(caseStudyMarkdown).toContain("549");
+    expect(caseStudyMarkdown).toContain("26,819");
+    expect(caseStudyMarkdown).toContain("August 1 to 13, 2026");
+    expect(caseStudyMarkdown).toContain("verified on August 13, 2026");
+    expect(caseStudyMarkdown).toContain("verified on August 14, 2026");
     expect(llmsText).toContain("/collaborate.md");
-    expect(llmsText).toContain(`${NAKAFA_GROWTH_CASE_STUDY_HREF}.md`);
+    expect(llmsText).toContain(NAKAFA_GROWTH_MARKDOWN_HREF);
+    expect(fullPortfolioMarkdown).toContain(caseStudyMarkdown.trim());
   });
 });

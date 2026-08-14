@@ -13,7 +13,7 @@ import { SOCIAL_IMAGE } from "@/lib/site";
 import { educationEntry, workEntries } from "@/lib/work";
 
 const WORK_DESCRIPTION =
-  "Nabil Fatih's work across full-stack products, internal tools, data workflows, and applied AI.";
+  "Nabil Fatih's work across full-stack products, growth systems, internal tools, data workflows, and applied AI, from early ideas through production.";
 
 export const metadata: Metadata = {
   alternates: {

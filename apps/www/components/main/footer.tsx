@@ -7,6 +7,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeIcons } from "@repo/design-system/components/ui/huge-icons";
 import { buttonVariants } from "@repo/design-system/lib/button";
+import { cacheLife, io } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import MainFooterArt from "@/components/main/footer-art";
@@ -26,7 +27,18 @@ const socialMedia = [
   { href: siteConfig.social.instagram, icon: InstagramIcon, name: "Instagram" },
 ] as const;
 
-export default function MainFooter() {
+async function getCurrentYear() {
+  "use cache";
+
+  cacheLife("days");
+  await io();
+
+  return new Date().getFullYear();
+}
+
+export default async function MainFooter() {
+  const currentYear = await getCurrentYear();
+
   return (
     <footer className="border-t bg-card backdrop-blur-xl">
       <div className="pt-24">
@@ -37,7 +49,6 @@ export default function MainFooter() {
                 alt="Nabil Fatih"
                 className="rounded-full border object-cover shadow"
                 height={28}
-                loading="eager"
                 sizes="28px"
                 src={logo}
                 width={28}
@@ -84,7 +95,7 @@ export default function MainFooter() {
           <div className="grid grid-cols-3">
             <div className="col-span-2 grid h-fit pt-2">
               <p className="mb-1 font-medium tracking-tight">
-                Nabil Fatih © {new Date().getFullYear()}
+                Nabil Fatih © {currentYear}
               </p>
               <p className="w-fit tracking-tight">
                 Product engineer based in Germany, from Indonesia.

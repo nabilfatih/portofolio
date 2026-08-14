@@ -1,9 +1,14 @@
+import {
+  NAKAFA_GROWTH_CASE_STUDY_HREF,
+  NAKAFA_GROWTH_MARKDOWN_HREF,
+} from "@/lib/nakafa-growth";
+
 const MARKDOWN_ROUTES = new Map([
   ["/", "/index.md"],
   ["/collaborate", "/collaborate.md"],
   ["/privacy", "/privacy.md"],
   ["/work", "/work.md"],
-  ["/work/nakafa-organic-growth", "/work/nakafa-organic-growth.md"],
+  [NAKAFA_GROWTH_CASE_STUDY_HREF, NAKAFA_GROWTH_MARKDOWN_HREF],
 ]);
 
 export function resolveMarkdownRoute({

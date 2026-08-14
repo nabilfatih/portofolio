@@ -3,6 +3,7 @@ import {
   Effect,
   Array as EffectArray,
   Layer,
+  Option,
   Order,
   Schema,
 } from "effect";
@@ -227,3 +228,14 @@ export const getGitHubContributionSummary = Effect.fn(
 
   return yield* parseGitHubContributionSummary(html);
 });
+
+export async function loadGitHubContributionSummary() {
+  return Option.getOrNull(
+    await Effect.runPromise(
+      getGitHubContributionSummary().pipe(
+        Effect.provide(GitHubContributionSourceLive),
+        Effect.option
+      )
+    )
+  );
+}

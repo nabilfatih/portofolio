@@ -10,7 +10,11 @@ This repository is a pnpm and Turborepo monorepo:
 - `packages/design-system` contains the shared shadcn Base UI components and Nakafa theme system.
 - `packages/typescript-config` contains shared strict TypeScript settings.
 
-The app uses Next.js 16, React 19, Tailwind CSS 4, shadcn, Base UI, Hugeicons, EvilCharts, Recharts, Vitest, Biome, and Ultracite.
+The app uses Next.js 16, React 19, Tailwind CSS 4, shadcn, Base UI, Hugeicons, EvilCharts, Recharts, MDX, Effect, Vitest, Biome, and Ultracite.
+
+Portfolio copy lives in `apps/www/content` as local MDX. Route files provide metadata and layout only. Custom MDX components live in `apps/www/components/mdx`, and `apps/www/mdx-components.tsx` provides the shared component registry. Keep measured evidence in typed modules so prose can reference verified values without duplicating them.
+
+Cache Components and Partial Prefetching are enabled. Public pages are prerendered, while the live GitHub contribution block is isolated behind Suspense and omitted when GitHub data is unavailable.
 
 ## Local development
 
@@ -40,6 +44,14 @@ pnpm shadcn:diff
 `pnpm check` runs linting, type checks, tests, and a production build across the workspace.
 
 `pnpm react-doctor` runs React Doctor against the web app. Agent-friendly routes are available at `/llms.txt`, `/llms-full.txt`, and matching `.md` routes for every public content page. Each matching HTML page also returns Markdown when a request sends `Accept: text/markdown`. With the production app running on port 3100, use `pnpm agent-docs` to validate the full setup with AFDocs.
+
+The Markdown and text files are generated from the same MDX before development and production builds. Run this command after changing content when you need to inspect them directly:
+
+```bash
+pnpm --filter www generate:docs
+```
+
+Do not edit generated files in `apps/www/public` by hand.
 
 To refresh dependencies and the lockfile:
 

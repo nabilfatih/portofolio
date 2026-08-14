@@ -7,7 +7,6 @@ import {
 import { Suspense } from "react";
 import {
   nakafaCumulativeOrganicClicks,
-  nakafaGrowthCaseStudy,
   nakafaMonthlyOrganicClicks,
 } from "@/lib/nakafa-growth";
 
@@ -34,7 +33,15 @@ const longMonthFormatter = new Intl.DateTimeFormat("en", {
   year: "numeric",
 });
 
-export function NakafaGrowthChart() {
+export function NakafaGrowthChart({
+  description,
+  sourceNote,
+  title,
+}: {
+  readonly description: string;
+  readonly sourceNote: string;
+  readonly title: string;
+}) {
   return (
     <figure
       aria-labelledby="organic-clicks-chart-title"
@@ -45,11 +52,9 @@ export function NakafaGrowthChart() {
           className="font-medium text-lg tracking-tight"
           id="organic-clicks-chart-title"
         >
-          {nakafaGrowthCaseStudy.trend.chartTitle}
+          {title}
         </h3>
-        <p className="text-muted-foreground text-sm">
-          {nakafaGrowthCaseStudy.trend.chartDescription}
-        </p>
+        <p className="text-muted-foreground text-sm">{description}</p>
       </div>
 
       <Suspense
@@ -86,7 +91,7 @@ export function NakafaGrowthChart() {
       </Suspense>
 
       <figcaption className="text-pretty text-muted-foreground text-sm leading-relaxed">
-        {nakafaGrowthCaseStudy.trend.sourceNote}
+        {sourceNote}
       </figcaption>
 
       <div className="sr-only">

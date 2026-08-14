@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { resolveMarkdownRoute } from "@/lib/agent-routing";
+import {
+  NAKAFA_GROWTH_CASE_STUDY_HREF,
+  NAKAFA_GROWTH_MARKDOWN_HREF,
+} from "@/lib/nakafa-growth";
 
 describe("resolveMarkdownRoute", () => {
   it.each([
@@ -7,7 +11,7 @@ describe("resolveMarkdownRoute", () => {
     ["/collaborate", "/collaborate.md"],
     ["/privacy", "/privacy.md"],
     ["/work", "/work.md"],
-    ["/work/nakafa-organic-growth", "/work/nakafa-organic-growth.md"],
+    [NAKAFA_GROWTH_CASE_STUDY_HREF, NAKAFA_GROWTH_MARKDOWN_HREF],
   ])("maps %s to its Markdown route", (pathname, expected) => {
     expect(
       resolveMarkdownRoute({

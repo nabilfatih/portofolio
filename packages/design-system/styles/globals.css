@@ -3,7 +3,7 @@
 @plugin "@tailwindcss/typography";
 
 @source "../../**/*.{ts,tsx}";
-@source "../../../apps/www/**/*.{ts,tsx}";
+@source "../../../apps/www/**/*.{mdx,ts,tsx}";
 
 /* Theme tokens follow shadcn's CSS variable model.
  * @see https://ui.shadcn.com/docs/theming

@@ -1,0 +1,280 @@
+# hey, I'm Nabil 👋
+
+> For AI agents: use [llms.txt](https://nabilfatih.com/llms.txt) for the site index. Markdown versions are available at the .md routes or by sending Accept: text/markdown.
+
+I'm a product engineer who takes software from idea to production. I build web products and the APIs, data workflows, internal tools, and applied AI behind them. Read more about [my work](https://nabilfatih.com/work) or visit [Nakafa](https://nakafa.com), the source-available learning platform I started. Outside work, I love Maine Coon cats, traveling, and being with my [lovely person](https://instagram.com/nisrinahn%5F).
+
+[3,782 contributions in the last year](https://github.com/nabilfatih)
+
+Selected work
+
+## I build the product and the growth system around it.
+
+I own Nakafa's product and organic growth system, including technical SEO, content architecture, measurement, and the software that keeps them connected.
+
+- 14,479 organic clicks
+- 2,037,927 search impressions
+- 71,802 Google AI impressions
+
+[Read the case study](https://nabilfatih.com/work/nakafa-organic-growth) [See how I can help](https://nabilfatih.com/collaborate)
+
+Open to collaborations
+
+## I help turn product ideas into reliable software.
+
+I work across product decisions and implementation, including interfaces, APIs, internal tools, data workflows, and applied AI. If you need a contractor or B2B partner who can keep the whole system connected, tell me what you are working on.
+
+[Discuss a project](mailto:nabilakbarazzima@gmail.com?subject=Project%20collaboration&body=Hi%20Nabil%2C%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20contract%20or%20B2B%20project.%0A%0ACompany%3A%0AProject%3A%0AWhat%20I%20need%20help%20with%3A%0ATimeline%3A%0ABudget%20range%3A%0A%0ABest%2C%0A%5BYour%20name%5D)
+
+
+# Work
+
+> For AI agents: use [llms.txt](https://nabilfatih.com/llms.txt) for the site index. Markdown versions are available at the `.md` routes or by sending `Accept: text/markdown`.
+
+I build software from early product ideas through production. Here are the products and systems I have worked on.
+
+## [StrategyBridgeAI GmbH](https://www.strategybridge.ai/)
+
+Product Engineer, Full-Stack, Jul 2024 - Jul 2026
+
+- Took Strategy Console from an early concept to production and shaped the workflows used for financial and business analysis.
+- Owned delivery across the Next.js interface, Python and FastAPI services, REST APIs, shared TypeScript contracts, and releases.
+- Built editable spreadsheet-style views, integrated production LLM features, and added product analytics and technical documentation as the system grew.
+
+## [Schneider Electric GmbH](https://www.se.com/de/de/)
+
+Application Developer, Internal Tools, Jan 2024 - Jun 2024
+
+- Built an internal operations app with Power Apps, Power Automate, and Dataverse so non-technical staff could manage records directly.
+- Created forms, validation, and automated update flows that reduced repetitive data entry and dependence on manual IT support.
+- Refined the interface through user testing and documented the workflow for onboarding and handover.
+
+## [Wemakefuture AG](https://www.wemakefuture.com/)
+
+Full-Stack Developer, Mar 2022 - Dec 2023
+
+- Built SaaS workflows that synchronized data between applications using PostgreSQL, Azure Functions, Zapier, and n8n.
+- Worked across frontend, backend, database, and external integrations, including a Stripe payment flow and OpenAI-powered code generation.
+- Migrated a large JavaScript codebase to TypeScript and added Supabase row-level security for customer data.
+
+## [Nakafa](https://nakafa.com)
+
+Founder and Lead Product Engineer, Feb 2021 - Present
+
+- Founded and built a source-available education platform used by roughly 1,000 to 2,000 people each week.
+- Own the product across learning and assessment flows, school tools, billing, analytics, localization, backend systems, and production releases.
+- Built Nina, a tool-using AI tutor with source-backed retrieval and deterministic evaluations, plus interactive 3D math lessons.
+- Built Aksara, a signed content release system with hash verification, staged activation, recovery, and rollback.
+
+[Read the Nakafa organic growth case study](https://nabilfatih.com/work/nakafa-organic-growth)
+
+## [eco2050 Institute for Sustainability](https://eco2050.de/en/)
+
+AI and Data Science Research, Aug 2021 - Sep 2022
+
+- Used Python, Pandas, NumPy, and Matplotlib to research questions across artificial intelligence, data science, and sustainability.
+- Turned the findings into published explanations for readers without a technical background.
+
+## [OTH Regensburg](https://www.oth-regensburg.de/en/)
+
+B.Sc. Artificial Intelligence and Data Science
+
+- Completed a 210 ECTS degree covering machine learning, deep learning, natural language processing, computer vision, data mining, statistical modeling, and big data analytics.
+- Wrote a bachelor thesis on retrieval-augmented generation for conversational agents, graded 1.3.
+
+
+Work with me
+
+# I help teams turn product problems into working software.
+
+> For AI agents: use [llms.txt](https://nabilfatih.com/llms.txt) for the site index. Markdown versions are available at the .md routes or by sending Accept: text/markdown.
+
+I am available as a contractor or B2B partner when a team needs hands-on ownership across product decisions, implementation, and measurement.
+
+[Discuss a project](mailto:nabilakbarazzima@gmail.com?subject=Project%20collaboration&body=Hi%20Nabil%2C%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20contract%20or%20B2B%20project.%0A%0ACompany%3A%0AProject%3A%0AWhat%20I%20need%20help%20with%3A%0ATimeline%3A%0ABudget%20range%3A%0A%0ABest%2C%0A%5BYour%20name%5D)
+
+## Where I can help
+
+- ### Growth engineering  
+I take ownership of the product work behind organic growth. That includes search architecture, reusable content routes, measurement, and the releases needed to improve them.
+
+  - Search and content architecture
+  - Programmatic page systems
+  - Analytics and attribution
+- ### Product engineering  
+I turn an unclear brief into a production release. Depending on the problem, I can own the interface, API, data model, internal workflow, or the whole slice.
+
+  - Web products and APIs
+  - Internal workflows and automation
+  - Production delivery and maintenance
+- ### Applied AI systems  
+I build AI features people can use in production, with retrieval, tools, evaluations, and product controls designed into the system.
+
+  - Retrieval and tool use
+  - Evaluation systems
+  - AI product integration
+
+How the work connects
+
+## The product and its growth loop should share one system.
+
+I work through one loop so search demand, software, and product data inform the next decision.
+
+1. ### 1. Find the signal  
+Start with search demand, user behavior, or a product bottleneck.
+2. ### 2. Shape the system  
+Turn the evidence into a clear product and content architecture.
+3. ### 3. Ship the change  
+Build the interface, API, workflow, or page system.
+4. ### 4. Measure what happened  
+Use search and product analytics to decide what changes next.
+
+Proof of work
+
+## Nakafa shows how I connect product work with organic growth.
+
+The case study shows the system, measured results, and the limits of what the data can prove.
+
+- 14,479 organic clicks
+- 2,037,927 search impressions
+- 71,802 Google AI impressions
+
+[Open the case study](https://nabilfatih.com/work/nakafa-organic-growth)
+
+## A useful engagement starts with
+
+- A focused product or growth problem with a clear owner on your side.
+- Access to the people, product context, and measurement needed to make sound decisions.
+- A practical first scope, followed by continued delivery when the partnership is working well.
+
+## Tell me what you are trying to build or improve.
+
+The email draft asks for the project, timeline, and budget range so we can quickly see whether the fit is right.
+
+[Start a conversation](mailto:nabilakbarazzima@gmail.com?subject=Project%20collaboration&body=Hi%20Nabil%2C%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20contract%20or%20B2B%20project.%0A%0ACompany%3A%0AProject%3A%0AWhat%20I%20need%20help%20with%3A%0ATimeline%3A%0ABudget%20range%3A%0A%0ABest%2C%0A%5BYour%20name%5D)
+
+
+[Work](https://nabilfatih.com/work)
+
+Growth engineering at Nakafa
+
+# Building organic growth into the product
+
+> For AI agents: use [llms.txt](https://nabilfatih.com/llms.txt) for the site index. Markdown versions are available at the .md routes or by sending Accept: text/markdown.
+
+Nakafa is the learning platform I founded and still lead. I own the product, the content system, and the technical work that helps people find useful lessons through search.
+
+## Search results
+
+Google Search Console measured these results from April 12, 2025 through August 11, 2026.
+
+- 14,479 organic clicks
+- 2,037,927 search impressions
+- 0.7% average CTR
+- 8.5 average position
+
+## The problem
+
+Useful learning content is not enough on its own. Every lesson needs a stable place in the product, a clear relationship to its subject and curriculum, accurate metadata, and a publishing path that can grow without creating duplicate or stale pages.
+
+Search, content, localization, analytics, and product delivery had to work as one system. I treated that as an engineering problem, not a separate marketing task.
+
+## What I owned
+
+### Search architecture
+
+I built canonical, language-aware routes for lessons, topics, curricula, and articles, with metadata and structured data tied to the same content model.
+
+### Programmatic content system
+
+I connected authored learning content to reusable page templates, sitemap generation, internal navigation, and signed releases so new coverage can ship without hand-building every page.
+
+### Measurement and iteration
+
+I used Search Console and product analytics to follow queries, indexed pages, referrals, and product use. The evidence guides what to improve without pretending every change caused the full result.
+
+## Organic reach earned over time
+
+The cumulative view shows how organic clicks added up across complete months. The source data remains available month by month in the accessible table.
+
+### Cumulative organic clicks
+
+Complete calendar months from May 2025 through July 2026.
+
+| Month   | Monthly clicks | Cumulative clicks |
+| ------- | -------------- | ----------------- |
+| 2025-05 | 82             | 82                |
+| 2025-06 | 63             | 145               |
+| 2025-07 | 601            | 746               |
+| 2025-08 | 1221           | 1967              |
+| 2025-09 | 748            | 2715              |
+| 2025-10 | 1508           | 4223              |
+| 2025-11 | 2316           | 6539              |
+| 2025-12 | 977            | 7516              |
+| 2026-01 | 2872           | 10388             |
+| 2026-02 | 1415           | 11803             |
+| 2026-03 | 773            | 12576             |
+| 2026-04 | 531            | 13107             |
+| 2026-05 | 633            | 13740             |
+| 2026-06 | 405            | 14145             |
+| 2026-07 | 227            | 14372             |
+
+Source: Google Search Console, Web search performance. Complete months account for 14,372 clicks. The 14,479 aggregate also includes 18 clicks from April 12 to 30, 2025 and 89 clicks from August 1 to 11, 2026.
+
+## Visibility in Google AI features
+
+Google Search Console reported 71,802 impressions across 549 Nakafa pages in its Generative AI features report from May 18, 2026 through August 11, 2026. I use this as evidence that the same content system is being surfaced in newer search experiences. It is an impression metric, not a conversion metric.
+
+## Google referral traffic
+
+PostHog recorded 26,819 pageviews attributed to Google search from January 1, 2026 through August 13, 2026. The project has no recorded Google-search pageviews before January in this dataset, so I do not present it as a full-period traffic total.
+
+### Pageviews from Google search
+
+Complete calendar months from January through July 2026.
+
+| Month   | Pageviews |
+| ------- | --------- |
+| 2026-01 | 3958      |
+| 2026-02 | 3085      |
+| 2026-03 | 2147      |
+| 2026-04 | 4655      |
+| 2026-05 | 2662      |
+| 2026-06 | 2877      |
+| 2026-07 | 5656      |
+
+Source: PostHog, pageviews attributed to Google search. August 1 to 13, 2026 is excluded from the chart because it is a partial month. Search Console and PostHog measure different parts of the journey and are not added together.
+
+## What the evidence can support
+
+The data shows Nakafa earned substantial search visibility while I owned the product and growth system. It does not isolate one change as the cause. Search demand, seasonality, content quality, technical work, and changes in Google can all affect the result.
+
+Search Console and PostHog also measure different parts of the journey. Their totals should be read separately and never added together.
+
+For your product
+
+## I can connect growth work to the software that has to support it.
+
+That can mean auditing the current search foundation, building a programmatic content workflow, improving measurement, or owning the product changes needed to make the growth plan real.
+
+[Discuss a project](mailto:nabilakbarazzima@gmail.com?subject=Project%20collaboration&body=Hi%20Nabil%2C%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20contract%20or%20B2B%20project.%0A%0ACompany%3A%0AProject%3A%0AWhat%20I%20need%20help%20with%3A%0ATimeline%3A%0ABudget%20range%3A%0A%0ABest%2C%0A%5BYour%20name%5D) [See how I can help](https://nabilfatih.com/collaborate)
+
+Evidence snapshot: Google Search Console, Web search performance and Google Search Console, Generative AI features report were verified on August 13, 2026. PostHog, pageviews attributed to Google search was verified on August 14, 2026.
+
+
+# Privacy
+
+> For AI agents: use [llms.txt](https://nabilfatih.com/llms.txt) for the site index. Markdown versions are available at the `.md` routes or by sending `Accept: text/markdown`.
+
+Last updated August 8, 2026.
+
+This portfolio uses Vercel Web Analytics for anonymous, aggregate traffic statistics. Vercel says its Web Analytics product does not use third-party cookies or associate a visit with an individual or an IP address.
+
+Vercel Speed Insights collects Core Web Vitals so I can understand how the site performs for visitors.
+
+The site has no account system, contact form, advertising, or visitor database. I do not use it to build personal profiles.
+
+- [Vercel Web Analytics privacy documentation](https://vercel.com/docs/analytics/privacy-policy)
+- [Vercel Speed Insights metrics documentation](https://vercel.com/docs/speed-insights/metrics)
+
+If you have a question about privacy on this site, contact me through [LinkedIn](https://www.linkedin.com/in/nabilfatih).

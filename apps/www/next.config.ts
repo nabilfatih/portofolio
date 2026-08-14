@@ -1,3 +1,4 @@
+import createMdx from "@next/mdx";
 import type { NextConfig } from "next";
 
 const scriptSources = ["'self'", "'unsafe-inline'"];
@@ -46,32 +47,42 @@ const contentHeaders = [
   { key: "X-Llms-Txt", value: "/llms.txt" },
 ] as const;
 
+const contentRoutes = [
+  "/",
+  "/collaborate",
+  "/privacy",
+  "/work",
+  "/work/nakafa-organic-growth",
+  "/collaborate.md",
+  "/index.md",
+  "/llms-full.txt",
+  "/llms.txt",
+  "/privacy.md",
+  "/work.md",
+  "/work/nakafa-organic-growth.md",
+] as const;
+
 const nextConfig: NextConfig = {
+  cacheComponents: true,
   async headers() {
     return [
       {
         headers: [...securityHeaders],
         source: "/(.*)",
       },
-      {
+      ...contentRoutes.map((source) => ({
         headers: [...contentHeaders],
-        source: "/",
-      },
-      {
-        headers: [...contentHeaders],
-        source: "/work",
-      },
-      {
-        headers: [...contentHeaders],
-        source: "/privacy",
-      },
+        source,
+      })),
     ];
   },
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  pageExtensions: ["mdx", "tsx", "ts", "jsx", "js"],
+  partialPrefetching: true,
   poweredByHeader: false,
   reactStrictMode: true,
 };
 
-export default nextConfig;
+export default createMdx()(nextConfig);

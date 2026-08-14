@@ -1,0 +1,15 @@
+# Nabil Akbarazzima Fatih
+
+> Portfolio of Nabil Fatih, a product engineer building web products, APIs, growth systems, internal tools, and applied AI, including Nakafa.
+
+## Portfolio
+
+- [Home](https://nabilfatih.com/index.md): Introduction and primary profile links.
+- [Work](https://nabilfatih.com/work.md): Professional experience and education.
+- [Collaborate](https://nabilfatih.com/collaborate.md): Product engineering, growth systems, and applied AI support.
+- [Nakafa organic growth case study](https://nabilfatih.com/work/nakafa-organic-growth.md): Verified growth evidence and its limits.
+- [Privacy](https://nabilfatih.com/privacy.md): Analytics, performance measurement, and contact details.
+
+## Complete context
+
+- [Full portfolio text](https://nabilfatih.com/llms-full.txt): The complete public portfolio in one text file.

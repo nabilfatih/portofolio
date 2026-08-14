@@ -4,6 +4,10 @@ import { basename, extname } from "node:path";
 
 const MAX_WORDS = 2;
 const CONVENTIONAL_SUFFIXES = [".config", ".spec", ".test"];
+const GENERATED_FILES = new Set([
+  "apps/www/public/work/nakafa-organic-growth.md",
+]);
+const VENDORED_DIRECTORIES = [".agents/skills/"];
 
 function repositoryFiles() {
   const output = execFileSync(
@@ -35,7 +39,11 @@ function wordCount(file) {
 }
 
 const violations = repositoryFiles().filter(
-  (file) => wordCount(file) > MAX_WORDS
+  (file) =>
+    !(
+      GENERATED_FILES.has(file) ||
+      VENDORED_DIRECTORIES.some((directory) => file.startsWith(directory))
+    ) && wordCount(file) > MAX_WORDS
 );
 
 if (violations.length > 0) {

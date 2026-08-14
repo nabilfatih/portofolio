@@ -5,10 +5,7 @@ import {
   EvilSeriesChart,
 } from "@repo/design-system/components/evilcharts/series-chart";
 import { Suspense } from "react";
-import {
-  nakafaGrowthCaseStudy,
-  nakafaMonthlyGooglePageviews,
-} from "@/lib/nakafa-growth";
+import { nakafaMonthlyGooglePageviews } from "@/lib/nakafa-growth";
 
 const chartConfig = {
   pageviews: {
@@ -32,7 +29,15 @@ const longMonthFormatter = new Intl.DateTimeFormat("en", {
   year: "numeric",
 });
 
-export function NakafaReferralChart() {
+export function NakafaReferralChart({
+  description,
+  sourceNote,
+  title,
+}: {
+  readonly description: string;
+  readonly sourceNote: string;
+  readonly title: string;
+}) {
   return (
     <figure
       aria-labelledby="google-referral-chart-title"
@@ -43,11 +48,9 @@ export function NakafaReferralChart() {
           className="font-medium text-lg tracking-tight"
           id="google-referral-chart-title"
         >
-          {nakafaGrowthCaseStudy.postHog.chartTitle}
+          {title}
         </h3>
-        <p className="text-muted-foreground text-sm">
-          {nakafaGrowthCaseStudy.postHog.chartDescription}
-        </p>
+        <p className="text-muted-foreground text-sm">{description}</p>
       </div>
 
       <Suspense
@@ -84,7 +87,7 @@ export function NakafaReferralChart() {
       </Suspense>
 
       <figcaption className="text-pretty text-muted-foreground text-sm leading-relaxed">
-        {nakafaGrowthCaseStudy.postHog.sourceNote}
+        {sourceNote}
       </figcaption>
 
       <div className="sr-only">

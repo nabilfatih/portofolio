@@ -1,0 +1,93 @@
+import type { MDXComponents } from "mdx/types";
+import {
+  Capability,
+  CapabilityList,
+  ProcessList,
+  ProcessStep,
+  ProofMetrics,
+} from "@/components/mdx/collaborate";
+import {
+  ActionRow,
+  AgentDirective,
+  BackLink,
+  ChartSection,
+  ContactAction,
+  ContactRow,
+  EvidenceNote,
+  Eyebrow,
+  GhostAction,
+  HeaderAction,
+  HomeSection,
+  HomeTitle,
+  Intro,
+  MdxAnchor,
+  MdxHeading2,
+  MdxHeading3,
+  MdxListItem,
+  MdxOrderedList,
+  MdxParagraph,
+  MdxUnorderedList,
+  PageHeader,
+  PageTitle,
+  PrimaryAction,
+  ProofAction,
+  ProofPanel,
+  Section,
+} from "@/components/mdx/content";
+import {
+  GrowthChart,
+  GrowthResults,
+  ReferralChart,
+} from "@/components/mdx/growth";
+import {
+  GitHubActivity,
+  GrowthMetrics,
+  ProfileGallery,
+} from "@/components/mdx/home";
+
+const portfolioMdxComponents = {
+  ActionRow,
+  AgentDirective,
+  a: MdxAnchor,
+  BackLink,
+  Capability,
+  CapabilityList,
+  ChartSection,
+  ContactAction,
+  ContactRow,
+  EvidenceNote,
+  Eyebrow,
+  GhostAction,
+  GitHubActivity,
+  GrowthChart,
+  GrowthMetrics,
+  GrowthResults,
+  HeaderAction,
+  HomeSection,
+  HomeTitle,
+  h2: MdxHeading2,
+  h3: MdxHeading3,
+  Intro,
+  li: MdxListItem,
+  ol: MdxOrderedList,
+  PageHeader,
+  PageTitle,
+  PrimaryAction,
+  ProcessList,
+  ProcessStep,
+  ProfileGallery,
+  ProofAction,
+  ProofMetrics,
+  ProofPanel,
+  p: MdxParagraph,
+  ReferralChart,
+  Section,
+  ul: MdxUnorderedList,
+} satisfies MDXComponents;
+
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    ...portfolioMdxComponents,
+    ...components,
+  };
+}

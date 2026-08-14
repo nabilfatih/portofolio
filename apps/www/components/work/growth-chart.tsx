@@ -3,7 +3,7 @@
 import {
   type ChartConfig,
   EvilAreaChart,
-} from "@repo/design-system/components/evilcharts/area/chart";
+} from "@repo/design-system/components/evilcharts/area-chart";
 import { Suspense } from "react";
 import {
   nakafaGrowthCaseStudy,
@@ -35,8 +35,11 @@ const longMonthFormatter = new Intl.DateTimeFormat("en", {
 
 export function NakafaGrowthChart() {
   return (
-    <figure aria-labelledby="organic-clicks-chart-title" className="space-y-4">
-      <div className="space-y-1">
+    <figure
+      aria-labelledby="organic-clicks-chart-title"
+      className="flex flex-col gap-4"
+    >
+      <div className="flex flex-col gap-1">
         <h3
           className="font-medium text-lg tracking-tight"
           id="organic-clicks-chart-title"

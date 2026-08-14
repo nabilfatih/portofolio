@@ -1,7 +1,6 @@
 export const NAKAFA_GROWTH_CASE_STUDY_HREF = "/work/nakafa-organic-growth";
 export const NAKAFA_GROWTH_CASE_STUDY_LABEL =
   "Read the Nakafa organic growth case study";
-export const NAKAFA_GROWTH_EVIDENCE_VERIFIED_AT = "2026-08-13";
 
 const evidenceDateFormatter = new Intl.DateTimeFormat("en", {
   day: "numeric",
@@ -21,12 +20,14 @@ export const nakafaGrowthEvidence = {
     pages: 549,
     source: "Google Search Console, Generative AI features report",
     startDate: "2026-05-18",
+    verifiedAt: "2026-08-13",
   },
   postHog: {
     endDate: "2026-08-13",
-    pageviewsFromGoogleSearch: 26_803,
+    pageviewsFromGoogleSearch: 26_819,
     source: "PostHog, pageviews attributed to Google search",
     startDate: "2026-01-01",
+    verifiedAt: "2026-08-14",
   },
   searchConsole: {
     averagePosition: 8.5,
@@ -36,6 +37,7 @@ export const nakafaGrowthEvidence = {
     impressions: 2_037_927,
     source: "Google Search Console, Web search performance",
     startDate: "2025-04-12",
+    verifiedAt: "2026-08-13",
   },
 } as const;
 
@@ -81,7 +83,7 @@ export const nakafaGrowthCaseStudy = {
       "Search Console and PostHog also measure different parts of the journey. Their totals should be read separately and never added together.",
     ],
   },
-  evidenceSnapshot: `Evidence snapshot: ${nakafaGrowthEvidence.searchConsole.source}, ${nakafaGrowthEvidence.googleAi.source}, and ${nakafaGrowthEvidence.postHog.source}. Metrics were verified on ${formatEvidenceDate(NAKAFA_GROWTH_EVIDENCE_VERIFIED_AT)}.`,
+  evidenceSnapshot: `Evidence snapshot: ${nakafaGrowthEvidence.searchConsole.source} and ${nakafaGrowthEvidence.googleAi.source} were verified on ${formatEvidenceDate(nakafaGrowthEvidence.searchConsole.verifiedAt)}. ${nakafaGrowthEvidence.postHog.source} was verified on ${formatEvidenceDate(nakafaGrowthEvidence.postHog.verifiedAt)}.`,
   eyebrow: "Growth engineering at Nakafa",
   googleAi: {
     description: `Google Search Console reported ${nakafaGrowthEvidence.googleAi.impressions.toLocaleString("en")} impressions across ${nakafaGrowthEvidence.googleAi.pages.toLocaleString("en")} Nakafa pages in its Generative AI features report from ${formatEvidenceDate(nakafaGrowthEvidence.googleAi.startDate)} through ${formatEvidenceDate(nakafaGrowthEvidence.googleAi.endDate)}. I use this as evidence that the same content system is being surfaced in newer search experiences. It is an impression metric, not a conversion metric.`,

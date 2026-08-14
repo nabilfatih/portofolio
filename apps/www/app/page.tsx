@@ -1,4 +1,4 @@
-import { Mail01Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight02Icon, Mail01Icon } from "@hugeicons/core-free-icons";
 import { HugeIcons } from "@repo/design-system/components/ui/huge-icons";
 import { Particles } from "@repo/design-system/components/ui/particles";
 import { buttonVariants } from "@repo/design-system/lib/button";
@@ -192,15 +192,21 @@ export default async function Home() {
               </div>
             </dl>
 
-            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
-                className="text-primary underline-offset-4 hover:underline"
+                className={buttonVariants({
+                  className: "w-full sm:w-fit",
+                })}
                 href={NAKAFA_GROWTH_CASE_STUDY_HREF}
               >
                 Read the case study
+                <HugeIcons data-icon="inline-end" icon={ArrowRight02Icon} />
               </Link>
               <Link
-                className="underline-offset-4 hover:underline"
+                className={buttonVariants({
+                  className: "w-full sm:w-fit",
+                  variant: "ghost",
+                })}
                 href={COLLABORATE_HREF}
               >
                 See how I can help
@@ -232,7 +238,7 @@ export default async function Home() {
               })}
               href={CONTACT_HREF}
             >
-              <HugeIcons icon={Mail01Icon} />
+              <HugeIcons data-icon="inline-start" icon={Mail01Icon} />
               {collaborationCta.actionLabel}
             </a>
           </section>

@@ -1,6 +1,7 @@
 import {
   collaborationCapabilities,
   collaborationContact,
+  collaborationLoop,
   collaborationPage,
   collaborationProof,
   collaborationWorkingModel,
@@ -125,6 +126,9 @@ ${examples}`;
   const workingModel = collaborationWorkingModel
     .map((item) => `- ${item}`)
     .join("\n");
+  const growthLoop = collaborationLoop.steps
+    .map((step) => `- ${step.title}: ${step.description}`)
+    .join("\n");
 
   return `# ${collaborationPage.heading}
 
@@ -140,11 +144,29 @@ ${collaborationPage.description}
 
 ${capabilities}
 
+## ${collaborationLoop.eyebrow}
+
+### ${collaborationLoop.heading}
+
+${collaborationLoop.description}
+
+${growthLoop}
+
 ## ${collaborationProof.eyebrow}
 
 ### ${collaborationProof.heading}
 
 ${collaborationProof.description}
+
+- ${nakafaGrowthEvidence.searchConsole.clicks.toLocaleString("en")} organic clicks
+- ${nakafaGrowthEvidence.searchConsole.impressions.toLocaleString("en")} search impressions
+- ${nakafaGrowthEvidence.googleAi.impressions.toLocaleString("en")} Google AI impressions
+
+#### ${nakafaGrowthCaseStudy.trend.chartTitle}
+
+${nakafaGrowthCaseStudy.trend.chartDescription}
+
+${nakafaGrowthCaseStudy.trend.sourceNote}
 
 [${collaborationProof.actionLabel}](${SITE_URL}${NAKAFA_GROWTH_CASE_STUDY_HREF})
 

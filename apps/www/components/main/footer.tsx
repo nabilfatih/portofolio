@@ -46,7 +46,7 @@ export default async function MainFooter() {
           <div className="relative space-y-6">
             <Link className="flex w-fit items-center" href="/">
               <Image
-                alt="Nabil Fatih"
+                alt=""
                 className="rounded-full border object-cover shadow"
                 height={28}
                 sizes="28px"

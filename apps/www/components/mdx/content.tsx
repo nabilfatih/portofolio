@@ -31,7 +31,7 @@ export function MdxParagraph({ className, ...props }: ComponentProps<"p">) {
   return (
     <p
       className={cn(
-        "text-pretty text-muted-foreground leading-relaxed",
+        "text-pretty text-foreground/80 leading-relaxed",
         className
       )}
       {...props}
@@ -45,10 +45,7 @@ export function MdxUnorderedList({
 }: ComponentProps<"ul">) {
   return (
     <ul
-      className={cn(
-        "list-disc space-y-2 pl-5 text-muted-foreground",
-        className
-      )}
+      className={cn("list-disc space-y-2 pl-5 text-foreground/80", className)}
       {...props}
     />
   );
@@ -58,7 +55,7 @@ export function MdxOrderedList({ className, ...props }: ComponentProps<"ol">) {
   return (
     <ol
       className={cn(
-        "list-decimal space-y-2 pl-5 text-muted-foreground",
+        "list-decimal space-y-2 pl-5 text-foreground/80",
         className
       )}
       {...props}
@@ -79,7 +76,7 @@ export function MdxAnchor({
   ...props
 }: ComponentProps<"a">) {
   const resolvedClassName = cn(
-    "text-primary underline-offset-4 hover:underline",
+    "text-primary underline underline-offset-4",
     className
   );
 

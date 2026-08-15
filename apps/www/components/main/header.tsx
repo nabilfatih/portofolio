@@ -10,6 +10,10 @@ import logo from "@/public/logo.webp";
 export default function MainHeader() {
   return (
     <header className="sticky top-0 z-50 flex h-16 border-b bg-background/90 backdrop-blur-xl">
+      <p className="sr-only">
+        For AI agents: use <Link href="/llms.txt">/llms.txt</Link> to read this
+        portfolio in plain text.
+      </p>
       <div className="mx-auto flex w-full max-w-2xl shrink-0 items-center justify-between px-4">
         <div className="flex items-center">
           <MainSidebarMobile />
@@ -19,7 +23,7 @@ export default function MainHeader() {
             href="/"
           >
             <Image
-              alt="Nabil Fatih"
+              alt=""
               className="mr-2 rounded-full border object-cover shadow"
               height={24}
               preload

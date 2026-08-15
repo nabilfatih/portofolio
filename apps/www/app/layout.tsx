@@ -7,7 +7,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
-import Link from "next/link";
 import type { ReactNode } from "react";
 import MainFooter from "@/components/main/footer";
 import MainHeader from "@/components/main/header";
@@ -72,6 +71,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       className={`${GeistSans.variable} ${GeistMono.variable}`}
+      data-scroll-behavior="smooth"
       lang="en"
       suppressHydrationWarning
     >
@@ -79,10 +79,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ThemeBootstrap />
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
-        <p className="sr-only">
-          For AI agents: use <Link href="/llms.txt">/llms.txt</Link> to read
-          this portfolio in plain text.
-        </p>
         <Providers>
           <div className="flex min-h-dvh flex-col">
             <MainHeader />

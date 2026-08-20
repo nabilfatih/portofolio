@@ -14,10 +14,10 @@ function findSubtreeCommit() {
     "git",
     [
       "log",
-      "--all",
       "--format=%B",
       "--grep=^git-subtree-dir: repos/effect$",
       "-1",
+      "HEAD",
     ],
     { encoding: "utf8" }
   );
@@ -42,12 +42,19 @@ const portfolioPackage = await readJson("apps/www/package.json");
 const effectPackage = await readJson(
   "repos/effect/packages/effect/package.json"
 );
+const effectVitestPackage = await readJson(
+  "repos/effect/packages/vitest/package.json"
+);
 const installedVersion = portfolioPackage.dependencies.effect;
 const effectVitestVersion = portfolioPackage.devDependencies["@effect/vitest"];
 const sourceCommit = findSubtreeCommit();
 
 assertEqual(installedVersion, effectPackage.version, "Effect source version");
-assertEqual(effectVitestVersion, installedVersion, "@effect/vitest version");
+assertEqual(
+  effectVitestVersion,
+  effectVitestPackage.version,
+  "@effect/vitest source version"
+);
 assertEqual(
   EXPECTED_SOURCE_TAG,
   `effect@${installedVersion}`,

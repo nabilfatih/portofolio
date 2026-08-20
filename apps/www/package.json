@@ -23,11 +23,13 @@
     "@vercel/speed-insights": "^2.0.0",
     "effect": "4.0.0-rc.110",
     "geist": "^1.7.2",
+    "mermaid": "11.16.1",
     "next": "16.3.1",
     "next-themes": "^0.4.6",
     "node-html-parser": "9.0.1",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "remark-gfm": "4.0.1"
   },
   "devDependencies": {
     "@effect/vitest": "4.0.0-rc.110",

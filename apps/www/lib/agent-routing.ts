@@ -1,15 +1,25 @@
-import {
-  NAKAFA_GROWTH_CASE_STUDY_HREF,
-  NAKAFA_GROWTH_MARKDOWN_HREF,
-} from "@/lib/nakafa-growth";
+import { isCaseSlug } from "@/lib/case-slugs";
 
 const MARKDOWN_ROUTES = new Map([
   ["/", "/index.md"],
   ["/collaborate", "/collaborate.md"],
   ["/privacy", "/privacy.md"],
   ["/work", "/work.md"],
-  [NAKAFA_GROWTH_CASE_STUDY_HREF, NAKAFA_GROWTH_MARKDOWN_HREF],
 ]);
+
+function resolveCaseStudyMarkdownRoute(pathname: string) {
+  if (!pathname.startsWith("/work/")) {
+    return null;
+  }
+
+  const slug = pathname.slice("/work/".length);
+
+  if (!isCaseSlug(slug)) {
+    return null;
+  }
+
+  return `/work/${slug}.md`;
+}
 
 export function resolveMarkdownRoute({
   acceptHeader,
@@ -22,5 +32,7 @@ export function resolveMarkdownRoute({
     return null;
   }
 
-  return MARKDOWN_ROUTES.get(pathname) ?? null;
+  return (
+    MARKDOWN_ROUTES.get(pathname) ?? resolveCaseStudyMarkdownRoute(pathname)
+  );
 }

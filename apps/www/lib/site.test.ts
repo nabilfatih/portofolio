@@ -1,13 +1,16 @@
 import { describe, expect, it } from "vitest";
 import {
+  renderAgentDocuments,
+  renderCaseStudyMarkdown,
   renderCollaborateMarkdown,
   renderHomeMarkdown,
   renderLlmsFullText,
   renderLlmsText,
-  renderNakafaGrowthMarkdown,
 } from "@/lib/agent-docs";
-import { NAKAFA_GROWTH_MARKDOWN_HREF } from "@/lib/nakafa-growth";
+import { caseStudies } from "@/lib/cases";
 import { CONTACT_EMAIL, CONTACT_HREF, siteConfig } from "@/lib/site";
+
+const MARKDOWN_TABLE_SEPARATOR_PATTERN = /\n\| -+ \| -+ \| -+ \|\n/;
 
 describe("portfolio contact link", () => {
   it("opens a complete contract and B2B email draft", () => {
@@ -43,7 +46,7 @@ describe("portfolio contact link", () => {
 
   it("publishes the collaboration and case study pages to agents", () => {
     const collaborationMarkdown = renderCollaborateMarkdown();
-    const caseStudyMarkdown = renderNakafaGrowthMarkdown();
+    const caseStudyMarkdown = renderCaseStudyMarkdown("nakafa-growth");
     const fullPortfolioMarkdown = renderLlmsFullText();
     const llmsText = renderLlmsText();
 
@@ -61,7 +64,28 @@ describe("portfolio contact link", () => {
     expect(caseStudyMarkdown).toContain("26,819");
     expect(caseStudyMarkdown).toContain("August 1 to 13, 2026");
     expect(llmsText).toContain("/collaborate.md");
-    expect(llmsText).toContain(NAKAFA_GROWTH_MARKDOWN_HREF);
+    for (const study of caseStudies) {
+      expect(llmsText).toContain(study.markdownHref);
+      expect(renderCaseStudyMarkdown(study.slug)).toContain(study.title);
+    }
     expect(fullPortfolioMarkdown).toContain(caseStudyMarkdown.trim());
+  });
+
+  it("publishes every case through the same document pipeline", () => {
+    const documents = renderAgentDocuments();
+    const outputPaths = documents.map((document) => document.outputPath);
+
+    expect(new Set(outputPaths).size).toBe(outputPaths.length);
+    for (const study of caseStudies) {
+      expect(outputPaths).toContain(study.markdownHref.slice(1));
+    }
+  });
+
+  it("renders authored MDX tables as multiline Markdown tables", () => {
+    const ninaMarkdown = renderCaseStudyMarkdown("nina-tutor");
+
+    expect(ninaMarkdown).toContain("| Part");
+    expect(ninaMarkdown).toMatch(MARKDOWN_TABLE_SEPARATOR_PATTERN);
+    expect(ninaMarkdown).not.toContain("<table");
   });
 });

@@ -1,21 +1,18 @@
+import { CASE_SLUGS } from "@/lib/case-slugs";
 import {
   formatEvidenceDate,
   nakafaGrowthEvidence,
 } from "@/lib/nakafa-growth";
 
-<PageHeader>
+export const caseStudy = {
+  company: "Nakafa",
+  description: "Nakafa is the learning platform I founded. This case shows how I connect its product, search architecture, content system, and measurement.",
+  discipline: "Growth engineering",
+  slug: CASE_SLUGS.growth,
+  title: "Building organic growth into the product",
+};
 
-<BackLink href="/work">Work</BackLink>
-
-<Eyebrow>Growth engineering at Nakafa</Eyebrow>
-
-<PageTitle>Building organic growth into the product</PageTitle>
-
-<AgentDirective />
-
-Nakafa is the learning platform I founded and still lead. I own the product, the content system, and the technical work that helps people find useful lessons through search.
-
-</PageHeader>
+<CaseHeader eyebrow="Growth engineering at Nakafa" metadata={caseStudy} />
 
 <Section>
 
@@ -103,9 +100,9 @@ Search Console and PostHog also measure different parts of the journey. Their to
 
 <Section>
 
-<Eyebrow>For your product</Eyebrow>
+<Eyebrow>Need growth work that reaches the codebase?</Eyebrow>
 
-## I can connect growth work to the software that has to support it.
+## I can connect the growth plan to the software that has to support it.
 
 That can mean auditing the current search foundation, building a programmatic content workflow, improving measurement, or owning the product changes needed to make the growth plan real.
 

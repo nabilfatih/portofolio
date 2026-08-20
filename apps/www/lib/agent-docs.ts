@@ -4,23 +4,16 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createAgentMdxComponents } from "@/components/mdx/agent";
 import CollaborateContent from "@/content/collaborate.mdx";
-import GrowthContent from "@/content/growth.mdx";
 import HomeContent from "@/content/home.mdx";
+import WorkContent from "@/content/work/index.mdx";
+import { caseStudies, getCaseStudy } from "@/lib/cases";
 import type { GitHubContributionSummary } from "@/lib/github";
-import { NAKAFA_GROWTH_MARKDOWN_HREF } from "@/lib/nakafa-growth";
 import {
   privacyContent,
   VERCEL_ANALYTICS_PRIVACY_URL,
   VERCEL_SPEED_INSIGHTS_URL,
 } from "@/lib/privacy";
 import { SITE_URL, siteConfig } from "@/lib/site";
-import { educationEntry, workEntries } from "@/lib/work";
-
-const markdownCompiler = new NodeHtmlMarkdown({
-  bulletMarker: "-",
-  textReplace: [[/\\\./g, "."]],
-  useInlineLinks: true,
-});
 
 const AGENT_MARKDOWN_DIRECTIVE = `> For AI agents: use [llms.txt](${SITE_URL}/llms.txt) for the site index. Markdown versions are available at the \`.md\` routes or by sending \`Accept: text/markdown\`.`;
 
@@ -31,51 +24,56 @@ export function renderHomeMarkdown(
 }
 
 export function renderWorkMarkdown() {
-  const experience = workEntries
-    .map((entry) => {
-      const summary = entry.summary.map((item) => `- ${item}`).join("\n");
-
-      const caseStudy = entry.caseStudyHref
-        ? `\n\n[Read the Nakafa organic growth case study](${SITE_URL}${entry.caseStudyHref})`
-        : "";
-
-      return `## [${entry.company}](${entry.companyUrl})
-
-${entry.role}, ${entry.period}
-
-${summary}${caseStudy}`;
-    })
-    .join("\n\n");
-
-  const educationSummary = educationEntry.summary
-    .map((item) => `- ${item}`)
-    .join("\n");
-
-  return `# Work
-
-${AGENT_MARKDOWN_DIRECTIVE}
-
-I build software from early product ideas through production. Here are the products and systems I have worked on.
-
-${experience}
-
-## [${educationEntry.institution}](${educationEntry.institutionUrl})
-
-${educationEntry.program}
-
-${educationSummary}
-`;
+  return renderMdxMarkdown(WorkContent);
 }
 
 export function renderCollaborateMarkdown() {
   return renderMdxMarkdown(CollaborateContent);
 }
 
-export function renderNakafaGrowthMarkdown() {
-  return renderMdxMarkdown(GrowthContent);
+export function renderCaseStudyMarkdown(slug: string) {
+  const study = getCaseStudy(slug);
+
+  if (!study) {
+    throw new Error(`Unknown case study: ${slug}`);
+  }
+
+  return renderMdxMarkdown(study.content);
+}
+
+export interface RenderedAgentDocument {
+  content: string;
+  outputPath: string;
+}
+
+export function renderAgentDocuments(
+  githubSummary: GitHubContributionSummary | null = null
+): readonly RenderedAgentDocument[] {
+  return [
+    { content: renderHomeMarkdown(githubSummary), outputPath: "index.md" },
+    { content: renderWorkMarkdown(), outputPath: "work.md" },
+    { content: renderCollaborateMarkdown(), outputPath: "collaborate.md" },
+    { content: renderPrivacyMarkdown(), outputPath: "privacy.md" },
+    { content: renderLlmsText(), outputPath: "llms.txt" },
+    {
+      content: renderLlmsFullText(githubSummary),
+      outputPath: "llms-full.txt",
+    },
+    ...caseStudies.map((study) => ({
+      content: renderCaseStudyMarkdown(study.slug),
+      outputPath: study.markdownHref.slice(1),
+    })),
+  ];
 }
 
 export function renderLlmsText() {
+  const caseStudyLinks = caseStudies
+    .map(
+      (study) =>
+        `- [${study.title}](${SITE_URL}${study.markdownHref}): ${study.description}`
+    )
+    .join("\n");
+
   return `# ${siteConfig.name}
 
 > ${siteConfig.description}
@@ -83,10 +81,13 @@ export function renderLlmsText() {
 ## Portfolio
 
 - [Home](${SITE_URL}/index.md): Introduction and primary profile links.
-- [Work](${SITE_URL}/work.md): Professional experience and education.
+- [Work](${SITE_URL}/work.md): Case studies, professional experience, and education.
 - [Collaborate](${SITE_URL}/collaborate.md): Product engineering, growth systems, and applied AI support.
-- [Nakafa organic growth case study](${SITE_URL}${NAKAFA_GROWTH_MARKDOWN_HREF}): Verified growth evidence and its limits.
 - [Privacy](${SITE_URL}/privacy.md): Analytics, performance measurement, and contact details.
+
+## Case studies
+
+${caseStudyLinks}
 
 ## Complete context
 
@@ -117,7 +118,11 @@ ${privacyContent.contact} [LinkedIn](https://www.linkedin.com/in/nabilfatih).
 export function renderLlmsFullText(
   githubSummary: GitHubContributionSummary | null = null
 ) {
-  return `${renderHomeMarkdown(githubSummary)}\n\n${renderWorkMarkdown()}\n\n${renderCollaborateMarkdown()}\n\n${renderNakafaGrowthMarkdown()}\n\n${renderPrivacyMarkdown()}`;
+  const caseStudyMarkdown = caseStudies
+    .map((study) => renderCaseStudyMarkdown(study.slug))
+    .join("\n\n");
+
+  return `${renderHomeMarkdown(githubSummary)}\n\n${renderWorkMarkdown()}\n\n${renderCollaborateMarkdown()}\n\n${caseStudyMarkdown}\n\n${renderPrivacyMarkdown()}`;
 }
 
 function renderMdxMarkdown(
@@ -129,7 +134,14 @@ function renderMdxMarkdown(
       components: createAgentMdxComponents(githubSummary),
     })
   );
-  const markdown = markdownCompiler.translate(html).trim();
+  const markdown = new NodeHtmlMarkdown({
+    bulletMarker: "-",
+    textReplace: [[/\\\./g, "."]],
+    useInlineLinks: true,
+  })
+    .translate(html)
+    .replace(/[\t ]+$/gm, "")
+    .trim();
 
   return `${markdown}\n`;
 }

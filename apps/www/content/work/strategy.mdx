@@ -1,0 +1,75 @@
+import { CASE_SLUGS } from "@/lib/case-slugs";
+
+export const caseStudy = {
+  company: "StrategyBridgeAI GmbH",
+  description: "I took Strategy Console from an early concept to production across its interface, services, analytical workflows, and releases.",
+  discipline: "Product engineering",
+  slug: CASE_SLUGS.strategy,
+  title: "Strategy Console, from concept to production",
+};
+
+<CaseHeader
+  eyebrow="Product engineering at StrategyBridgeAI"
+  metadata={caseStudy}
+/>
+
+<Section>
+
+## The product
+
+Strategy Console supports financial and business analysis. The work was not limited to one screen or service. Product decisions in the interface affected API contracts, data handling, LLM behavior, analytics, and the way each release was operated.
+
+<ArchitectureDiagram
+  title="How the product fit together"
+  description="Product changes crossed the analysis workflow, interface, typed service boundary, and the release path instead of stopping at one layer."
+  chart={`flowchart TB
+    W["Analysis workflow"] --> U["Editable Next.js interface"]
+    U --> C["Shared TypeScript contracts"]
+    C --> P["Python and FastAPI services"]
+    P --> A["Analysis and LLM workflows"]
+    U --> M["Product analytics"]
+    A --> R["Production release"]
+    M --> R`}
+/>
+
+</Section>
+
+<Section>
+
+## What I owned
+
+| Part of the product | What I owned |
+| --- | --- |
+| Product workflow | Took the product from an early concept to a production release and shaped the analytical flow. |
+| Interface | Built and refined editable spreadsheet-style views for analytical work. |
+| Services | Connected the Next.js application to Python and FastAPI through REST APIs and shared TypeScript contracts. |
+| Applied AI | Integrated LLM features into the working product instead of keeping them as a separate demo. |
+| Operations | Added product analytics, release work, and technical documentation as the system grew. |
+
+</Section>
+
+<Section>
+
+## Working across the boundaries
+
+The useful part of this work was the connection between product decisions and implementation. I could change the workflow, follow that change through the interface and service contracts, then carry it into a release without handing the problem across several disconnected owners.
+
+This is the detail I can share publicly. I do not publish internal customer data, private product metrics, or implementation details that belong to StrategyBridgeAI.
+
+</Section>
+
+<Section>
+
+<Eyebrow>Need an owner who also builds?</Eyebrow>
+
+## I can carry one product slice from its first useful shape through production.
+
+That can include the interface, service boundary, data workflow, AI integration, and the release work needed to keep the whole feature usable.
+
+<ActionRow>
+  <ContactAction>Discuss a project</ContactAction>
+  {" "}
+  <GhostAction href="/collaborate">See how I can help</GhostAction>
+</ActionRow>
+
+</Section>

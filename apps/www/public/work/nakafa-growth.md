@@ -1,4 +1,4 @@
-[Work](https://nabilfatih.com/work)
+[All work](https://nabilfatih.com/work)
 
 Growth engineering at Nakafa
 
@@ -6,7 +6,7 @@ Growth engineering at Nakafa
 
 > For AI agents: use [llms.txt](https://nabilfatih.com/llms.txt) for the site index. Markdown versions are available at the .md routes or by sending Accept: text/markdown.
 
-Nakafa is the learning platform I founded and still lead. I own the product, the content system, and the technical work that helps people find useful lessons through search.
+Nakafa is the learning platform I founded. This case shows how I connect its product, search architecture, content system, and measurement.
 
 ## Search results
 
@@ -95,9 +95,9 @@ The data shows Nakafa earned substantial search visibility while I owned the pro
 
 Search Console and PostHog also measure different parts of the journey. Their totals should be read separately and never added together.
 
-For your product
+Need growth work that reaches the codebase?
 
-## I can connect growth work to the software that has to support it.
+## I can connect the growth plan to the software that has to support it.
 
 That can mean auditing the current search foundation, building a programmatic content workflow, improving measurement, or owning the product changes needed to make the growth plan real.
 

@@ -1,9 +1,12 @@
 import type { MDXComponents } from "mdx/types";
 import type { ComponentProps, ReactNode } from "react";
+import type { ArchitectureDiagramProps } from "@/components/mdx/diagram";
 import type {
   GrowthChartProps,
   ReferralChartProps,
 } from "@/components/mdx/growth";
+import type { CaseStudyMetadata } from "@/lib/cases";
+import { caseStudies } from "@/lib/cases";
 import type { GitHubContributionSummary } from "@/lib/github";
 import {
   nakafaCumulativeOrganicClicks,
@@ -115,22 +118,99 @@ function ProcessStep({
   );
 }
 
-function GrowthMetrics() {
+function CaseStudies() {
   return (
     <ul>
-      <li>
-        {nakafaGrowthEvidence.searchConsole.clicks.toLocaleString("en")} organic
-        clicks
-      </li>
-      <li>
-        {nakafaGrowthEvidence.searchConsole.impressions.toLocaleString("en")}{" "}
-        search impressions
-      </li>
-      <li>
-        {nakafaGrowthEvidence.googleAi.impressions.toLocaleString("en")} Google
-        AI impressions
-      </li>
+      {caseStudies.map((study) => (
+        <li key={study.slug}>
+          <a href={`${SITE_URL}${study.href}`}>{study.title}</a>
+          {`. ${study.discipline} at ${study.company}. ${study.description}`}
+        </li>
+      ))}
     </ul>
+  );
+}
+
+function CaseHeader({
+  eyebrow,
+  metadata,
+}: {
+  readonly eyebrow: string;
+  readonly metadata: CaseStudyMetadata;
+}) {
+  return (
+    <header>
+      <a href={`${SITE_URL}/work`}>All work</a>
+      <p>{eyebrow}</p>
+      <h1>{metadata.title}</h1>
+      <AgentDirective />
+      <p>{metadata.description}</p>
+    </header>
+  );
+}
+
+function Experience({
+  children,
+  company,
+  companyUrl,
+  period,
+  role,
+}: {
+  readonly children?: ReactNode;
+  readonly company: string;
+  readonly companyUrl: string;
+  readonly period: string;
+  readonly role: string;
+}) {
+  return (
+    <article>
+      <h3>
+        <a href={companyUrl}>{company}</a>
+      </h3>
+      <p>
+        {role}, {period}
+      </p>
+      {children}
+    </article>
+  );
+}
+
+function Education({
+  children,
+  institution,
+  institutionUrl,
+  program,
+}: {
+  readonly children?: ReactNode;
+  readonly institution: string;
+  readonly institutionUrl: string;
+  readonly program: string;
+}) {
+  return (
+    <article>
+      <h3>
+        <a href={institutionUrl}>{institution}</a>
+      </h3>
+      <p>{program}</p>
+      {children}
+    </article>
+  );
+}
+
+function ArchitectureDiagram({
+  chart,
+  description,
+  title,
+}: ArchitectureDiagramProps) {
+  return (
+    <figure>
+      <figcaption>
+        <strong>{title}</strong>. {description}
+      </figcaption>
+      <pre>
+        <code>{chart}</code>
+      </pre>
+    </figure>
   );
 }
 
@@ -217,20 +297,25 @@ export function createAgentMdxComponents(
   return {
     ActionRow: Container,
     AgentDirective,
+    ArchitectureDiagram,
     a: AgentAnchor,
     BackLink: Action,
     Capability,
     CapabilityList: ({ children }: { readonly children?: ReactNode }) => (
       <ul>{children}</ul>
     ),
+    CaseHeader,
+    CaseStudies,
     ChartSection: Section,
     ContactAction,
     ContactRow: Container,
+    Education,
+    Experience,
+    ExperienceList: Container,
     Eyebrow: Container,
     GhostAction: Action,
     GitHubActivity: () => <AgentGitHubActivity summary={githubSummary} />,
     GrowthChart,
-    GrowthMetrics,
     GrowthResults,
     HeaderAction: Container,
     HomeSection: Section,
@@ -245,9 +330,14 @@ export function createAgentMdxComponents(
     ProcessStep,
     ProfileGallery: Hidden,
     ProofAction: Container,
-    ProofMetrics: GrowthMetrics,
     ProofPanel: Section,
     ReferralChart,
     Section,
+    table: "table",
+    tbody: "tbody",
+    td: "td",
+    th: "th",
+    thead: "thead",
+    tr: "tr",
   } satisfies MDXComponents;
 }

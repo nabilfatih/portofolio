@@ -1,8 +1,3 @@
-export const NAKAFA_GROWTH_CASE_STUDY_HREF = "/work/nakafa-organic-growth";
-export const NAKAFA_GROWTH_MARKDOWN_HREF = `${NAKAFA_GROWTH_CASE_STUDY_HREF}.md`;
-export const NAKAFA_GROWTH_CASE_STUDY_LABEL =
-  "Read the Nakafa organic growth case study";
-
 const evidenceDateFormatter = new Intl.DateTimeFormat("en", {
   day: "numeric",
   month: "long",

@@ -10,24 +10,24 @@ I am available as a contractor or B2B partner when a team needs hands-on ownersh
 
 ## Where I can help
 
-- ### Growth engineering  
-I take ownership of the product work behind organic growth. That includes search architecture, reusable content routes, measurement, and the releases needed to improve them.
-
-  - Search and content architecture
-  - Programmatic page systems
-  - Analytics and attribution
-- ### Product engineering  
+- ### Product engineering
 I turn an unclear brief into a production release. Depending on the problem, I can own the interface, API, data model, internal workflow, or the whole slice.
 
   - Web products and APIs
   - Internal workflows and automation
   - Production delivery and maintenance
-- ### Applied AI systems  
+- ### Applied AI systems
 I build AI features people can use in production, with retrieval, tools, evaluations, and product controls designed into the system.
 
   - Retrieval and tool use
   - Evaluation systems
   - AI product integration
+- ### Growth engineering
+I take ownership of the product work behind organic growth. That includes search architecture, reusable content routes, measurement, and the releases needed to improve them.
+
+  - Search and content architecture
+  - Programmatic page systems
+  - Analytics and attribution
 
 How the work connects
 
@@ -35,26 +35,25 @@ How the work connects
 
 I work through one loop so search demand, software, and product data inform the next decision.
 
-1. ### 1. Find the signal  
+1. ### 1. Find the signal
 Start with search demand, user behavior, or a product bottleneck.
-2. ### 2. Shape the system  
+2. ### 2. Shape the system
 Turn the evidence into a clear product and content architecture.
-3. ### 3. Ship the change  
+3. ### 3. Ship the change
 Build the interface, API, workflow, or page system.
-4. ### 4. Measure what happened  
+4. ### 4. Measure what happened
 Use search and product analytics to decide what changes next.
 
 Proof of work
 
-## Nakafa shows how I connect product work with organic growth.
+## Read the work behind the offer
 
-The case study shows the system, measured results, and the limits of what the data can prove.
+The case studies cover product delivery, applied AI, release systems, and measured organic growth. Each one explains what I owned and what I can show publicly.
 
-- 14,479 organic clicks
-- 2,037,927 search impressions
-- 71,802 Google AI impressions
-
-[Open the case study](https://nabilfatih.com/work/nakafa-organic-growth)
+- [Strategy Console, from concept to production](https://nabilfatih.com/work/strategy-console). Product engineering at StrategyBridgeAI GmbH. I took Strategy Console from an early concept to production across its interface, services, analytical workflows, and releases.
+- [Inside Nina's source-backed tutoring system](https://nabilfatih.com/work/nina-tutor). Applied AI at Nakafa. Nina is Nakafa's AI tutor. It combines source-backed retrieval, explicit learning capabilities, tool use, and deterministic evaluations.
+- [A safer release protocol for Nakafa content](https://nabilfatih.com/work/aksara-system). Platform systems at Nakafa. Aksara is Nakafa's content release system. It signs and verifies releases, then prepares recovery before a candidate becomes visible.
+- [Building organic growth into the product](https://nabilfatih.com/work/nakafa-growth). Growth engineering at Nakafa. Nakafa is the learning platform I founded. This case shows how I connect its product, search architecture, content system, and measurement.
 
 ## A useful engagement starts with
 

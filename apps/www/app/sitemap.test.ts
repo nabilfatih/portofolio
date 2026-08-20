@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import sitemap from "@/app/sitemap";
+import { caseStudies } from "@/lib/cases";
 
 describe("sitemap", () => {
   it("publishes each canonical route exactly once", () => {
@@ -9,7 +10,7 @@ describe("sitemap", () => {
       "https://nabilfatih.com",
       "https://nabilfatih.com/collaborate",
       "https://nabilfatih.com/work",
-      "https://nabilfatih.com/work/nakafa-organic-growth",
+      ...caseStudies.map((study) => `https://nabilfatih.com${study.href}`),
       "https://nabilfatih.com/privacy",
     ]);
     expect(new Set(urls).size).toBe(urls.length);

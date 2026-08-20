@@ -8,6 +8,7 @@ import type {
 
 const DAY_IN_MILLISECONDS = 86_400_000;
 const DAYS_IN_WEEK = 7;
+const MINIMUM_MONTH_LABEL_COLUMNS = 3;
 const MONTH_FORMATTER = new Intl.DateTimeFormat("en-US", {
   month: "short",
   timeZone: "UTC",
@@ -123,6 +124,17 @@ function buildMonthLabels(weeks: readonly CalendarWeek[]) {
       column: weekIndex + 1,
       label: MONTH_FORMATTER.format(dateFromIsoDate(contribution.date)),
     });
+  }
+
+  const firstLabel = labels.at(0);
+  const secondLabel = labels.at(1);
+
+  if (
+    firstLabel &&
+    secondLabel &&
+    secondLabel.column - firstLabel.column < MINIMUM_MONTH_LABEL_COLUMNS
+  ) {
+    return labels.slice(1);
   }
 
   return labels;

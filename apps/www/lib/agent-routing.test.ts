@@ -1,25 +1,27 @@
 import { describe, expect, it } from "vitest";
 import { resolveMarkdownRoute } from "@/lib/agent-routing";
-import {
-  NAKAFA_GROWTH_CASE_STUDY_HREF,
-  NAKAFA_GROWTH_MARKDOWN_HREF,
-} from "@/lib/nakafa-growth";
+import { caseStudies } from "@/lib/cases";
 
 describe("resolveMarkdownRoute", () => {
-  it.each([
+  const markdownRoutes: readonly (readonly [string, string])[] = [
     ["/", "/index.md"],
     ["/collaborate", "/collaborate.md"],
     ["/privacy", "/privacy.md"],
     ["/work", "/work.md"],
-    [NAKAFA_GROWTH_CASE_STUDY_HREF, NAKAFA_GROWTH_MARKDOWN_HREF],
-  ])("maps %s to its Markdown route", (pathname, expected) => {
-    expect(
-      resolveMarkdownRoute({
-        acceptHeader: "text/markdown, text/plain;q=0.9",
-        pathname,
-      })
-    ).toBe(expected);
-  });
+    ...caseStudies.map((study) => [study.href, study.markdownHref] as const),
+  ];
+
+  it.each(markdownRoutes)(
+    "maps %s to its Markdown route",
+    (pathname, expected) => {
+      expect(
+        resolveMarkdownRoute({
+          acceptHeader: "text/markdown, text/plain;q=0.9",
+          pathname,
+        })
+      ).toBe(expected);
+    }
+  );
 
   it("delegates normal browser requests", () => {
     expect(
@@ -37,5 +39,20 @@ describe("resolveMarkdownRoute", () => {
         pathname: "/missing",
       })
     ).toBeNull();
+  });
+
+  it("does not rewrite nested or generated Markdown routes", () => {
+    for (const pathname of [
+      "/work/example",
+      "/work/example/nested",
+      "/work/example.md",
+    ]) {
+      expect(
+        resolveMarkdownRoute({
+          acceptHeader: "text/markdown",
+          pathname,
+        })
+      ).toBeNull();
+    }
   });
 });

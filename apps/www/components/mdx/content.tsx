@@ -67,6 +67,66 @@ export function MdxListItem({ className, ...props }: ComponentProps<"li">) {
   return <li className={cn("pl-1", className)} {...props} />;
 }
 
+export function MdxBlockquote({
+  className,
+  ...props
+}: ComponentProps<"blockquote">) {
+  return (
+    <blockquote
+      className={cn(
+        "rounded-r-xl border-primary border-l-2 bg-muted/50 px-5 py-4 text-foreground/80 [&_p]:m-0",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+export function MdxTable({ className, ...props }: ComponentProps<"table">) {
+  return (
+    <div className="not-prose my-6 overflow-x-auto rounded-xl bg-muted/40">
+      <table
+        className={cn(
+          "w-full min-w-lg border-collapse text-left text-sm",
+          className
+        )}
+        {...props}
+      />
+    </div>
+  );
+}
+
+export function MdxTableHead({ className, ...props }: ComponentProps<"thead">) {
+  return <thead className={cn("bg-muted/80", className)} {...props} />;
+}
+
+export function MdxTableRow({ className, ...props }: ComponentProps<"tr">) {
+  return (
+    <tr
+      className={cn("border-border border-b last:border-b-0", className)}
+      {...props}
+    />
+  );
+}
+
+export function MdxTableHeading({ className, ...props }: ComponentProps<"th">) {
+  return (
+    <th
+      className={cn("px-4 py-3 align-top font-medium", className)}
+      {...props}
+    />
+  );
+}
+
+export function MdxTableCell({ className, ...props }: ComponentProps<"td">) {
+  return (
+    <td
+      className={cn("px-4 py-3 align-top text-foreground/80", className)}
+      {...props}
+    />
+  );
+}
+
 export function MdxAnchor({
   children,
   className,
@@ -182,13 +242,30 @@ export function PrimaryAction({
   readonly children: ReactNode;
   readonly href: string;
 }) {
-  return (
-    <Link
-      className={buttonVariants({ className: "w-full sm:w-fit" })}
-      href={href}
-    >
+  const className = buttonVariants({ className: "w-full sm:w-fit" });
+  const content = (
+    <>
       {children}
       <HugeIcons data-icon="inline-end" icon={ArrowRight02Icon} />
+    </>
+  );
+
+  if (href.startsWith("http")) {
+    return (
+      <a
+        className={className}
+        href={href}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link className={className} href={href}>
+      {content}
     </Link>
   );
 }

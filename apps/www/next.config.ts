@@ -1,5 +1,6 @@
 import createMdx from "@next/mdx";
 import type { NextConfig } from "next";
+import { nextMdxOptions } from "./mdx.config.ts";
 
 const scriptSources = ["'self'", "'unsafe-inline'"];
 
@@ -52,14 +53,13 @@ const contentRoutes = [
   "/collaborate",
   "/privacy",
   "/work",
-  "/work/nakafa-organic-growth",
+  "/work/:path*",
   "/collaborate.md",
   "/index.md",
   "/llms-full.txt",
   "/llms.txt",
   "/privacy.md",
   "/work.md",
-  "/work/nakafa-organic-growth.md",
 ] as const;
 
 const nextConfig: NextConfig = {
@@ -85,4 +85,6 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 };
 
-export default createMdx()(nextConfig);
+export default createMdx({
+  options: nextMdxOptions,
+})(nextConfig);

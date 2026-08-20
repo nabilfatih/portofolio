@@ -3,18 +3,12 @@ import Image from "next/image";
 import { Suspense } from "react";
 import { GitHubContributions } from "@/components/home/github-contributions";
 import { loadGitHubContributionSummary } from "@/lib/github";
-import { nakafaGrowthEvidence } from "@/lib/nakafa-growth";
 import nabilCat from "@/public/nabil-cat.webp";
 import nabilLake from "@/public/nabil-lake.webp";
 import nabilMountain from "@/public/nabil-mountain.webp";
 import nabilSwiss from "@/public/nabil-swiss.webp";
 import nabilUlm from "@/public/nabil-ulm.webp";
 import sunset from "@/public/sunset.webp";
-
-const compactMetricFormatter = new Intl.NumberFormat("en", {
-  maximumFractionDigits: 2,
-  notation: "compact",
-});
 
 const profileImages = [
   {
@@ -88,38 +82,6 @@ export function ProfileGallery() {
           />
         </div>
       ))}
-    </div>
-  );
-}
-
-export function GrowthMetrics() {
-  return (
-    <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3">
-      <Metric
-        label="organic clicks"
-        value={nakafaGrowthEvidence.searchConsole.clicks.toLocaleString("en")}
-      />
-      <Metric
-        label="search impressions"
-        value={compactMetricFormatter.format(
-          nakafaGrowthEvidence.searchConsole.impressions
-        )}
-      />
-      <Metric
-        label="Google AI impressions"
-        value={compactMetricFormatter.format(
-          nakafaGrowthEvidence.googleAi.impressions
-        )}
-      />
-    </dl>
-  );
-}
-
-function Metric({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex flex-col">
-      <dt className="order-2 mt-1 text-muted-foreground text-sm">{label}</dt>
-      <dd className="order-1 font-medium text-2xl tracking-tight">{value}</dd>
     </div>
   );
 }

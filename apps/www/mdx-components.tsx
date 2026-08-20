@@ -4,7 +4,6 @@ import {
   CapabilityList,
   ProcessList,
   ProcessStep,
-  ProofMetrics,
 } from "@/components/mdx/collaborate";
 import {
   ActionRow,
@@ -20,11 +19,17 @@ import {
   HomeTitle,
   Intro,
   MdxAnchor,
+  MdxBlockquote,
   MdxHeading2,
   MdxHeading3,
   MdxListItem,
   MdxOrderedList,
   MdxParagraph,
+  MdxTable,
+  MdxTableCell,
+  MdxTableHead,
+  MdxTableHeading,
+  MdxTableRow,
   MdxUnorderedList,
   PageHeader,
   PageTitle,
@@ -33,32 +38,42 @@ import {
   ProofPanel,
   Section,
 } from "@/components/mdx/content";
+import { ArchitectureDiagram } from "@/components/mdx/diagram";
 import {
   GrowthChart,
   GrowthResults,
   ReferralChart,
 } from "@/components/mdx/growth";
+import { GitHubActivity, ProfileGallery } from "@/components/mdx/home";
 import {
-  GitHubActivity,
-  GrowthMetrics,
-  ProfileGallery,
-} from "@/components/mdx/home";
+  CaseHeader,
+  CaseStudies,
+  Education,
+  Experience,
+  ExperienceList,
+} from "@/components/mdx/work";
 
 const portfolioMdxComponents = {
   ActionRow,
   AgentDirective,
+  ArchitectureDiagram,
   a: MdxAnchor,
   BackLink,
+  blockquote: MdxBlockquote,
   Capability,
   CapabilityList,
+  CaseHeader,
+  CaseStudies,
   ChartSection,
   ContactAction,
   ContactRow,
+  Education,
+  Experience,
+  ExperienceList,
   Eyebrow,
   GhostAction,
   GitHubActivity,
   GrowthChart,
-  GrowthMetrics,
   GrowthResults,
   HeaderAction,
   HomeSection,
@@ -75,11 +90,15 @@ const portfolioMdxComponents = {
   ProcessStep,
   ProfileGallery,
   ProofAction,
-  ProofMetrics,
   ProofPanel,
   p: MdxParagraph,
   ReferralChart,
   Section,
+  table: MdxTable,
+  td: MdxTableCell,
+  th: MdxTableHeading,
+  thead: MdxTableHead,
+  tr: MdxTableRow,
   ul: MdxUnorderedList,
 } satisfies MDXComponents;
 

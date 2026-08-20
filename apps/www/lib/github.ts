@@ -15,13 +15,15 @@ const CONTRIBUTION_HEADING_SELECTOR = "#js-contribution-activity-description";
 const CONTRIBUTION_DAY_SELECTOR =
   "td.ContributionCalendar-day[data-date][data-level]";
 
-const NonNegativeInteger = Schema.Number.pipe(
-  Schema.int(),
-  Schema.nonNegative()
+const NonNegativeInteger = Schema.Finite.pipe(
+  Schema.check(Schema.isInt()),
+  Schema.check(Schema.isGreaterThanOrEqualTo(0))
 );
-const GitHubContributionLevelSchema = Schema.Literal(0, 1, 2, 3, 4);
+const GitHubContributionLevelSchema = Schema.Literals([0, 1, 2, 3, 4]);
 const GitHubContributionDaySchema = Schema.Struct({
-  date: Schema.String.pipe(Schema.pattern(/^\d{4}-\d{2}-\d{2}$/)),
+  date: Schema.String.pipe(
+    Schema.check(Schema.isPattern(/^\d{4}-\d{2}-\d{2}$/))
+  ),
   level: GitHubContributionLevelSchema,
 });
 const GitHubContributionSummarySchema = Schema.Struct({
@@ -39,7 +41,7 @@ export class GitHubContributionTransportError extends Schema.TaggedError<GitHubC
   {
     cause: Schema.Unknown,
     message: Schema.String,
-    operation: Schema.Literal("request", "read-body"),
+    operation: Schema.Literals(["request", "read-body"]),
   }
 ) {}
 
@@ -47,7 +49,7 @@ export class GitHubContributionResponseError extends Schema.TaggedError<GitHubCo
   "GitHubContributionResponseError",
   {
     message: Schema.String,
-    status: Schema.Number,
+    status: NonNegativeInteger,
   }
 ) {}
 
@@ -62,14 +64,12 @@ type GitHubContributionSourceError =
   | GitHubContributionResponseError
   | GitHubContributionTransportError;
 
-export class GitHubContributionSource extends Context.Tag(
-  "@/lib/github/GitHubContributionSource"
-)<
+export class GitHubContributionSource extends Context.Service<
   GitHubContributionSource,
   {
     readonly read: Effect.Effect<string, GitHubContributionSourceError>;
   }
->() {}
+>()("@/lib/github/GitHubContributionSource") {}
 
 const readGitHubContributionHtml = Effect.fn("www.github.readContributionHtml")(
   function* () {
@@ -139,9 +139,7 @@ const parseGitHubContributionTotal = Effect.fn(
     });
   }
 
-  return yield* Schema.decodeUnknown(NonNegativeInteger)(
-    Number(totalText)
-  ).pipe(
+  return yield* Schema.decodeEffect(NonNegativeInteger)(Number(totalText)).pipe(
     Effect.mapError(
       () =>
         new GitHubContributionParseError({
@@ -190,10 +188,9 @@ export const parseGitHubContributionSummary = Effect.fn(
     });
   }
 
-  const summary = yield* Schema.decodeUnknown(GitHubContributionSummarySchema)({
-    days: candidates,
-    total,
-  }).pipe(
+  const summary = yield* Schema.decodeUnknownEffect(
+    GitHubContributionSummarySchema
+  )({ days: candidates, total }).pipe(
     Effect.mapError(
       () =>
         new GitHubContributionParseError({
@@ -204,7 +201,7 @@ export const parseGitHubContributionSummary = Effect.fn(
   const sortedDays = EffectArray.sortWith(
     summary.days,
     (day) => day.date,
-    Order.string
+    Order.String
   );
   const uniqueDates = new Set(sortedDays.map((day) => day.date));
 

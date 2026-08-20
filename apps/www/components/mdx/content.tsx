@@ -1,5 +1,13 @@
 import { ArrowRight02Icon, Mail01Icon } from "@hugeicons/core-free-icons";
 import { HugeIcons } from "@repo/design-system/components/ui/huge-icons";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@repo/design-system/components/ui/table";
 import { buttonVariants } from "@repo/design-system/lib/button";
 import { cn } from "@repo/design-system/lib/utils";
 import Link from "next/link";
@@ -84,35 +92,31 @@ export function MdxBlockquote({
 
 export function MdxTable({ className, ...props }: ComponentProps<"table">) {
   return (
-    <div className="not-prose my-6 overflow-x-auto rounded-xl bg-muted/40">
-      <table
-        className={cn(
-          "w-full min-w-lg border-collapse text-left text-sm",
-          className
-        )}
-        {...props}
-      />
+    <div className="not-prose my-6 overflow-hidden rounded-xl bg-muted/40">
+      <Table className={cn("table-fixed text-left", className)} {...props} />
     </div>
   );
 }
 
 export function MdxTableHead({ className, ...props }: ComponentProps<"thead">) {
-  return <thead className={cn("bg-muted/80", className)} {...props} />;
+  return <TableHeader className={cn("bg-muted/80", className)} {...props} />;
+}
+
+export function MdxTableBody({ className, ...props }: ComponentProps<"tbody">) {
+  return <TableBody className={className} {...props} />;
 }
 
 export function MdxTableRow({ className, ...props }: ComponentProps<"tr">) {
-  return (
-    <tr
-      className={cn("border-border border-b last:border-b-0", className)}
-      {...props}
-    />
-  );
+  return <TableRow className={className} {...props} />;
 }
 
 export function MdxTableHeading({ className, ...props }: ComponentProps<"th">) {
   return (
-    <th
-      className={cn("px-4 py-3 align-top font-medium", className)}
+    <TableHead
+      className={cn(
+        "h-auto whitespace-normal break-words px-4 py-3 align-top",
+        className
+      )}
       {...props}
     />
   );
@@ -120,8 +124,11 @@ export function MdxTableHeading({ className, ...props }: ComponentProps<"th">) {
 
 export function MdxTableCell({ className, ...props }: ComponentProps<"td">) {
   return (
-    <td
-      className={cn("px-4 py-3 align-top text-foreground/80", className)}
+    <TableCell
+      className={cn(
+        "whitespace-normal break-words px-4 py-3 align-top text-foreground/80",
+        className
+      )}
       {...props}
     />
   );

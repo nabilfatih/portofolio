@@ -1,7 +1,8 @@
 import { Particles } from "@repo/design-system/components/ui/particles";
 import type { Metadata } from "next";
 import CollaborateContent from "@/content/collaborate.mdx";
-import { SOCIAL_IMAGE } from "@/lib/site";
+import { serializeJsonLd } from "@/lib/json-ld";
+import { SITE_URL, SOCIAL_IMAGE, siteConfig } from "@/lib/site";
 
 const COLLABORATE_DESCRIPTION =
   "Work with Nabil Fatih as a contractor or B2B partner on product engineering, organic growth systems, internal tools, and applied AI.";
@@ -29,9 +30,38 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  description: COLLABORATE_DESCRIPTION,
+  mainEntity: {
+    "@type": "Service",
+    name: "Product engineering collaboration",
+    provider: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: SITE_URL,
+    },
+    serviceType: [
+      "Product engineering",
+      "Applied AI systems",
+      "Growth engineering",
+    ],
+  },
+  name: "Collaborate with Nabil Fatih",
+  url: `${SITE_URL}/collaborate`,
+};
+
 export default function CollaboratePage() {
   return (
     <div className="relative">
+      <script
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is serialized from trusted local metadata and escapes HTML delimiters.
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd(structuredData),
+        }}
+        type="application/ld+json"
+      />
       <Particles
         className="pointer-events-none absolute inset-0 -z-10 animate-fade-in"
         quantity={100}

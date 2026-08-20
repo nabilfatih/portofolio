@@ -5,7 +5,8 @@
 ## Portfolio
 
 - [Home](https://nabilfatih.com/index.md): Introduction and primary profile links.
-- [Work](https://nabilfatih.com/work.md): Case studies, professional experience, and education.
+- [Case studies](https://nabilfatih.com/case-studies.md): Technical case studies across product engineering, applied AI, platform systems, and growth engineering.
+- [Work](https://nabilfatih.com/work.md): Professional experience and education.
 - [Collaborate](https://nabilfatih.com/collaborate.md): Product engineering, growth systems, and applied AI support.
 - [Privacy](https://nabilfatih.com/privacy.md): Analytics, performance measurement, and contact details.
 

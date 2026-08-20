@@ -1,4 +1,5 @@
 import type { MDXComponents } from "mdx/types";
+import { CaseHeader, CaseStudies } from "@/components/mdx/cases";
 import {
   Capability,
   CapabilityList,
@@ -26,6 +27,7 @@ import {
   MdxOrderedList,
   MdxParagraph,
   MdxTable,
+  MdxTableBody,
   MdxTableCell,
   MdxTableHead,
   MdxTableHeading,
@@ -45,13 +47,7 @@ import {
   ReferralChart,
 } from "@/components/mdx/growth";
 import { GitHubActivity, ProfileGallery } from "@/components/mdx/home";
-import {
-  CaseHeader,
-  CaseStudies,
-  Education,
-  Experience,
-  ExperienceList,
-} from "@/components/mdx/work";
+import { Education, Experience, ExperienceList } from "@/components/mdx/work";
 
 const portfolioMdxComponents = {
   ActionRow,
@@ -95,6 +91,7 @@ const portfolioMdxComponents = {
   ReferralChart,
   Section,
   table: MdxTable,
+  tbody: MdxTableBody,
   td: MdxTableCell,
   th: MdxTableHeading,
   thead: MdxTableHead,

@@ -1,6 +1,7 @@
 url: http://localhost:3100
 pages:
   - http://localhost:3100/
+  - http://localhost:3100/case-studies
   - http://localhost:3100/collaborate
   - http://localhost:3100/privacy
   - http://localhost:3100/work

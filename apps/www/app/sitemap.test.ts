@@ -8,6 +8,7 @@ describe("sitemap", () => {
 
     expect(urls).toEqual([
       "https://nabilfatih.com",
+      "https://nabilfatih.com/case-studies",
       "https://nabilfatih.com/collaborate",
       "https://nabilfatih.com/work",
       ...caseStudies.map((study) => `https://nabilfatih.com${study.href}`),

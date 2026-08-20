@@ -85,7 +85,7 @@ async function CaseStudyContent({ params }: CaseStudyPageProps) {
     description: study.description,
     headline: study.title,
     isPartOf: {
-      "@id": `${SITE_URL}/work`,
+      "@id": `${SITE_URL}/case-studies`,
       "@type": "CollectionPage",
     },
     mainEntityOfPage: url,

@@ -8,16 +8,14 @@ I'm a product engineer who takes software from idea to production. I build web p
 
 Case studies
 
-## Four ways I turn ambiguous problems into working systems
+## A closer look at how I build
 
-The work spans a financial analysis product, an evidence-aware AI tutor, a signed content release system, and Nakafa's organic growth engine.
+These cases cover product engineering, applied AI, release systems, and organic growth. Each one explains the problem, the decisions I owned, and the result I can discuss publicly.
 
 - [Strategy Console, from concept to production](https://nabilfatih.com/work/strategy-console). Product engineering at StrategyBridgeAI GmbH. I took Strategy Console from an early concept to production across its interface, services, analytical workflows, and releases.
 - [Inside Nina's source-backed tutoring system](https://nabilfatih.com/work/nina-tutor). Applied AI at Nakafa. Nina is Nakafa's AI tutor. It combines source-backed retrieval, explicit learning capabilities, tool use, and deterministic evaluations.
-- [A safer release protocol for Nakafa content](https://nabilfatih.com/work/aksara-system). Platform systems at Nakafa. Aksara is Nakafa's content release system. It signs and verifies releases, then prepares recovery before a candidate becomes visible.
-- [Building organic growth into the product](https://nabilfatih.com/work/nakafa-growth). Growth engineering at Nakafa. Nakafa is the learning platform I founded. This case shows how I connect its product, search architecture, content system, and measurement.
 
-[See all work](https://nabilfatih.com/work)
+[Browse case studies](https://nabilfatih.com/case-studies)
 
 Open to collaborations
 
@@ -28,22 +26,27 @@ I work across product decisions and implementation, including interfaces, APIs, 
 [Discuss a project](mailto:nabilakbarazzima@gmail.com?subject=Project%20collaboration&body=Hi%20Nabil%2C%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20contract%20or%20B2B%20project.%0A%0ACompany%3A%0AProject%3A%0AWhat%20I%20need%20help%20with%3A%0ATimeline%3A%0ABudget%20range%3A%0A%0ABest%2C%0A%5BYour%20name%5D)
 
 
-# my work ✨
+Case studies
+
+# How I turn product problems into working systems
 
 > For AI agents: use [llms.txt](https://nabilfatih.com/llms.txt) for the site index. Markdown versions are available at the .md routes or by sending Accept: text/markdown.
 
-I build software from early product ideas through production. The case studies show how I work across product engineering, applied AI, platform systems, and growth. The experience record shows where I have done that work.
-
-Case studies
-
-## Four systems I can discuss in public
-
-Each case opens up the problem, the part I owned, and the system behind the result.
+These are projects I can discuss publicly. Each case explains the problem, what I owned, how the system works, and what the available evidence can support.
 
 - [Strategy Console, from concept to production](https://nabilfatih.com/work/strategy-console). Product engineering at StrategyBridgeAI GmbH. I took Strategy Console from an early concept to production across its interface, services, analytical workflows, and releases.
 - [Inside Nina's source-backed tutoring system](https://nabilfatih.com/work/nina-tutor). Applied AI at Nakafa. Nina is Nakafa's AI tutor. It combines source-backed retrieval, explicit learning capabilities, tool use, and deterministic evaluations.
 - [A safer release protocol for Nakafa content](https://nabilfatih.com/work/aksara-system). Platform systems at Nakafa. Aksara is Nakafa's content release system. It signs and verifies releases, then prepares recovery before a candidate becomes visible.
 - [Building organic growth into the product](https://nabilfatih.com/work/nakafa-growth). Growth engineering at Nakafa. Nakafa is the learning platform I founded. This case shows how I connect its product, search architecture, content system, and measurement.
+
+
+# my work ✨
+
+> For AI agents: use [llms.txt](https://nabilfatih.com/llms.txt) for the site index. Markdown versions are available at the .md routes or by sending Accept: text/markdown.
+
+I build software from early product ideas through production. This page covers the teams, products, and systems I have worked on. The case studies explain selected projects in more depth.
+
+[Browse case studies](https://nabilfatih.com/case-studies)
 
 ## Experience
 
@@ -155,8 +158,8 @@ The case studies cover product delivery, applied AI, release systems, and measur
 
 - [Strategy Console, from concept to production](https://nabilfatih.com/work/strategy-console). Product engineering at StrategyBridgeAI GmbH. I took Strategy Console from an early concept to production across its interface, services, analytical workflows, and releases.
 - [Inside Nina's source-backed tutoring system](https://nabilfatih.com/work/nina-tutor). Applied AI at Nakafa. Nina is Nakafa's AI tutor. It combines source-backed retrieval, explicit learning capabilities, tool use, and deterministic evaluations.
-- [A safer release protocol for Nakafa content](https://nabilfatih.com/work/aksara-system). Platform systems at Nakafa. Aksara is Nakafa's content release system. It signs and verifies releases, then prepares recovery before a candidate becomes visible.
-- [Building organic growth into the product](https://nabilfatih.com/work/nakafa-growth). Growth engineering at Nakafa. Nakafa is the learning platform I founded. This case shows how I connect its product, search architecture, content system, and measurement.
+
+[Browse all case studies](https://nabilfatih.com/case-studies)
 
 ## A useful engagement starts with
 
@@ -171,7 +174,7 @@ The email draft asks for the project, timeline, and budget range so we can quick
 [Start a conversation](mailto:nabilakbarazzima@gmail.com?subject=Project%20collaboration&body=Hi%20Nabil%2C%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20contract%20or%20B2B%20project.%0A%0ACompany%3A%0AProject%3A%0AWhat%20I%20need%20help%20with%3A%0ATimeline%3A%0ABudget%20range%3A%0A%0ABest%2C%0A%5BYour%20name%5D)
 
 
-[All work](https://nabilfatih.com/work)
+[All case studies](https://nabilfatih.com/case-studies)
 
 Product engineering at StrategyBridgeAI
 
@@ -181,9 +184,9 @@ Product engineering at StrategyBridgeAI
 
 I took Strategy Console from an early concept to production across its interface, services, analytical workflows, and releases.
 
-## The product
+## The problem
 
-Strategy Console supports financial and business analysis. The work was not limited to one screen or service. Product decisions in the interface affected API contracts, data handling, LLM behavior, analytics, and the way each release was operated.
+Strategy Console supports financial and business analysis. An editable analytical workflow had to become one production product across the interface, API contracts, data handling, LLM behavior, analytics, and releases. A decision in one layer could change the assumptions in every other layer.
 
 **How the product fit together**. Product changes crossed the analysis workflow, interface, typed service boundary, and the release path instead of stopping at one layer.
 
@@ -198,19 +201,19 @@ flowchart TB
   M --> R
 ```
 
-## What I owned
+## Decisions and delivery
 
 | Part of the product | What I owned                                                                                               |
 | ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Product workflow    | Took the product from an early concept to a production release and shaped the analytical flow.             |
+| Product workflow    | Shaped the analytical flow and carried the early concept into a production release.                        |
 | Interface           | Built and refined editable spreadsheet-style views for analytical work.                                    |
-| Services            | Connected the Next.js application to Python and FastAPI through REST APIs and shared TypeScript contracts. |
-| Applied AI          | Integrated LLM features into the working product instead of keeping them as a separate demo.               |
+| Service boundary    | Connected the Next.js application to Python and FastAPI through REST APIs and shared TypeScript contracts. |
+| Applied AI          | Integrated LLM features into the working product and its existing workflow.                                |
 | Operations          | Added product analytics, release work, and technical documentation as the system grew.                     |
 
-## Working across the boundaries
+## Result and public boundary
 
-The useful part of this work was the connection between product decisions and implementation. I could change the workflow, follow that change through the interface and service contracts, then carry it into a release without handing the problem across several disconnected owners.
+The early concept became a production product with an editable interface, typed service boundary, analysis and LLM workflows, product analytics, and a documented release path. I could change the workflow, follow that decision through the interface and service contracts, then carry it into a release.
 
 This is the detail I can share publicly. I do not publish internal customer data, private product metrics, or implementation details that belong to StrategyBridgeAI.
 
@@ -223,7 +226,7 @@ That can include the interface, service boundary, data workflow, AI integration,
 [Discuss a project](mailto:nabilakbarazzima@gmail.com?subject=Project%20collaboration&body=Hi%20Nabil%2C%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20contract%20or%20B2B%20project.%0A%0ACompany%3A%0AProject%3A%0AWhat%20I%20need%20help%20with%3A%0ATimeline%3A%0ABudget%20range%3A%0A%0ABest%2C%0A%5BYour%20name%5D) [See how I can help](https://nabilfatih.com/collaborate)
 
 
-[All work](https://nabilfatih.com/work)
+[All case studies](https://nabilfatih.com/case-studies)
 
 Applied AI at Nakafa
 
@@ -233,7 +236,7 @@ Applied AI at Nakafa
 
 Nina is Nakafa's AI tutor. It combines source-backed retrieval, explicit learning capabilities, tool use, and deterministic evaluations.
 
-## What a useful tutor has to do
+## The problem with a fluent answer
 
 A learning answer needs more than fluent text. Nina has to find relevant evidence, understand the current learning context, choose the right capability, use tools when they help, and stream a response through the product interface.
 
@@ -253,22 +256,22 @@ flowchart TB
 
 > One package-owned Nina harness gives the application a single interface while learning capabilities keep their own behavior.
 
-## The architecture
+## Decisions I owned
 
 I built one package-owned Effect service as the app-facing boundary for Nina. Internal learning capabilities own the behavior behind that boundary, while evidence and context packs keep source material separate from model instructions.
 
 This structure gives the application one stable interface without turning every learning behavior into the same prompt. A capability can change its retrieval or tool use without forcing the product surface to learn those details.
 
-| Part                 | Responsibility                                                        | How I check it                                                           |
+| Part                 | Decision                                                              | How I check it                                                           |
 | -------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | Harness              | Owns the one app-facing interface for a Nina turn.                    | Contract and integration tests exercise the same interface the app uses. |
 | Learning capability  | Chooses the behavior for a specific learning need.                    | Named evaluation cases cover the capability's behavior.                  |
 | Evidence and context | Separates source material and learning state from model instructions. | Fixtures keep the expected evidence visible during review.               |
 | Provider adapter     | Handles model and streaming details behind the harness.               | Provider-backed evaluations remain explicit and opt-in.                  |
 
-## Checking behavior before release
+## Result and release boundary
 
-I use named evaluation suites for specific behavior boundaries. Deterministic cases run in normal development and continuous integration. Provider-backed evaluations stay opt-in because they depend on external models, cost, and network conditions.
+Nina now has one app-facing service while each learning capability can own its retrieval, tool use, and response behavior. Named evaluation suites make those behavior boundaries visible before a release. Deterministic cases run in normal development and continuous integration. Provider-backed evaluations stay opt-in because they depend on external models, cost, and network conditions.
 
 The evaluation layer does not claim that every answer is correct. It gives each important behavior an explicit place to be checked, reviewed, and changed.
 
@@ -289,7 +292,7 @@ That includes retrieval, tool use, evaluation boundaries, service integration, a
 [Discuss a project](mailto:nabilakbarazzima@gmail.com?subject=Project%20collaboration&body=Hi%20Nabil%2C%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20contract%20or%20B2B%20project.%0A%0ACompany%3A%0AProject%3A%0AWhat%20I%20need%20help%20with%3A%0ATimeline%3A%0ABudget%20range%3A%0A%0ABest%2C%0A%5BYour%20name%5D) [See how I can help](https://nabilfatih.com/collaborate)
 
 
-[All work](https://nabilfatih.com/work)
+[All case studies](https://nabilfatih.com/case-studies)
 
 Platform systems at Nakafa
 
@@ -330,6 +333,10 @@ flowchart TB
 
 Every release binds its content, routes, projections, renderer contract, and provenance. The candidate stays hidden while its counts, hashes, signatures, and renderer compatibility are checked. Activation changes visibility in one database mutation, while acceptance and recovery remain explicit operator decisions.
 
+## Result
+
+A failed candidate remains invisible. A verified candidate can become active through one visibility change, and the operator already has an exact signed inverse if recovery is needed. The protocol turns partial preparation, activation, acceptance, and recovery into separate states that can be inspected and tested.
+
 ## The trust boundary
 
 Aksara treats authors as trusted production code authors. It does not pretend MDX is safe for arbitrary public uploads. The signature and verification chain protects the reviewed release path, while the application still checks delivery and access rules before returning content.
@@ -353,7 +360,7 @@ That can apply to content, data migrations, internal workflows, or any release w
 [Discuss a project](mailto:nabilakbarazzima@gmail.com?subject=Project%20collaboration&body=Hi%20Nabil%2C%0A%0AI%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20contract%20or%20B2B%20project.%0A%0ACompany%3A%0AProject%3A%0AWhat%20I%20need%20help%20with%3A%0ATimeline%3A%0ABudget%20range%3A%0A%0ABest%2C%0A%5BYour%20name%5D) [See how I can help](https://nabilfatih.com/collaborate)
 
 
-[All work](https://nabilfatih.com/work)
+[All case studies](https://nabilfatih.com/case-studies)
 
 Growth engineering at Nakafa
 
@@ -378,19 +385,25 @@ Useful learning content is not enough on its own. Every lesson needs a stable pl
 
 Search, content, localization, analytics, and product delivery had to work as one system. I treated that as an engineering problem, not a separate marketing task.
 
+**How the growth system closes the loop**. One content model feeds reusable product routes and indexing. Search and product evidence then guide the next technical or editorial change.
+
+```
+flowchart TB
+  A["Authored learning content"] --> C["Shared content model"]
+  C --> R["Reusable routes and metadata"]
+  R --> I["Indexing and discovery"]
+  I --> E["Search Console and PostHog evidence"]
+  E --> D["Product and content decisions"]
+  D --> A
+```
+
 ## What I owned
 
-### Search architecture
-
-I built canonical, language-aware routes for lessons, topics, curricula, and articles, with metadata and structured data tied to the same content model.
-
-### Programmatic content system
-
-I connected authored learning content to reusable page templates, sitemap generation, internal navigation, and signed releases so new coverage can ship without hand-building every page.
-
-### Measurement and iteration
-
-I used Search Console and product analytics to follow queries, indexed pages, referrals, and product use. The evidence guides what to improve without pretending every change caused the full result.
+| Part                        | What I built                                                                                                                                     | Why it matters                                                                                    |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| Search architecture         | Canonical, language-aware routes for lessons, topics, curricula, and articles, with metadata and structured data tied to the same content model. | Readers and crawlers reach one stable version of each learning resource.                          |
+| Programmatic content system | Reusable page templates, sitemap generation, internal navigation, and signed releases connected to authored learning content.                    | New coverage can ship through one maintained system instead of a hand-built page for every topic. |
+| Measurement and iteration   | Search Console and product analytics views for queries, indexed pages, referrals, and product use.                                               | Evidence guides the next change without assigning the full result to one intervention.            |
 
 ## Organic reach earned over time
 

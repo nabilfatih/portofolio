@@ -8,16 +8,14 @@ I'm a product engineer who takes software from idea to production. I build web p
 
 Case studies
 
-## Four ways I turn ambiguous problems into working systems
+## A closer look at how I build
 
-The work spans a financial analysis product, an evidence-aware AI tutor, a signed content release system, and Nakafa's organic growth engine.
+These cases cover product engineering, applied AI, release systems, and organic growth. Each one explains the problem, the decisions I owned, and the result I can discuss publicly.
 
 - [Strategy Console, from concept to production](https://nabilfatih.com/work/strategy-console). Product engineering at StrategyBridgeAI GmbH. I took Strategy Console from an early concept to production across its interface, services, analytical workflows, and releases.
 - [Inside Nina's source-backed tutoring system](https://nabilfatih.com/work/nina-tutor). Applied AI at Nakafa. Nina is Nakafa's AI tutor. It combines source-backed retrieval, explicit learning capabilities, tool use, and deterministic evaluations.
-- [A safer release protocol for Nakafa content](https://nabilfatih.com/work/aksara-system). Platform systems at Nakafa. Aksara is Nakafa's content release system. It signs and verifies releases, then prepares recovery before a candidate becomes visible.
-- [Building organic growth into the product](https://nabilfatih.com/work/nakafa-growth). Growth engineering at Nakafa. Nakafa is the learning platform I founded. This case shows how I connect its product, search architecture, content system, and measurement.
 
-[See all work](https://nabilfatih.com/work)
+[Browse case studies](https://nabilfatih.com/case-studies)
 
 Open to collaborations
 

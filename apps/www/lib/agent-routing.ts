@@ -2,6 +2,7 @@ import { isCaseSlug } from "@/lib/case-slugs";
 
 const MARKDOWN_ROUTES = new Map([
   ["/", "/index.md"],
+  ["/case-studies", "/case-studies.md"],
   ["/collaborate", "/collaborate.md"],
   ["/privacy", "/privacy.md"],
   ["/work", "/work.md"],

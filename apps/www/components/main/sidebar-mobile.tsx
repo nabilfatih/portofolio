@@ -13,10 +13,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@repo/design-system/components/ui/sheet";
+import { cn } from "@repo/design-system/lib/utils";
 import Link from "next/link";
 
 const navigation = [
   { href: "/", label: "Home" },
+  { href: "/case-studies", label: "Case studies" },
   { href: "/work", label: "Work" },
 ] as const;
 
@@ -49,11 +51,10 @@ export default function MainSidebarMobile() {
               nativeButton={false}
               render={
                 <Link
-                  className={
-                    index === 0
-                      ? "inline-flex border-t pt-4 text-sm underline-offset-4 hover:underline"
-                      : "inline-flex border-y py-4 text-sm underline-offset-4 hover:underline"
-                  }
+                  className={cn(
+                    "inline-flex border-t py-4 text-sm underline-offset-4 hover:underline",
+                    index === navigation.length - 1 && "border-b"
+                  )}
                   href={item.href}
                 >
                   {item.label}

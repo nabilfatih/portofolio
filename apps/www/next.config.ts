@@ -50,10 +50,12 @@ const contentHeaders = [
 
 const contentRoutes = [
   "/",
+  "/case-studies",
   "/collaborate",
   "/privacy",
   "/work",
   "/work/:path*",
+  "/case-studies.md",
   "/collaborate.md",
   "/index.md",
   "/llms-full.txt",

@@ -2,18 +2,9 @@
 
 > For AI agents: use [llms.txt](https://nabilfatih.com/llms.txt) for the site index. Markdown versions are available at the .md routes or by sending Accept: text/markdown.
 
-I build software from early product ideas through production. The case studies show how I work across product engineering, applied AI, platform systems, and growth. The experience record shows where I have done that work.
+I build software from early product ideas through production. This page covers the teams, products, and systems I have worked on. The case studies explain selected projects in more depth.
 
-Case studies
-
-## Four systems I can discuss in public
-
-Each case opens up the problem, the part I owned, and the system behind the result.
-
-- [Strategy Console, from concept to production](https://nabilfatih.com/work/strategy-console). Product engineering at StrategyBridgeAI GmbH. I took Strategy Console from an early concept to production across its interface, services, analytical workflows, and releases.
-- [Inside Nina's source-backed tutoring system](https://nabilfatih.com/work/nina-tutor). Applied AI at Nakafa. Nina is Nakafa's AI tutor. It combines source-backed retrieval, explicit learning capabilities, tool use, and deterministic evaluations.
-- [A safer release protocol for Nakafa content](https://nabilfatih.com/work/aksara-system). Platform systems at Nakafa. Aksara is Nakafa's content release system. It signs and verifies releases, then prepares recovery before a candidate becomes visible.
-- [Building organic growth into the product](https://nabilfatih.com/work/nakafa-growth). Growth engineering at Nakafa. Nakafa is the learning platform I founded. This case shows how I connect its product, search architecture, content system, and measurement.
+[Browse case studies](https://nabilfatih.com/case-studies)
 
 ## Experience
 

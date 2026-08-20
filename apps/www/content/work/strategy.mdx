@@ -15,9 +15,9 @@ export const caseStudy = {
 
 <Section>
 
-## The product
+## The problem
 
-Strategy Console supports financial and business analysis. The work was not limited to one screen or service. Product decisions in the interface affected API contracts, data handling, LLM behavior, analytics, and the way each release was operated.
+Strategy Console supports financial and business analysis. An editable analytical workflow had to become one production product across the interface, API contracts, data handling, LLM behavior, analytics, and releases. A decision in one layer could change the assumptions in every other layer.
 
 <ArchitectureDiagram
   title="How the product fit together"
@@ -36,23 +36,23 @@ Strategy Console supports financial and business analysis. The work was not limi
 
 <Section>
 
-## What I owned
+## Decisions and delivery
 
 | Part of the product | What I owned |
 | --- | --- |
-| Product workflow | Took the product from an early concept to a production release and shaped the analytical flow. |
+| Product workflow | Shaped the analytical flow and carried the early concept into a production release. |
 | Interface | Built and refined editable spreadsheet-style views for analytical work. |
-| Services | Connected the Next.js application to Python and FastAPI through REST APIs and shared TypeScript contracts. |
-| Applied AI | Integrated LLM features into the working product instead of keeping them as a separate demo. |
+| Service boundary | Connected the Next.js application to Python and FastAPI through REST APIs and shared TypeScript contracts. |
+| Applied AI | Integrated LLM features into the working product and its existing workflow. |
 | Operations | Added product analytics, release work, and technical documentation as the system grew. |
 
 </Section>
 
 <Section>
 
-## Working across the boundaries
+## Result and public boundary
 
-The useful part of this work was the connection between product decisions and implementation. I could change the workflow, follow that change through the interface and service contracts, then carry it into a release without handing the problem across several disconnected owners.
+The early concept became a production product with an editable interface, typed service boundary, analysis and LLM workflows, product analytics, and a documented release path. I could change the workflow, follow that decision through the interface and service contracts, then carry it into a release.
 
 This is the detail I can share publicly. I do not publish internal customer data, private product metrics, or implementation details that belong to StrategyBridgeAI.
 

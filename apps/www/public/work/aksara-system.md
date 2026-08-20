@@ -1,4 +1,4 @@
-[All work](https://nabilfatih.com/work)
+[All case studies](https://nabilfatih.com/case-studies)
 
 Platform systems at Nakafa
 
@@ -38,6 +38,10 @@ flowchart TB
 | Recovery      | No                 | The signed inverse prepared for forward recovery.  |
 
 Every release binds its content, routes, projections, renderer contract, and provenance. The candidate stays hidden while its counts, hashes, signatures, and renderer compatibility are checked. Activation changes visibility in one database mutation, while acceptance and recovery remain explicit operator decisions.
+
+## Result
+
+A failed candidate remains invisible. A verified candidate can become active through one visibility change, and the operator already has an exact signed inverse if recovery is needed. The protocol turns partial preparation, activation, acceptance, and recovery into separate states that can be inspected and tested.
 
 ## The trust boundary
 

@@ -4,6 +4,7 @@ import { SITE_URL } from "@/lib/site";
 
 const routes = [
   { changeFrequency: "weekly", path: "", priority: 1 },
+  { changeFrequency: "monthly", path: "/case-studies", priority: 0.9 },
   { changeFrequency: "monthly", path: "/collaborate", priority: 0.9 },
   { changeFrequency: "monthly", path: "/work", priority: 0.9 },
   ...caseStudies.map((study) => ({

@@ -118,10 +118,13 @@ function ProcessStep({
   );
 }
 
-function CaseStudies() {
+function CaseStudies({ limit }: { readonly limit?: number }) {
+  const studies =
+    limit === undefined ? caseStudies : caseStudies.slice(0, limit);
+
   return (
     <ul>
-      {caseStudies.map((study) => (
+      {studies.map((study) => (
         <li key={study.slug}>
           <a href={`${SITE_URL}${study.href}`}>{study.title}</a>
           {`. ${study.discipline} at ${study.company}. ${study.description}`}
@@ -140,7 +143,7 @@ function CaseHeader({
 }) {
   return (
     <header>
-      <a href={`${SITE_URL}/work`}>All work</a>
+      <a href={`${SITE_URL}/case-studies`}>All case studies</a>
       <p>{eyebrow}</p>
       <h1>{metadata.title}</h1>
       <AgentDirective />

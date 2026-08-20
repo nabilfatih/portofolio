@@ -46,6 +46,14 @@ export default function MainHeader() {
           aria-label="Primary"
           className="flex items-center justify-end gap-2"
         >
+          <span className="hidden sm:contents">
+            <Link
+              className={buttonVariants({ size: "sm", variant: "ghost" })}
+              href="/case-studies"
+            >
+              Case studies
+            </Link>
+          </span>
           <Link
             className={buttonVariants({ size: "sm", variant: "ghost" })}
             href="/work"

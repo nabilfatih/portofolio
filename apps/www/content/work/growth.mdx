@@ -32,23 +32,29 @@ Useful learning content is not enough on its own. Every lesson needs a stable pl
 
 Search, content, localization, analytics, and product delivery had to work as one system. I treated that as an engineering problem, not a separate marketing task.
 
+<ArchitectureDiagram
+  title="How the growth system closes the loop"
+  description="One content model feeds reusable product routes and indexing. Search and product evidence then guide the next technical or editorial change."
+  chart={`flowchart TB
+    A["Authored learning content"] --> C["Shared content model"]
+    C --> R["Reusable routes and metadata"]
+    R --> I["Indexing and discovery"]
+    I --> E["Search Console and PostHog evidence"]
+    E --> D["Product and content decisions"]
+    D --> A`}
+/>
+
 </Section>
 
 <Section>
 
 ## What I owned
 
-### Search architecture
-
-I built canonical, language-aware routes for lessons, topics, curricula, and articles, with metadata and structured data tied to the same content model.
-
-### Programmatic content system
-
-I connected authored learning content to reusable page templates, sitemap generation, internal navigation, and signed releases so new coverage can ship without hand-building every page.
-
-### Measurement and iteration
-
-I used Search Console and product analytics to follow queries, indexed pages, referrals, and product use. The evidence guides what to improve without pretending every change caused the full result.
+| Part | What I built | Why it matters |
+| --- | --- | --- |
+| Search architecture | Canonical, language-aware routes for lessons, topics, curricula, and articles, with metadata and structured data tied to the same content model. | Readers and crawlers reach one stable version of each learning resource. |
+| Programmatic content system | Reusable page templates, sitemap generation, internal navigation, and signed releases connected to authored learning content. | New coverage can ship through one maintained system instead of a hand-built page for every topic. |
+| Measurement and iteration | Search Console and product analytics views for queries, indexed pages, referrals, and product use. | Evidence guides the next change without assigning the full result to one intervention. |
 
 </Section>
 

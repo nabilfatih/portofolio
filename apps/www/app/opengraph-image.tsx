@@ -40,7 +40,6 @@ export default function OpenGraphImage() {
             display: "flex",
             fontSize: 76,
             fontWeight: 700,
-            letterSpacing: "-4px",
           }}
         >
           Nabil Fatih

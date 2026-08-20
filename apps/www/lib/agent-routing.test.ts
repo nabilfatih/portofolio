@@ -5,6 +5,7 @@ import { caseStudies } from "@/lib/cases";
 describe("resolveMarkdownRoute", () => {
   const markdownRoutes: readonly (readonly [string, string])[] = [
     ["/", "/index.md"],
+    ["/case-studies", "/case-studies.md"],
     ["/collaborate", "/collaborate.md"],
     ["/privacy", "/privacy.md"],
     ["/work", "/work.md"],

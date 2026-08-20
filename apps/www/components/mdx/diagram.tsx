@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@repo/design-system/components/ui/card";
 import { getThemeAppearance } from "@repo/design-system/lib/theme/registry";
 import { cn } from "@repo/design-system/lib/utils";
 import { Data, Effect, Fiber } from "effect";
@@ -11,9 +18,35 @@ class DiagramRenderError extends Data.TaggedError("DiagramRenderError")<{
   readonly cause: unknown;
 }> {}
 
+let diagramRenderSequence = 0;
+
+function acquireRenderContainer(componentId: string) {
+  return Effect.try({
+    catch: (cause) => new DiagramRenderError({ cause }),
+    try: () => {
+      const container = document.createElement("div");
+      const sequence = diagramRenderSequence;
+      diagramRenderSequence += 1;
+
+      container.ariaHidden = "true";
+      container.style.left = "-10000px";
+      container.style.pointerEvents = "none";
+      container.style.position = "fixed";
+      container.style.visibility = "hidden";
+      container.style.width = "1024px";
+      document.body.append(container);
+
+      return {
+        container,
+        renderId: `diagram-${componentId}-${sequence}`,
+      };
+    },
+  });
+}
+
 const renderDiagram = Effect.fn("portfolio.diagram.render")(function* (
   chart: string,
-  id: string,
+  componentId: string,
   config: MermaidConfig
 ) {
   const mermaidModule = yield* Effect.tryPromise({
@@ -26,10 +59,15 @@ const renderDiagram = Effect.fn("portfolio.diagram.render")(function* (
     try: () => mermaidModule.default.initialize(config),
   });
 
-  return yield* Effect.tryPromise({
-    catch: (cause) => new DiagramRenderError({ cause }),
-    try: () => mermaidModule.default.render(id, chart),
-  });
+  return yield* Effect.acquireUseRelease(
+    acquireRenderContainer(componentId),
+    ({ container, renderId }) =>
+      Effect.tryPromise({
+        catch: (cause) => new DiagramRenderError({ cause }),
+        try: () => mermaidModule.default.render(renderId, chart, container),
+      }),
+    ({ container }) => Effect.sync(() => container.remove())
+  );
 });
 
 interface DiagramState {
@@ -93,6 +131,8 @@ export function ArchitectureDiagram({
   title,
 }: ArchitectureDiagramProps) {
   const componentId = useId().replaceAll(":", "");
+  const descriptionId = `diagram-description-${componentId}`;
+  const titleId = `diagram-title-${componentId}`;
   const { resolvedTheme } = useTheme();
   const appearance = getThemeAppearance(resolvedTheme);
   const renderKey = `${componentId}-${appearance}-${chart}`;
@@ -105,11 +145,7 @@ export function ArchitectureDiagram({
 
   useEffect(() => {
     const fiber = Effect.runFork(
-      renderDiagram(
-        chart,
-        `diagram-${componentId}`,
-        getThemeConfig(appearance)
-      ).pipe(
+      renderDiagram(chart, componentId, getThemeConfig(appearance)).pipe(
         Effect.matchEffect({
           onFailure: () =>
             Effect.sync(() => ({
@@ -137,14 +173,24 @@ export function ArchitectureDiagram({
   const isLoading = !(isCurrent || state.svg);
 
   return (
-    <figure className="not-prose my-8 overflow-hidden rounded-2xl bg-muted/40">
-      <figcaption className="space-y-1 p-5 pb-0 sm:px-6 sm:pt-6">
-        <p className="text-sm">{title}</p>
-        <p className="text-foreground/80 text-sm leading-relaxed">
+    <Card
+      aria-describedby={descriptionId}
+      aria-labelledby={titleId}
+      className="not-prose my-8 bg-muted/40 shadow-none ring-0"
+      role="figure"
+    >
+      <CardHeader>
+        <CardTitle className="font-normal text-sm" id={titleId}>
+          {title}
+        </CardTitle>
+        <CardDescription
+          className="text-foreground/80 leading-relaxed"
+          id={descriptionId}
+        >
           {description}
-        </p>
-      </figcaption>
-      <div className="grid min-h-72 place-items-center overflow-x-auto p-5 sm:p-6">
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="grid min-h-72 place-items-center overflow-x-auto">
         {isLoading ? (
           <div
             aria-label={`Loading ${title}`}
@@ -169,7 +215,7 @@ export function ArchitectureDiagram({
             role="img"
           />
         ) : null}
-      </div>
-    </figure>
+      </CardContent>
+    </Card>
   );
 }

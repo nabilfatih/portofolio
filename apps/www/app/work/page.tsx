@@ -1,12 +1,11 @@
 import { Particles } from "@repo/design-system/components/ui/particles";
 import type { Metadata } from "next";
 import WorkContent from "@/content/work/index.mdx";
-import { caseStudies } from "@/lib/cases";
 import { serializeJsonLd } from "@/lib/json-ld";
-import { SITE_URL, SOCIAL_IMAGE } from "@/lib/site";
+import { SITE_URL, SOCIAL_IMAGE, siteConfig } from "@/lib/site";
 
 const WORK_DESCRIPTION =
-  "Case studies and experience from Nabil Fatih across product engineering, applied AI, platform systems, internal tools, data workflows, and growth.";
+  "Professional experience and education from Nabil Fatih across product engineering, applied AI, platform systems, internal tools, data workflows, and growth.";
 
 export const metadata: Metadata = {
   alternates: {
@@ -19,39 +18,40 @@ export const metadata: Metadata = {
   openGraph: {
     description: WORK_DESCRIPTION,
     images: [SOCIAL_IMAGE],
-    title: "Case studies and experience | Nabil Fatih",
+    title: "Work experience | Nabil Fatih",
     url: "/work",
   },
-  title: "Case studies and experience",
+  title: "Work experience",
   twitter: {
     card: "summary_large_image",
     description: WORK_DESCRIPTION,
     images: [SOCIAL_IMAGE.url],
-    title: "Case studies and experience | Nabil Fatih",
+    title: "Work experience | Nabil Fatih",
   },
 };
 
-export default function WorkPage() {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    description: WORK_DESCRIPTION,
-    mainEntity: {
-      "@type": "ItemList",
-      itemListElement: caseStudies.map((study, index) => ({
-        "@type": "ListItem",
-        item: {
-          "@type": "Article",
-          headline: study.title,
-          url: `${SITE_URL}${study.href}`,
-        },
-        position: index + 1,
-      })),
-    },
-    name: "Case studies and experience",
-    url: `${SITE_URL}/work`,
-  };
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  description: WORK_DESCRIPTION,
+  mainEntity: {
+    "@type": "Person",
+    jobTitle: "Product Engineer",
+    knowsAbout: [
+      "Product engineering",
+      "Applied AI",
+      "Platform systems",
+      "Data workflows",
+      "Growth engineering",
+    ],
+    name: siteConfig.name,
+    url: SITE_URL,
+  },
+  name: "Work experience",
+  url: `${SITE_URL}/work`,
+};
 
+export default function WorkPage() {
   return (
     <div className="relative">
       <script

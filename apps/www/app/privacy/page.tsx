@@ -36,7 +36,7 @@ export default function PrivacyPage() {
   return (
     <section className="py-24">
       <div className="mx-auto max-w-2xl px-4">
-        <h1 className="mb-8 font-medium text-2xl tracking-tighter">privacy</h1>
+        <h1 className="mb-8 font-medium text-2xl tracking-tight">privacy</h1>
 
         <div className="prose max-w-none break-words prose-p:leading-relaxed">
           <p>

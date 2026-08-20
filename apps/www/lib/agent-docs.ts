@@ -3,6 +3,7 @@ import { NodeHtmlMarkdown } from "node-html-markdown";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createAgentMdxComponents } from "@/components/mdx/agent";
+import CaseStudiesContent from "@/content/case-studies/index.mdx";
 import CollaborateContent from "@/content/collaborate.mdx";
 import HomeContent from "@/content/home.mdx";
 import WorkContent from "@/content/work/index.mdx";
@@ -25,6 +26,10 @@ export function renderHomeMarkdown(
 
 export function renderWorkMarkdown() {
   return renderMdxMarkdown(WorkContent);
+}
+
+export function renderCaseStudiesMarkdown() {
+  return renderMdxMarkdown(CaseStudiesContent);
 }
 
 export function renderCollaborateMarkdown() {
@@ -51,6 +56,10 @@ export function renderAgentDocuments(
 ): readonly RenderedAgentDocument[] {
   return [
     { content: renderHomeMarkdown(githubSummary), outputPath: "index.md" },
+    {
+      content: renderCaseStudiesMarkdown(),
+      outputPath: "case-studies.md",
+    },
     { content: renderWorkMarkdown(), outputPath: "work.md" },
     { content: renderCollaborateMarkdown(), outputPath: "collaborate.md" },
     { content: renderPrivacyMarkdown(), outputPath: "privacy.md" },
@@ -81,7 +90,8 @@ export function renderLlmsText() {
 ## Portfolio
 
 - [Home](${SITE_URL}/index.md): Introduction and primary profile links.
-- [Work](${SITE_URL}/work.md): Case studies, professional experience, and education.
+- [Case studies](${SITE_URL}/case-studies.md): Technical case studies across product engineering, applied AI, platform systems, and growth engineering.
+- [Work](${SITE_URL}/work.md): Professional experience and education.
 - [Collaborate](${SITE_URL}/collaborate.md): Product engineering, growth systems, and applied AI support.
 - [Privacy](${SITE_URL}/privacy.md): Analytics, performance measurement, and contact details.
 
@@ -122,7 +132,7 @@ export function renderLlmsFullText(
     .map((study) => renderCaseStudyMarkdown(study.slug))
     .join("\n\n");
 
-  return `${renderHomeMarkdown(githubSummary)}\n\n${renderWorkMarkdown()}\n\n${renderCollaborateMarkdown()}\n\n${caseStudyMarkdown}\n\n${renderPrivacyMarkdown()}`;
+  return `${renderHomeMarkdown(githubSummary)}\n\n${renderCaseStudiesMarkdown()}\n\n${renderWorkMarkdown()}\n\n${renderCollaborateMarkdown()}\n\n${caseStudyMarkdown}\n\n${renderPrivacyMarkdown()}`;
 }
 
 function renderMdxMarkdown(

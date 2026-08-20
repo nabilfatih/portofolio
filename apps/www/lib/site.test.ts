@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   renderAgentDocuments,
+  renderCaseStudiesMarkdown,
   renderCaseStudyMarkdown,
   renderCollaborateMarkdown,
   renderHomeMarkdown,
@@ -46,11 +47,15 @@ describe("portfolio contact link", () => {
 
   it("publishes the collaboration and case study pages to agents", () => {
     const collaborationMarkdown = renderCollaborateMarkdown();
+    const caseStudiesMarkdown = renderCaseStudiesMarkdown();
     const caseStudyMarkdown = renderCaseStudyMarkdown("nakafa-growth");
     const fullPortfolioMarkdown = renderLlmsFullText();
     const llmsText = renderLlmsText();
 
     expect(collaborationMarkdown).toContain("Growth engineering");
+    expect(caseStudiesMarkdown).toContain(
+      "How I turn product problems into working systems"
+    );
     expect(collaborationMarkdown).toContain(CONTACT_HREF);
     expect(caseStudyMarkdown).toContain("14,479 organic clicks");
     expect(caseStudyMarkdown).toContain("Cumulative organic clicks");
@@ -76,6 +81,7 @@ describe("portfolio contact link", () => {
     const outputPaths = documents.map((document) => document.outputPath);
 
     expect(new Set(outputPaths).size).toBe(outputPaths.length);
+    expect(outputPaths).toContain("case-studies.md");
     for (const study of caseStudies) {
       expect(outputPaths).toContain(study.markdownHref.slice(1));
     }

@@ -7,7 +7,7 @@ const CONVENTIONAL_SUFFIXES = [".config", ".spec", ".test"];
 const GENERATED_FILES = new Set([
   "apps/www/public/work/nakafa-organic-growth.md",
 ]);
-const VENDORED_DIRECTORIES = [".agents/skills/"];
+const VENDORED_DIRECTORIES = [".agents/skills/", "repos/effect/"];
 
 function repositoryFiles() {
   const output = execFileSync(

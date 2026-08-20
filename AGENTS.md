@@ -29,3 +29,7 @@ Use Node 24 and pnpm from the root.
 Keep code direct, readable, and package-owned. Source and asset filenames may use at most two hyphen-separated words, excluding conventional test and config suffixes. Action links and buttons use normal font weight. Do not duplicate design tokens inside the app. Do not publish private details from source documents. Do not deploy without explicit authorization.
 
 Do not edit the generated Markdown and text files in `apps/www/public`. Change the MDX source or its semantic agent component, then regenerate the documents.
+
+## Vendored source
+
+`repos/effect` is a read-only Git subtree pinned to the same Effect v4 release used by `apps/www`. Use it to inspect implementation, tests, and migration behavior. Do not import from it, edit it, or run its repository-wide checks as part of portfolio validation. Update the subtree and the installed `effect` and `@effect/vitest` versions together.

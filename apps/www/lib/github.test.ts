@@ -1,5 +1,5 @@
+import { describe, expect, it } from "@effect/vitest";
 import { Effect, Layer, Option } from "effect";
-import { describe, expect, it } from "vitest";
 import {
   GitHubContributionParseError,
   GitHubContributionSource,
@@ -31,81 +31,93 @@ const contributionHtml = `
 `;
 
 describe("GitHub contribution summary", () => {
-  it("loads the contribution calendar through the Effect service", async () => {
-    const source = Layer.succeed(GitHubContributionSource, {
-      read: Effect.succeed(contributionHtml),
-    });
+  it.effect(
+    "loads the contribution calendar through the Effect service",
+    () => {
+      const source = Layer.succeed(GitHubContributionSource, {
+        read: Effect.succeed(contributionHtml),
+      });
 
-    const summary = await Effect.runPromise(
-      getGitHubContributionSummary().pipe(Effect.provide(source))
-    );
+      return getGitHubContributionSummary().pipe(
+        Effect.provide(source),
+        Effect.tap((summary) =>
+          Effect.sync(() => {
+            expect(summary).toEqual({
+              days: [
+                {
+                  date: "2025-08-10",
+                  level: 1,
+                },
+                {
+                  date: "2025-08-11",
+                  level: 2,
+                },
+                {
+                  date: "2025-08-12",
+                  level: 0,
+                },
+              ],
+              total: 5,
+            });
+          })
+        )
+      );
+    }
+  );
 
-    expect(summary).toEqual({
-      days: [
-        {
-          date: "2025-08-10",
-          level: 1,
-        },
-        {
-          date: "2025-08-11",
-          level: 2,
-        },
-        {
-          date: "2025-08-12",
-          level: 0,
-        },
-      ],
-      total: 5,
-    });
-  });
-
-  it("keeps an invalid GitHub response in the typed error channel", async () => {
-    const error = await Effect.runPromise(
-      parseGitHubContributionSummary("<h2>Contribution activity</h2>").pipe(
-        Effect.flip
+  it.effect("keeps an invalid GitHub response in the typed error channel", () =>
+    parseGitHubContributionSummary("<h2>Contribution activity</h2>").pipe(
+      Effect.flip,
+      Effect.tap((error) =>
+        Effect.sync(() => {
+          expect(error).toBeInstanceOf(GitHubContributionParseError);
+          expect(error._tag).toBe("GitHubContributionParseError");
+        })
       )
-    );
+    )
+  );
 
-    expect(error).toBeInstanceOf(GitHubContributionParseError);
-    expect(error._tag).toBe("GitHubContributionParseError");
-  });
-
-  it("returns null when GitHub data cannot be validated", async () => {
+  it.effect("returns null when GitHub data cannot be validated", () => {
     const source = Layer.succeed(GitHubContributionSource, {
       read: Effect.succeed("<h2>Contribution activity</h2>"),
     });
 
-    const summary = Option.getOrNull(
-      await Effect.runPromise(
-        getGitHubContributionSummary().pipe(
-          Effect.provide(source),
-          Effect.option
-        )
+    return getGitHubContributionSummary().pipe(
+      Effect.provide(source),
+      Effect.option,
+      Effect.map(Option.getOrNull),
+      Effect.tap((summary) =>
+        Effect.sync(() => {
+          expect(summary).toBeNull();
+        })
       )
     );
-
-    expect(summary).toBeNull();
   });
 
-  it("keeps an invalid calendar in the typed error channel", async () => {
-    const error = await Effect.runPromise(
-      parseGitHubContributionSummary(`
+  it.effect("keeps an invalid calendar in the typed error channel", () =>
+    parseGitHubContributionSummary(`
         <h2 id="js-contribution-activity-description">
           5 contributions in the last year
         </h2>
-      `).pipe(Effect.flip)
-    );
+      `).pipe(
+      Effect.flip,
+      Effect.tap((error) =>
+        Effect.sync(() => {
+          expect(error).toBeInstanceOf(GitHubContributionParseError);
+          expect(error._tag).toBe("GitHubContributionParseError");
+        })
+      )
+    )
+  );
 
-    expect(error).toBeInstanceOf(GitHubContributionParseError);
-    expect(error._tag).toBe("GitHubContributionParseError");
-  });
-
-  it("parses a contribution calendar independently", async () => {
-    const summary = await Effect.runPromise(
-      parseGitHubContributionSummary(contributionHtml)
-    );
-
-    expect(summary.days).toHaveLength(3);
-    expect(summary.days[0]?.date).toBe("2025-08-10");
-  });
+  it.effect("parses a contribution calendar independently", () =>
+    parseGitHubContributionSummary(contributionHtml).pipe(
+      Effect.tap((summary) =>
+        Effect.sync(() => {
+          expect(summary.days).toHaveLength(3);
+          expect(summary.days[0]?.date).toBe("2025-08-10");
+        })
+      )
+    )
+  );
 });

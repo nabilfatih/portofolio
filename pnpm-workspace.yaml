@@ -21,4 +21,7 @@ overrides:
   "nanoid@<3.3.18": "3.3.18"
 
 allowBuilds:
+  # Effect's msgpackr dependency can use this optional native accelerator, but
+  # the portfolio does not use MessagePack. Keep the install script disabled.
+  msgpackr-extract: false
   sharp: true

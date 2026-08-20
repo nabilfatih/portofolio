@@ -11,11 +11,13 @@
     "agent-docs": "pnpm --filter www agent-docs",
     "build": "turbo run build",
     "bump-deps": "pnpm dlx npm-check-updates --workspaces --root -u -x pnpm,@types/node && pnpm install",
-    "check": "pnpm filenames && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "check": "pnpm filenames && pnpm lint && pnpm effect:diagnostics && pnpm typecheck && pnpm test && pnpm build",
     "dev": "turbo run dev --filter=www",
+    "effect:diagnostics": "effect-tsgo diagnostics --project apps/www/tsconfig.json --format text --strict",
     "filenames": "node scripts/filenames.mjs",
     "format": "ultracite fix",
     "lint": "ultracite check",
+    "prepare": "effect-tsgo patch --typescript --no-oxlint",
     "react-doctor": "pnpm dlx react-doctor@0.9.7 . --no-cache --no-telemetry --blocking warning",
     "security:audit": "pnpm audit --audit-level=low",
     "shadcn:diff": "pnpm dlx shadcn@latest diff -c packages/design-system",
@@ -25,11 +27,12 @@
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.8",
+    "@biomejs/biome": "2.5.9",
+    "@effect/tsgo": "0.36.5",
     "@types/node": "^24.13.3",
-    "turbo": "2.10.9",
+    "turbo": "2.10.11",
     "typescript": "7.0.2",
-    "ultracite": "7.10.3"
+    "ultracite": "7.10.5"
   },
   "packageManager": "pnpm@11.20.0",
   "engines": {

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
+  "$schema": "../../node_modules/@effect/tsgo/schema.json",
   "display": "Base",
   "compilerOptions": {
     "esModuleInterop": true,
@@ -13,6 +13,11 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022"
+    "target": "ES2022",
+    "plugins": [
+      {
+        "name": "@effect/language-service"
+      }
+    ]
   }
 }

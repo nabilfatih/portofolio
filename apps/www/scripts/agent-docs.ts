@@ -2,7 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import mdx from "@mdx-js/rollup";
-import { Effect, Schema } from "effect";
+import { Data, Effect } from "effect";
 import { createServer } from "vite";
 import type { GitHubContributionSummary } from "../lib/github";
 
@@ -18,19 +18,6 @@ const staticDocuments = [
   ["llms-full.txt", "renderLlmsFullText"],
 ] as const;
 
-const AgentDocumentOperation = Schema.Literals([
-  "start-mdx-server",
-  "compile-agent-renderers",
-  "compile-github-loader",
-  "load-growth-route",
-  "resolve-growth-route",
-  "load-github-contributions",
-  "load-renderer",
-  "render-document",
-  "write-document",
-]);
-
-type AgentDocumentOperation = typeof AgentDocumentOperation.Type;
 type AgentDocumentRenderer = (
   summary: GitHubContributionSummary | null
 ) => string;
@@ -42,31 +29,17 @@ type GrowthEvidenceModule = Readonly<{
   NAKAFA_GROWTH_MARKDOWN_HREF?: unknown;
 }>;
 
-class AgentDocumentError extends Schema.TaggedError<AgentDocumentError>()(
-  "AgentDocumentError",
-  {
-    cause: Schema.Unknown,
-    message: Schema.String,
-    operation: AgentDocumentOperation,
-  }
-) {}
+class AgentDocumentError extends Data.TaggedError("AgentDocumentError")<{
+  readonly cause: unknown;
+  readonly message: string;
+}> {}
 
-function agentDocumentError(
-  operation: AgentDocumentOperation,
-  message: string,
-  cause: unknown
-) {
-  return new AgentDocumentError({ cause, message, operation });
-}
+const agentDocumentError = (message: string) => (cause: unknown) =>
+  new AgentDocumentError({ cause, message });
 
 const createMdxServer = Effect.acquireRelease(
   Effect.tryPromise({
-    catch: (cause) =>
-      agentDocumentError(
-        "start-mdx-server",
-        "Could not start the MDX compiler.",
-        cause
-      ),
+    catch: agentDocumentError("Could not start the MDX compiler."),
     try: () =>
       createServer({
         appType: "custom",
@@ -95,48 +68,32 @@ const generateAgentDocs = Effect.scoped(
   Effect.gen(function* () {
     const server = yield* createMdxServer;
     const agentDocs = yield* Effect.tryPromise({
-      catch: (cause) =>
-        agentDocumentError(
-          "compile-agent-renderers",
-          "Could not compile the agent document renderers.",
-          cause
-        ),
+      catch: agentDocumentError(
+        "Could not compile the agent document renderers."
+      ),
       try: async () =>
         (await server.ssrLoadModule(
           "/lib/agent-docs.ts"
         )) as AgentDocumentModule,
     });
     const github = yield* Effect.tryPromise({
-      catch: (cause) =>
-        agentDocumentError(
-          "compile-github-loader",
-          "Could not compile the GitHub contribution loader.",
-          cause
-        ),
+      catch: agentDocumentError(
+        "Could not compile the GitHub contribution loader."
+      ),
       try: async () =>
         (await server.ssrLoadModule(
           "/lib/github.ts"
         )) as GitHubContributionModule,
     });
     const growthEvidence = yield* Effect.tryPromise({
-      catch: (cause) =>
-        agentDocumentError(
-          "load-growth-route",
-          "Could not load the growth document route.",
-          cause
-        ),
+      catch: agentDocumentError("Could not load the growth document route."),
       try: async () =>
         (await server.ssrLoadModule(
           "/lib/nakafa-growth.ts"
         )) as GrowthEvidenceModule,
     });
     const growthMarkdownHref = yield* Effect.try({
-      catch: (cause) =>
-        agentDocumentError(
-          "resolve-growth-route",
-          "Could not resolve the growth document route.",
-          cause
-        ),
+      catch: agentDocumentError("Could not resolve the growth document route."),
       try: () => {
         const href = growthEvidence.NAKAFA_GROWTH_MARKDOWN_HREF;
 
@@ -152,12 +109,9 @@ const generateAgentDocs = Effect.scoped(
       [growthMarkdownHref.slice(1), "renderNakafaGrowthMarkdown"],
     ] as const;
     const githubSummary = yield* Effect.tryPromise({
-      catch: (cause) =>
-        agentDocumentError(
-          "load-github-contributions",
-          "Could not load the current GitHub contributions.",
-          cause
-        ),
+      catch: agentDocumentError(
+        "Could not load the current GitHub contributions."
+      ),
       try: async () => {
         const loadSummary = github.loadGitHubContributionSummary;
 
@@ -173,12 +127,7 @@ const generateAgentDocs = Effect.scoped(
       documents.map(([outputPath, rendererName]) =>
         Effect.gen(function* () {
           const renderDocument = yield* Effect.try({
-            catch: (cause) =>
-              agentDocumentError(
-                "load-renderer",
-                `Could not load ${rendererName}.`,
-                cause
-              ),
+            catch: agentDocumentError(`Could not load ${rendererName}.`),
             try: () => {
               const renderer = agentDocs[rendererName];
 
@@ -191,23 +140,13 @@ const generateAgentDocs = Effect.scoped(
           });
 
           const content = yield* Effect.try({
-            catch: (cause) =>
-              agentDocumentError(
-                "render-document",
-                `Could not render ${outputPath}.`,
-                cause
-              ),
+            catch: agentDocumentError(`Could not render ${outputPath}.`),
             try: () => renderDocument(githubSummary),
           });
           const destination = resolve(publicRoot, outputPath);
 
           yield* Effect.tryPromise({
-            catch: (cause) =>
-              agentDocumentError(
-                "write-document",
-                `Could not write ${destination}.`,
-                cause
-              ),
+            catch: agentDocumentError(`Could not write ${destination}.`),
             try: async () => {
               await mkdir(dirname(destination), { recursive: true });
               await writeFile(destination, content, "utf8");

@@ -17,6 +17,7 @@ export interface CaseStudyMetadata {
   company: string;
   description: string;
   discipline: string;
+  logo: string;
   slug: CaseSlug;
   title: string;
 }

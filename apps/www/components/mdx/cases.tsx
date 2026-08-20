@@ -1,4 +1,9 @@
 import { ArrowRight02Icon } from "@hugeicons/core-free-icons";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@repo/design-system/components/ui/avatar";
 import { Badge } from "@repo/design-system/components/ui/badge";
 import {
   Card,
@@ -56,13 +61,19 @@ export function CaseStudies({
         <li className="min-w-0" key={study.slug}>
           <Card className="group h-full min-w-0 bg-muted/50 shadow-none ring-0">
             <CardHeader className="min-w-0 gap-4">
-              <div className="min-w-0 space-y-2">
-                <div>
-                  <Badge variant="secondary">{study.discipline}</Badge>
+              <div className="flex min-w-0 items-center justify-between gap-3">
+                <Badge variant="secondary">{study.discipline}</Badge>
+                <div className="shrink-0">
+                  <Avatar aria-hidden="true" size="sm">
+                    <AvatarImage
+                      alt=""
+                      className="bg-white object-contain p-0.5"
+                      src={study.logo}
+                    />
+                    <AvatarFallback>{study.company.slice(0, 1)}</AvatarFallback>
+                  </Avatar>
+                  <span className="sr-only">{study.company}</span>
                 </div>
-                <p className="break-words text-muted-foreground text-sm">
-                  {study.company}
-                </p>
               </div>
               <CardTitle>
                 <Heading className="text-balance text-lg tracking-tight">

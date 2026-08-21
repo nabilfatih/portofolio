@@ -85,6 +85,7 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  serverExternalPackages: ["@takumi-rs/core"],
 };
 
 export default createMdx({

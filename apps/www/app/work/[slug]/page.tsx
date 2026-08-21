@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { caseStudies, getCaseStudy } from "@/lib/cases";
 import { serializeJsonLd } from "@/lib/json-ld";
-import { SITE_URL, SOCIAL_IMAGE, siteConfig } from "@/lib/site";
+import { SITE_URL, siteConfig } from "@/lib/site";
+import { createSocialImage } from "@/lib/social";
 
 interface CaseStudyPageProps {
   params: Promise<{ slug: string }>;
@@ -24,6 +25,11 @@ export async function generateMetadata({
     notFound();
   }
 
+  const socialImage = createSocialImage(
+    ["work", study.slug],
+    `${study.title}, a ${study.discipline.toLowerCase()} case study by Nabil Fatih.`
+  );
+
   return {
     alternates: {
       canonical: study.href,
@@ -34,7 +40,7 @@ export async function generateMetadata({
     description: study.description,
     openGraph: {
       description: study.description,
-      images: [SOCIAL_IMAGE],
+      images: [socialImage],
       title: study.title,
       type: "article",
       url: study.href,
@@ -43,7 +49,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       description: study.description,
-      images: [SOCIAL_IMAGE.url],
+      images: [socialImage.url],
       title: study.title,
     },
   };

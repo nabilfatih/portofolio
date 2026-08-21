@@ -29,7 +29,8 @@
     "node-html-parser": "9.0.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "remark-gfm": "4.0.1"
+    "remark-gfm": "4.0.1",
+    "takumi-js": "2.10.0"
   },
   "devDependencies": {
     "@effect/vitest": "4.0.0-rc.110",

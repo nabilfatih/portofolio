@@ -2,10 +2,15 @@ import { Particles } from "@repo/design-system/components/ui/particles";
 import type { Metadata } from "next";
 import WorkContent from "@/content/work/index.mdx";
 import { serializeJsonLd } from "@/lib/json-ld";
-import { SITE_URL, SOCIAL_IMAGE, siteConfig } from "@/lib/site";
+import { SITE_URL, siteConfig } from "@/lib/site";
+import { createSocialImage } from "@/lib/social";
 
 const WORK_DESCRIPTION =
   "Professional experience and education from Nabil Fatih across product engineering, applied AI, platform systems, internal tools, data workflows, and growth.";
+const WORK_IMAGE = createSocialImage(
+  ["work"],
+  "Nabil Fatih's professional experience across product engineering, applied AI, platform systems, and growth."
+);
 
 export const metadata: Metadata = {
   alternates: {
@@ -17,7 +22,7 @@ export const metadata: Metadata = {
   description: WORK_DESCRIPTION,
   openGraph: {
     description: WORK_DESCRIPTION,
-    images: [SOCIAL_IMAGE],
+    images: [WORK_IMAGE],
     title: "Work experience | Nabil Fatih",
     url: "/work",
   },
@@ -25,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     description: WORK_DESCRIPTION,
-    images: [SOCIAL_IMAGE.url],
+    images: [WORK_IMAGE.url],
     title: "Work experience | Nabil Fatih",
   },
 };

@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.shortName}`,
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     creator: "@nabilfatih_",
     description: siteConfig.description,
     images: [SOCIAL_IMAGE.url],

@@ -2,10 +2,15 @@ import { Particles } from "@repo/design-system/components/ui/particles";
 import type { Metadata } from "next";
 import CollaborateContent from "@/content/collaborate.mdx";
 import { serializeJsonLd } from "@/lib/json-ld";
-import { SITE_URL, SOCIAL_IMAGE, siteConfig } from "@/lib/site";
+import { SITE_URL, siteConfig } from "@/lib/site";
+import { createSocialImage } from "@/lib/social";
 
 const COLLABORATE_DESCRIPTION =
   "Work with Nabil Fatih as a contractor or B2B partner on product engineering, organic growth systems, internal tools, and applied AI.";
+const COLLABORATE_IMAGE = createSocialImage(
+  ["collaborate"],
+  "Work with Nabil Fatih on product engineering, applied AI, platform systems, and growth."
+);
 
 export const metadata: Metadata = {
   alternates: {
@@ -17,7 +22,7 @@ export const metadata: Metadata = {
   description: COLLABORATE_DESCRIPTION,
   openGraph: {
     description: COLLABORATE_DESCRIPTION,
-    images: [SOCIAL_IMAGE],
+    images: [COLLABORATE_IMAGE],
     title: "Collaborate with Nabil Fatih",
     url: "/collaborate",
   },
@@ -25,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     description: COLLABORATE_DESCRIPTION,
-    images: [SOCIAL_IMAGE.url],
+    images: [COLLABORATE_IMAGE.url],
     title: "Collaborate with Nabil Fatih",
   },
 };

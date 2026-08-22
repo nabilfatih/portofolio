@@ -1,3 +1,5 @@
+import { createSocialImage } from "@/lib/social";
+
 export const SITE_URL = "https://nabilfatih.com";
 
 export const CONTACT_EMAIL = "nabilakbarazzima@gmail.com";
@@ -20,12 +22,10 @@ export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponen
   CONTACT_SUBJECT
 )}&body=${encodeURIComponent(CONTACT_BODY)}`;
 
-export const SOCIAL_IMAGE = {
-  alt: "Nabil Fatih, Product Engineer",
-  height: 630,
-  url: "/opengraph-image",
-  width: 1200,
-} as const;
+export const SOCIAL_IMAGE = createSocialImage(
+  ["home"],
+  "Nabil Fatih turns product problems into working systems across product engineering, applied AI, platforms, and growth."
+);
 
 export const siteConfig = {
   description:

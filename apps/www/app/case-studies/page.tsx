@@ -3,10 +3,15 @@ import type { Metadata } from "next";
 import CaseStudiesContent from "@/content/case-studies/index.mdx";
 import { caseStudies } from "@/lib/cases";
 import { serializeJsonLd } from "@/lib/json-ld";
-import { SITE_URL, SOCIAL_IMAGE } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
+import { createSocialImage } from "@/lib/social";
 
 const CASE_STUDIES_DESCRIPTION =
   "Technical case studies from Nabil Fatih across product engineering, applied AI, platform systems, and growth engineering.";
+const CASE_STUDIES_IMAGE = createSocialImage(
+  ["case-studies"],
+  "Technical case studies from Nabil Fatih across product engineering, applied AI, platform systems, and growth."
+);
 
 export const metadata: Metadata = {
   alternates: {
@@ -18,7 +23,7 @@ export const metadata: Metadata = {
   description: CASE_STUDIES_DESCRIPTION,
   openGraph: {
     description: CASE_STUDIES_DESCRIPTION,
-    images: [SOCIAL_IMAGE],
+    images: [CASE_STUDIES_IMAGE],
     title: "Technical case studies | Nabil Fatih",
     url: "/case-studies",
   },
@@ -26,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     description: CASE_STUDIES_DESCRIPTION,
-    images: [SOCIAL_IMAGE.url],
+    images: [CASE_STUDIES_IMAGE.url],
     title: "Technical case studies | Nabil Fatih",
   },
 };

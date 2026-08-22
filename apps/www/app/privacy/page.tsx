@@ -4,10 +4,14 @@ import {
   VERCEL_ANALYTICS_PRIVACY_URL,
   VERCEL_SPEED_INSIGHTS_URL,
 } from "@/lib/privacy";
-import { SOCIAL_IMAGE } from "@/lib/site";
+import { createSocialImage } from "@/lib/social";
 
 const PRIVACY_DESCRIPTION =
   "How this portfolio uses Vercel Web Analytics and Speed Insights, what information is collected, and how to get in touch.";
+const PRIVACY_IMAGE = createSocialImage(
+  ["privacy"],
+  "How Nabil Fatih's portfolio handles analytics, performance measurement, and data."
+);
 
 export const metadata: Metadata = {
   alternates: {
@@ -19,7 +23,7 @@ export const metadata: Metadata = {
   description: PRIVACY_DESCRIPTION,
   openGraph: {
     description: PRIVACY_DESCRIPTION,
-    images: [SOCIAL_IMAGE],
+    images: [PRIVACY_IMAGE],
     title: "Privacy and Data | Nabil Fatih",
     url: "/privacy",
   },
@@ -27,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     description: PRIVACY_DESCRIPTION,
-    images: [SOCIAL_IMAGE.url],
+    images: [PRIVACY_IMAGE.url],
     title: "Privacy and Data | Nabil Fatih",
   },
 };

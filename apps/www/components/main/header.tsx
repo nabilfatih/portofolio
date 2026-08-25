@@ -46,20 +46,22 @@ export default function MainHeader() {
           aria-label="Primary"
           className="flex items-center justify-end gap-2"
         >
-          <span className="hidden sm:contents">
+          <div className="flex items-center">
+            <span className="hidden sm:contents">
+              <Link
+                className={buttonVariants({ size: "sm", variant: "ghost" })}
+                href="/case-studies"
+              >
+                Case studies
+              </Link>
+            </span>
             <Link
               className={buttonVariants({ size: "sm", variant: "ghost" })}
-              href="/case-studies"
+              href="/work"
             >
-              Case studies
+              Work
             </Link>
-          </span>
-          <Link
-            className={buttonVariants({ size: "sm", variant: "ghost" })}
-            href="/work"
-          >
-            Work
-          </Link>
+          </div>
           <a className={buttonVariants({ size: "sm" })} href={CONTACT_HREF}>
             <HugeIcons data-icon="inline-start" icon={Mail01Icon} />
             Contact

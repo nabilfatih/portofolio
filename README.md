@@ -73,8 +73,15 @@ The site is a `Website.StaticSite` with no `main`, so Alchemy uploads no Worker 
 
 Connect Cloudflare once, then deploy production:
 
+From `apps/www`:
+
 ```bash
-cd apps/www && bun run alchemy profile edit --add Cloudflare
+bun run alchemy profile edit --add Cloudflare
+```
+
+Then, from the repository root:
+
+```bash
 bun run deploy:prod
 ```
 

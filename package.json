@@ -12,7 +12,7 @@
     "build": "turbo run build",
     "bump-deps": "bunx npm-check-updates --workspaces --root -u -x bun,@types/node && bun install",
     "check": "bun run filenames && bun run effect:source:check && bun run lint && bun run effect:diagnostics && bun run typecheck && bun run test && bun run build",
-    "deploy:prod": "bun run --filter www run deploy",
+    "deploy:prod": "bun run --filter www deploy --yes",
     "dev": "turbo run dev --filter=www",
     "effect:diagnostics": "effect-tsgo diagnostics --project apps/www/tsconfig.json --format text --strict",
     "effect:source:check": "node scripts/effect-source.mjs",

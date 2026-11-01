@@ -74,11 +74,13 @@ The site is a `Website.StaticSite` with no `main`, so Alchemy uploads no Worker 
 Connect Cloudflare once, then deploy production:
 
 ```bash
-bunx alchemy profile edit --add Cloudflare --config apps/www/alchemy.run.ts
+cd apps/www && bun run alchemy profile edit --add Cloudflare
 bun run deploy:prod
 ```
 
 `bun run --filter www plan` shows the changes without applying them. Every deploy rebuilds the site, so it also refreshes the GitHub contribution data.
+
+The Deploy workflow runs on every push to `main` and once a day. It needs the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets and the `DEPLOY_ENABLED` variable set to `true`, and skips itself without them.
 
 ## License
 

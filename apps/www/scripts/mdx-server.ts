@@ -31,10 +31,13 @@ export const MdxServer = Effect.acquireRelease(
         },
         oxc: {
           jsx: {
+            development: false,
             runtime: "automatic",
           },
         },
-        plugins: [mdx(mdxOptions)],
+        // Plain JSX renders under any NODE_ENV: Alchemy builds with `production`,
+        // where the React runtime has no development entry.
+        plugins: [mdx({ ...mdxOptions, development: false })],
         resolve: {
           alias: {
             "@": `${webRoot}src`,

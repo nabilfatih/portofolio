@@ -190,12 +190,11 @@ export function GitHubContributions({
                 >
                   {monthLabels.map((month) => (
                     <span
-                      className="whitespace-nowrap"
+                      className="whitespace-nowrap before:content-[attr(data-label)]"
+                      data-label={month.label}
                       key={`${month.column}-${month.label}`}
                       style={{ gridColumnStart: month.column }}
-                    >
-                      {month.label}
-                    </span>
+                    />
                   ))}
                 </div>
                 <div aria-hidden="true" className="flex gap-0.5">

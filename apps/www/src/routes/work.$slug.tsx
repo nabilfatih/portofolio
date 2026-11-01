@@ -6,7 +6,13 @@ import { serializeJsonLd } from "@/lib/json-ld";
 import { SITE_URL, siteConfig } from "@/lib/site";
 import { createSocialImage } from "@/lib/social";
 
+// biome-ignore assist/source/useSortedKeys: TanStack Router infers later options from earlier ones, so the loader comes first.
 export const Route = createFileRoute("/work/$slug")({
+  loader: ({ params }) => {
+    if (!getCaseStudy(params.slug)) {
+      throw notFound();
+    }
+  },
   component: CaseStudyPage,
   head: ({ params }) => {
     const study = getCaseStudy(params.slug);
@@ -27,11 +33,6 @@ export const Route = createFileRoute("/work/$slug")({
       title: study.title,
       type: "article",
     });
-  },
-  loader: ({ params }) => {
-    if (!getCaseStudy(params.slug)) {
-      throw notFound();
-    }
   },
 });
 

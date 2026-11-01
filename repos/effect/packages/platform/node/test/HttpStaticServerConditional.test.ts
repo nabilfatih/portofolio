@@ -1,10 +1,7 @@
 import { assert, describe, it } from "@effect/vitest"
+import * as ByteSize from "effect/ByteSize"
 import * as Effect from "effect/Effect"
 import * as FileSystem from "effect/FileSystem"
-import * as Layer from "effect/Layer"
-import * as Option from "effect/Option"
-import * as Path from "effect/Path"
-import * as PlatformError from "effect/PlatformError"
 import {
   HttpEffect,
   HttpPlatform,
@@ -13,7 +10,11 @@ import {
   HttpServerRequest,
   HttpServerResponse,
   HttpStaticServer
-} from "effect/unstable/http"
+} from "effect/http"
+import * as Layer from "effect/Layer"
+import * as Option from "effect/Option"
+import * as Path from "effect/Path"
+import * as PlatformError from "effect/PlatformError"
 
 const root = "/root"
 const filePath = `${root}/file.txt`
@@ -43,14 +44,14 @@ const fileInfo: FileSystem.File.Info = {
   mtime: Option.some(new Date(lastModified)),
   atime: Option.none(),
   birthtime: Option.none(),
-  dev: 0,
+  dev: 0n,
   ino: Option.none(),
   mode: 0,
   nlink: Option.none(),
   uid: Option.none(),
   gid: Option.none(),
   rdev: Option.none(),
-  size: FileSystem.Size(fileBody.length),
+  size: ByteSize.bytes(fileBody.length),
   blksize: Option.none(),
   blocks: Option.none()
 }
@@ -72,8 +73,12 @@ const makeHandler = async () => {
       Effect.succeed(HttpServerResponse.text(fileBody, {
         status: options?.status,
         headers: {
+          "Content-Location": "/file.txt",
+          Date: lastModified,
           ETag: "\"etag-value\"",
-          "Last-Modified": lastModified
+          Expires: "Thu, 02 Jan 2025 00:00:00 GMT",
+          "Last-Modified": lastModified,
+          Vary: "Accept-Encoding"
         }
       })),
     fileWebResponse: () => Effect.die("not implemented")
@@ -188,6 +193,10 @@ describe("HttpStaticServer", () => {
     assert.strictEqual(exact.headers.get("etag"), "\"etag-value\"")
     assert.strictEqual(exact.headers.get("cache-control"), "public, max-age=60")
     assert.strictEqual(exact.headers.get("last-modified"), lastModified)
+    assert.strictEqual(exact.headers.get("content-location"), "/file.txt")
+    assert.strictEqual(exact.headers.get("date"), lastModified)
+    assert.strictEqual(exact.headers.get("expires"), "Thu, 02 Jan 2025 00:00:00 GMT")
+    assert.strictEqual(exact.headers.get("vary"), "Accept-Encoding")
     assert.strictEqual(exact.headers.get("content-type"), null)
     assert.strictEqual(exact.headers.get("content-length"), null)
   })
@@ -244,6 +253,7 @@ describe("HttpStaticServer", () => {
       new Request("http://localhost/file.txt", {
         headers: {
           "If-None-Match": "\"etag-value\"",
+          "If-Range": "\"stale\"",
           Range: "bytes=1000-1001"
         }
       })

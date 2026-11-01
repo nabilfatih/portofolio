@@ -66,4 +66,83 @@ describe("BigInt", () => {
   it("returns zero for two zero operands", () => {
     assert.strictEqual(BigInt.lcm(0n, 0n), 0n)
   })
+
+  it("Order compares bigints", () => {
+    assert.strictEqual(BigInt.Order(1n, 2n), -1)
+    assert.strictEqual(BigInt.Order(2n, 1n), 1)
+    assert.strictEqual(BigInt.Order(1n, 1n), 0)
+  })
+
+  it("isLessThan and isLessThanOrEqualTo compare against an upper bound", () => {
+    assert.strictEqual(BigInt.isLessThan(2n, 3n), true)
+    assert.strictEqual(BigInt.isLessThan(3n, 3n), false)
+    assert.strictEqual(BigInt.isLessThanOrEqualTo(3n, 3n), true)
+    assert.strictEqual(BigInt.isLessThanOrEqualTo(4n, 3n), false)
+  })
+
+  it("isGreaterThan and isGreaterThanOrEqualTo compare against a lower bound", () => {
+    assert.strictEqual(BigInt.isGreaterThan(4n, 3n), true)
+    assert.strictEqual(BigInt.isGreaterThan(3n, 3n), false)
+    assert.strictEqual(BigInt.isGreaterThanOrEqualTo(3n, 3n), true)
+    assert.strictEqual(BigInt.isGreaterThanOrEqualTo(2n, 3n), false)
+  })
+
+  it("between checks inclusive range membership", () => {
+    assert.strictEqual(BigInt.between(3n, { minimum: 1n, maximum: 5n }), true)
+    assert.strictEqual(BigInt.between(0n, { minimum: 1n, maximum: 5n }), false)
+    assert.strictEqual(BigInt.between(6n, { minimum: 1n, maximum: 5n }), false)
+  })
+
+  it("clamp restricts a bigint to an inclusive range", () => {
+    assert.strictEqual(BigInt.clamp(3n, { minimum: 1n, maximum: 5n }), 3n)
+    assert.strictEqual(BigInt.clamp(0n, { minimum: 1n, maximum: 5n }), 1n)
+    assert.strictEqual(BigInt.clamp(6n, { minimum: 1n, maximum: 5n }), 5n)
+  })
+
+  it("min and max select the smaller and larger bigint", () => {
+    assert.strictEqual(BigInt.min(2n, 3n), 2n)
+    assert.strictEqual(BigInt.max(2n, 3n), 3n)
+  })
+
+  it("sign returns the ordering of a bigint against zero", () => {
+    assert.strictEqual(BigInt.sign(5n), 1)
+    assert.strictEqual(BigInt.sign(-5n), -1)
+    assert.strictEqual(BigInt.sign(0n), 0)
+  })
+
+  it("isBigInt refines bigints", () => {
+    assert.strictEqual(BigInt.isBigInt(1n), true)
+    assert.strictEqual(BigInt.isBigInt(1), false)
+  })
+
+  it("sum, subtract and multiply combine two bigints", () => {
+    assert.strictEqual(BigInt.sum(2n, 3n), 5n)
+    assert.strictEqual(BigInt.subtract(2n, 3n), -1n)
+    assert.strictEqual(BigInt.multiply(2n, 3n), 6n)
+  })
+
+  it("increment and decrement step by one", () => {
+    assert.strictEqual(BigInt.increment(2n), 3n)
+    assert.strictEqual(BigInt.decrement(2n), 1n)
+  })
+
+  it("abs returns the absolute value", () => {
+    assert.strictEqual(BigInt.abs(-5n), 5n)
+    assert.strictEqual(BigInt.abs(5n), 5n)
+  })
+
+  it("remainder keeps the sign of the dividend", () => {
+    assert.strictEqual(BigInt.remainder(-10n, 3n), -1n)
+  })
+
+  it("sumAll and multiplyAll fold an iterable", () => {
+    assert.strictEqual(BigInt.sumAll([2n, 3n, 4n]), 9n)
+    assert.strictEqual(BigInt.multiplyAll([2n, 3n, 4n]), 24n)
+    assert.strictEqual(BigInt.multiplyAll([]), 1n)
+  })
+
+  it("sqrtUnsafe returns integer square roots and throws for negatives", () => {
+    assert.strictEqual(BigInt.sqrtUnsafe(17n), 4n)
+    assert.throws(() => BigInt.sqrtUnsafe(-1n), RangeError)
+  })
 })

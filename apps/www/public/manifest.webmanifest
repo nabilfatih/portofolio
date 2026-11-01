@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "description": "Portfolio of Nabil Fatih, a product engineer building web products, APIs, growth systems, internal tools, and applied AI, including Nakafa.",
+  "display": "standalone",
+  "icons": [
+    { "sizes": "192x192", "src": "/icon-192.png", "type": "image/png" },
+    { "sizes": "512x512", "src": "/icon-512.png", "type": "image/png" }
+  ],
+  "name": "Nabil Akbarazzima Fatih",
+  "short_name": "Nabil Fatih",
+  "start_url": "/",
+  "theme_color": "#ffffff"
+}

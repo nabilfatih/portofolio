@@ -12,7 +12,7 @@ export default defineConfig({
   plugins: [mdx(mdxOptions)],
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL(".", import.meta.url)),
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
   test: {

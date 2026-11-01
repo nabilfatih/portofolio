@@ -1,8 +1,10 @@
+// The canvas animation runs outside any Effect.
+// @effect-diagnostics globalRandom:off
 "use client";
 
 import { getThemeAppearance } from "@repo/design-system/lib/theme/registry";
 import { cn } from "@repo/design-system/lib/utils";
-import { useTheme } from "next-themes";
+import { useTheme } from "@repo/design-system/providers/theme";
 import { useEffect, useRef } from "react";
 
 interface Circle {
@@ -34,7 +36,7 @@ export function Particles({
 }: ParticlesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { resolvedTheme } = useTheme();
+  const resolvedTheme = useTheme((state) => state.resolvedTheme);
   const appearance = getThemeAppearance(resolvedTheme);
 
   useEffect(() => {

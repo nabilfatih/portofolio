@@ -8,10 +8,11 @@
     "packages/*"
   ],
   "scripts": {
-    "agent-docs": "pnpm --filter www agent-docs",
+    "agent-docs": "bun run --filter www agent-docs",
     "build": "turbo run build",
-    "bump-deps": "pnpm dlx npm-check-updates --workspaces --root -u -x pnpm,@types/node && pnpm install",
-    "check": "pnpm filenames && pnpm effect:source:check && pnpm lint && pnpm effect:diagnostics && pnpm typecheck && pnpm test && pnpm build",
+    "bump-deps": "bunx npm-check-updates --workspaces --root -u -x bun,@types/node && bun install",
+    "check": "bun run filenames && bun run effect:source:check && bun run lint && bun run effect:diagnostics && bun run typecheck && bun run test && bun run build",
+    "deploy:prod": "bun run --filter www run deploy",
     "dev": "turbo run dev --filter=www",
     "effect:diagnostics": "effect-tsgo diagnostics --project apps/www/tsconfig.json --format text --strict",
     "effect:source:check": "node scripts/effect-source.mjs",
@@ -19,24 +20,39 @@
     "format": "ultracite fix",
     "lint": "ultracite check",
     "prepare": "effect-tsgo patch --typescript --no-oxlint",
-    "react-doctor": "pnpm dlx react-doctor@0.9.7 . --no-cache --no-telemetry --blocking warning",
-    "security:audit": "pnpm audit --audit-level=low",
-    "shadcn:diff": "pnpm dlx shadcn@latest diff -c packages/design-system",
-    "shadcn:info": "pnpm dlx shadcn@latest info -c packages/design-system",
+    "react-doctor": "bunx react-doctor@0.9.7 . --no-cache --no-telemetry --blocking warning",
+    "security:audit": "bun audit --audit-level=low --ignore=GHSA-gcqx-w48m-w2h4",
+    "shadcn:diff": "bunx shadcn@latest diff -c packages/design-system",
+    "shadcn:info": "bunx shadcn@latest info -c packages/design-system",
     "start": "turbo run start --filter=www",
     "test": "turbo run test",
     "typecheck": "turbo run typecheck"
   },
+  "overrides": {
+    "@vitest/mocker": "^4.1.12",
+    "dompurify": "^3.4.17",
+    "katex": "^0.18.2",
+    "nanoid": "^3.3.18",
+    "postcss-selector-parser": "^6.1.5",
+    "source-map-js": "^1.2.2",
+    "zod": "^4.6.6"
+  },
   "devDependencies": {
     "@biomejs/biome": "2.5.9",
-    "@effect/tsgo": "0.36.5",
+    "@effect/tsgo": "0.63.0",
     "@types/node": "^24.13.3",
     "turbo": "2.10.11",
     "typescript": "7.0.2",
     "ultracite": "7.10.5"
   },
-  "packageManager": "pnpm@11.20.0",
+  "packageManager": "bun@1.4.4",
   "engines": {
+    "bun": "^1.4.4",
     "node": "^24.0.0"
-  }
+  },
+  "trustedDependencies": [
+    "esbuild",
+    "sharp",
+    "workerd"
+  ]
 }

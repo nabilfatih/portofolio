@@ -8,7 +8,7 @@
 - [Case studies](https://nabilfatih.com/case-studies.md): Technical case studies across product engineering, applied AI, platform systems, and growth engineering.
 - [Work](https://nabilfatih.com/work.md): Professional experience and education.
 - [Collaborate](https://nabilfatih.com/collaborate.md): Product engineering, growth systems, and applied AI support.
-- [Privacy](https://nabilfatih.com/privacy.md): Analytics, performance measurement, and contact details.
+- [Privacy](https://nabilfatih.com/privacy.md): Hosting, data handling, and contact details.
 
 ## Case studies
 

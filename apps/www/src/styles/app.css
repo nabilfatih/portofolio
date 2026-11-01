@@ -1,0 +1,7 @@
+@import "@repo/design-system/styles/globals.css";
+@import "@repo/design-system/styles/theme.css";
+
+:root {
+  --font-geist-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --font-geist-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+}

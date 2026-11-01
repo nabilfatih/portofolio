@@ -1,4 +1,6 @@
-import { JsonSchema, Schema, SchemaRepresentation } from "effect"
+import { assert } from "@effect/vitest"
+import { Brand, JsonSchema, Schema, SchemaRepresentation } from "effect"
+import { TestSchema } from "effect/testing"
 import { describe, it } from "vitest"
 import { assertTrue, deepStrictEqual, strictEqual, throws } from "../../utils/assert.ts"
 
@@ -99,6 +101,16 @@ describe("toCodeDocument", () => {
       )
     })
 
+    it("requires a toCode callback for a named content declaration", () => {
+      const content = Schema.instanceOf(URL).annotate({ identifier: "Content" })
+      const document = SchemaRepresentation.toRepresentations([Schema.fromJsonString(content).ast])
+
+      throws(
+        () => SchemaRepresentation.toCodeDocument(document),
+        "Missing toCode callback\n  at [\"references\"][\"Content\"][\"annotations\"][\"toCode\"]"
+      )
+    })
+
     it("Error", () => {
       assertSchema({ schema: Schema.ErrorInstance() }, {
         codes: makeCode(`Schema.ErrorInstance()`, "globalThis.Error")
@@ -170,7 +182,7 @@ describe("toCodeDocument", () => {
         assertSchema(
           { schema: Schema.Date.check(Schema.isGreaterThanDate(new Date(0))) },
           {
-            codes: makeCode(`Schema.Date.check(Schema.isGreaterThanDate(new Date(0)))`, "globalThis.Date")
+            codes: makeCode(`Schema.Date.check(Schema.isGreaterThanDate(new globalThis.Date(0)))`, "globalThis.Date")
           }
         )
       })
@@ -344,6 +356,18 @@ describe("toCodeDocument", () => {
       })
     })
 
+    it("renames an identifier that collides with the Schema import", () => {
+      assertSchema({ schema: Schema.String.annotate({ identifier: "Schema" }) }, {
+        codes: makeCode("Schema1", "Schema1"),
+        references: {
+          nonRecursives: [{
+            $ref: "Schema1",
+            code: makeCode(`Schema.String.annotate({ "identifier": "Schema" })`, "string")
+          }]
+        }
+      })
+    })
+
     it("String & annotations", () => {
       assertSchema(
         { schema: Schema.String.annotate({ "description": "a" }) },
@@ -374,6 +398,21 @@ describe("toCodeDocument", () => {
       )
     })
 
+    it("String & code point checks", () => {
+      for (
+        const [check, code] of [
+          [Schema.isMinCodePoints(2), "Schema.isMinCodePoints(2)"],
+          [Schema.isMaxCodePoints(3), "Schema.isMaxCodePoints(3)"],
+          [Schema.isBetweenCodePoints(2, 3), "Schema.isBetweenCodePoints(2, 3)"]
+        ] as const
+      ) {
+        assertSchema(
+          { schema: Schema.String.check(check) },
+          { codes: makeCode(`Schema.String.check(${code})`, "string") }
+        )
+      }
+    })
+
     it("String & check + annotations", () => {
       assertSchema(
         { schema: Schema.String.check(Schema.isMinLength(1, { description: "a" })) },
@@ -393,29 +432,29 @@ describe("toCodeDocument", () => {
     })
 
     describe("checks", () => {
-      it("isStartsWith", () => {
+      it("isStartingWith", () => {
         assertSchema(
-          { schema: Schema.String.check(Schema.isStartsWith("a")) },
+          { schema: Schema.String.check(Schema.isStartingWith("a")) },
           {
-            codes: makeCode(`Schema.String.check(Schema.isStartsWith("a"))`, "string")
+            codes: makeCode(`Schema.String.check(Schema.isStartingWith("a"))`, "string")
           }
         )
       })
 
-      it("isEndsWith", () => {
+      it("isEndingWith", () => {
         assertSchema(
-          { schema: Schema.String.check(Schema.isEndsWith("a")) },
+          { schema: Schema.String.check(Schema.isEndingWith("a")) },
           {
-            codes: makeCode(`Schema.String.check(Schema.isEndsWith("a"))`, "string")
+            codes: makeCode(`Schema.String.check(Schema.isEndingWith("a"))`, "string")
           }
         )
       })
 
-      it("isIncludes", () => {
+      it("isIncluding", () => {
         assertSchema(
-          { schema: Schema.String.check(Schema.isIncludes("a")) },
+          { schema: Schema.String.check(Schema.isIncluding("a")) },
           {
-            codes: makeCode(`Schema.String.check(Schema.isIncludes("a"))`, "string")
+            codes: makeCode(`Schema.String.check(Schema.isIncluding("a"))`, "string")
           }
         )
       })
@@ -428,10 +467,57 @@ describe("toCodeDocument", () => {
           }
         )
       })
+
+      it("isAscii", () => {
+        assertSchema(
+          { schema: Schema.String.check(Schema.isAscii()) },
+          {
+            codes: makeCode(`Schema.String.check(Schema.isAscii())`, "string")
+          }
+        )
+      })
     })
   })
 
   describe("Number", () => {
+    it("Finite", () => {
+      assertSchema({ schema: Schema.Finite }, {
+        codes: makeCode("Schema.Finite", "number")
+      })
+      assertSchema({ schema: Schema.Number.check(Schema.isFinite(), Schema.isGreaterThan(0)) }, {
+        codes: makeCode("Schema.Finite.check(Schema.isGreaterThan(0))", "number")
+      })
+    })
+
+    it("Int", () => {
+      assertSchema({ schema: Schema.Int }, {
+        codes: makeCode("Schema.Int", "number")
+      })
+    })
+
+    it("Number & non-canonical finite check", () => {
+      const expectRuntime = (schema: Schema.Constraint, runtime: string) =>
+        assertSchema({ schema }, { codes: makeCode(runtime, "number") })
+      const finite = `Schema.isFinite().annotate({ "expected": "a finite number" })`
+      expectRuntime(
+        Schema.Number.annotate({ description: "a" }).check(Schema.isFinite()),
+        `Schema.Number.annotate({ "description": "a" }).check(${finite})`
+      )
+      expectRuntime(
+        Schema.Number.check(Schema.isGreaterThan(0), Schema.isFinite()),
+        `Schema.Number.check(Schema.isGreaterThan(0)).check(${finite})`
+      )
+      expectRuntime(
+        Schema.Number.check(Schema.isFinite({ expected: "a real number" })),
+        `Schema.Number.check(Schema.isFinite().annotate({ "expected": "a real number" }))`
+      )
+      expectRuntime(Schema.Number.check(Schema.isFinite().abort()), `Schema.Number.check(Schema.isFinite().abort())`)
+      expectRuntime(
+        Schema.Number.check(Schema.makeFilterGroup([Schema.isFinite(), Schema.isGreaterThan(0)])),
+        `Schema.Number.check(Schema.makeFilterGroup([Schema.isFinite(), Schema.isGreaterThan(0)]))`
+      )
+    })
+
     it("Number", () => {
       assertSchema({ schema: Schema.Number }, {
         codes: makeCode("Schema.Number", "number")
@@ -572,7 +658,7 @@ describe("toCodeDocument", () => {
           artifacts: [{
             _tag: "Symbol",
             identifier: "_symbol",
-            code: makeCode(`Symbol("a")`, `typeof _symbol`)
+            code: makeCode(`globalThis.Symbol("a")`, `typeof _symbol`)
           }]
         }
       )
@@ -583,7 +669,7 @@ describe("toCodeDocument", () => {
           artifacts: [{
             _tag: "Symbol",
             identifier: "_symbol",
-            code: makeCode(`Symbol()`, `typeof _symbol`)
+            code: makeCode(`globalThis.Symbol()`, `typeof _symbol`)
           }]
         }
       )
@@ -597,7 +683,7 @@ describe("toCodeDocument", () => {
           artifacts: [{
             _tag: "Symbol",
             identifier: "_symbol",
-            code: makeCode(`Symbol.for("a")`, `typeof _symbol`)
+            code: makeCode(`globalThis.Symbol.for("a")`, `typeof _symbol`)
           }]
         }
       )
@@ -611,7 +697,7 @@ describe("toCodeDocument", () => {
           artifacts: [{
             _tag: "Symbol",
             identifier: "_symbol",
-            code: makeCode(`Symbol.for("a")`, `typeof _symbol`)
+            code: makeCode(`globalThis.Symbol.for("a")`, `typeof _symbol`)
           }]
         }
       )
@@ -973,7 +1059,7 @@ describe("toCodeDocument", () => {
       )
     })
 
-    it("uses the encoded type of branded parts", () => {
+    it("omits brands from parts", () => {
       const schema = Schema.TemplateLiteral([
         Schema.String.pipe(Schema.brand("StringPart")),
         Schema.Union([
@@ -987,19 +1073,19 @@ describe("toCodeDocument", () => {
 
       strictEqual(
         code.runtime,
-        `Schema.TemplateLiteral([Schema.String.pipe(Schema.brand("StringPart")), Schema.Union([Schema.Number.pipe(Schema.brand("NumberPart")), Schema.String.pipe(Schema.brand("OtherStringPart"))])])`
+        `Schema.TemplateLiteral([Schema.String, Schema.Union([Schema.Number, Schema.String])])`
       )
       strictEqual(code.Type, templateType("string", "number | string"))
     })
 
-    it("resolves the encoded type of branded references", () => {
+    it("uses references for branded parts", () => {
       const part = Schema.String.pipe(Schema.brand("Part")).annotate({ identifier: "Part" })
       const code = SchemaRepresentation.toCodeDocument(
         SchemaRepresentation.toRepresentations([Schema.TemplateLiteral([part]).ast])
       ).codes[0]
 
       strictEqual(code.runtime, "Schema.TemplateLiteral([Part])")
-      strictEqual(code.Type, templateType("string"))
+      strictEqual(code.Type, templateType("Part"))
     })
 
     it("multiple unions", () => {
@@ -1067,7 +1153,7 @@ describe("toCodeDocument", () => {
       assertSchema(
         { schema: Schema.Tuple([Schema.optionalKey(Schema.String)]) },
         {
-          codes: makeCode(`Schema.Tuple([Schema.optionalKey(Schema.String)])`, "readonly [string?]")
+          codes: makeCode(`Schema.Tuple([Schema.optionalKey(Schema.String)])`, `readonly [(string)?]`)
         }
       )
       assertSchema(
@@ -1075,10 +1161,58 @@ describe("toCodeDocument", () => {
         {
           codes: makeCode(
             `Schema.Tuple([Schema.optionalKey(Schema.String)]).annotate({ "description": "a" })`,
-            "readonly [string?]"
+            `readonly [(string)?]`
           )
         }
       )
+    })
+
+    it("optional union elements", () => {
+      assertSchema(
+        { schema: Schema.Tuple([Schema.optionalKey(Schema.Union([Schema.String, Schema.Number]))]) },
+        {
+          codes: makeCode(
+            `Schema.Tuple([Schema.optionalKey(Schema.Union([Schema.String, Schema.Number]))])`,
+            `readonly [(string | number)?]`
+          )
+        }
+      )
+      assertSchema(
+        { schema: Schema.Tuple([Schema.optionalKey(Schema.Literals(["a", "b"]))]) },
+        {
+          codes: makeCode(
+            `Schema.Tuple([Schema.optionalKey(Schema.Literals(["a", "b"]))])`,
+            `readonly [("a" | "b")?]`
+          )
+        }
+      )
+    })
+
+    it("optional readonly tuple element", () => {
+      assertSchema(
+        { schema: Schema.Tuple([Schema.optionalKey(Schema.Tuple([Schema.String]))]) },
+        {
+          codes: makeCode(
+            `Schema.Tuple([Schema.optionalKey(Schema.Tuple([Schema.String]))])`,
+            `readonly [(readonly [string])?]`
+          )
+        }
+      )
+    })
+
+    it("optional union element imported from JSON Schema", () => {
+      assertJsonSchema({
+        schema: {
+          type: "array",
+          prefixItems: [{ anyOf: [{ type: "string" }, { type: "number" }] }],
+          items: false
+        }
+      }, {
+        codes: makeCode(
+          `Schema.Tuple([Schema.optionalKey(Schema.Union([Schema.String, Schema.Finite]))])`,
+          `readonly [(string | number)?]`
+        )
+      })
     })
 
     it("annotateKey", () => {
@@ -1114,6 +1248,20 @@ describe("toCodeDocument", () => {
 
   it("TupleWithRest", () => {
     assertSchema(
+      {
+        schema: Schema.TupleWithRest(
+          Schema.Tuple([Schema.optionalKey(Schema.Union([Schema.String, Schema.Number]))]),
+          [Schema.Boolean]
+        )
+      },
+      {
+        codes: makeCode(
+          `Schema.TupleWithRest(Schema.Tuple([Schema.optionalKey(Schema.Union([Schema.String, Schema.Number]))]), [Schema.Boolean])`,
+          `readonly [(string | number)?, ...Array<boolean>]`
+        )
+      }
+    )
+    assertSchema(
       { schema: Schema.TupleWithRest(Schema.Tuple([Schema.String]), [Schema.Number]) },
       {
         codes: makeCode(
@@ -1147,6 +1295,42 @@ describe("toCodeDocument", () => {
   })
 
   describe("Struct", () => {
+    it("preserves a required __proto__ property in generated code", async () => {
+      const schema = Schema.Struct({ ["__proto__"]: Schema.String })
+      assertSchema({ schema }, {
+        codes: makeCode(
+          `Schema.Struct({ ["__proto__"]: Schema.String })`,
+          `{ readonly "__proto__": string }`
+        )
+      })
+
+      const document = SchemaRepresentation.toCodeDocument(SchemaRepresentation.toRepresentations([schema.ast]))
+      const generated: typeof schema = new Function("Schema", `return ${document.codes[0].runtime}`)(Schema)
+      assert.deepStrictEqual(Object.keys(generated.fields), ["__proto__"])
+      const decoding = new TestSchema.Asserts(generated).decoding()
+      await decoding.succeed({ ["__proto__"]: "value" })
+      await decoding.fail({}, `Missing key\n  at ["__proto__"]`)
+      await decoding.fail({ ["__proto__"]: 123 }, `Expected string\n  at ["__proto__"]`)
+    })
+
+    it("preserves an optional __proto__ property in generated code", async () => {
+      const schema = Schema.Struct({ ["__proto__"]: Schema.optionalKey(Schema.String) })
+      assertSchema({ schema }, {
+        codes: makeCode(
+          `Schema.Struct({ ["__proto__"]: Schema.optionalKey(Schema.String) })`,
+          `{ readonly "__proto__"?: string }`
+        )
+      })
+
+      const document = SchemaRepresentation.toCodeDocument(SchemaRepresentation.toRepresentations([schema.ast]))
+      const generated: typeof schema = new Function("Schema", `return ${document.codes[0].runtime}`)(Schema)
+      assert.deepStrictEqual(Object.keys(generated.fields), ["__proto__"])
+      const decoding = new TestSchema.Asserts(generated).decoding()
+      await decoding.succeed({})
+      await decoding.succeed({ ["__proto__"]: "value" })
+      await decoding.fail({ ["__proto__"]: 123 }, `Expected string\n  at ["__proto__"]`)
+    })
+
     it("empty struct", () => {
       assertSchema({ schema: Schema.Struct({}) }, {
         codes: makeCode("Schema.Struct({  })", "{  }")
@@ -1269,7 +1453,7 @@ describe("toCodeDocument", () => {
           artifacts: [{
             _tag: "Symbol",
             identifier: "_symbol",
-            code: makeCode(`Symbol.for("a")`, `typeof _symbol`)
+            code: makeCode(`globalThis.Symbol.for("a")`, `typeof _symbol`)
           }]
         }
       )
@@ -1308,7 +1492,7 @@ describe("toCodeDocument", () => {
       {
         codes: makeCode(
           `Schema.StructWithRest(Schema.Struct({ "a": Schema.Number }), [Schema.Record(Schema.String, Schema.Number)])`,
-          `{ readonly "a": number, readonly [x: string]: number }`
+          `{ readonly "a": number } & { readonly [x: string]: number }`
         )
       }
     )
@@ -1321,7 +1505,7 @@ describe("toCodeDocument", () => {
       {
         codes: makeCode(
           `Schema.StructWithRest(Schema.Struct({ "a": Schema.Number }), [Schema.Record(Schema.String, Schema.Number)]).annotate({ "description": "a" })`,
-          `{ readonly "a": number, readonly [x: string]: number }`
+          `{ readonly "a": number } & { readonly [x: string]: number }`
         )
       }
     )
@@ -1574,92 +1758,46 @@ describe("toCodeDocument", () => {
   })
 
   describe("brand", () => {
-    it("brand", () => {
-      assertSchema(
-        {
-          schema: Schema.String.pipe(Schema.brand("a"))
-        },
-        {
-          codes: makeCode(
-            `Schema.String.pipe(Schema.brand("a"))`,
-            `string & Brand.Brand<"a">`
-          ),
-          artifacts: [{
-            _tag: "Import",
-            importDeclaration: `import type * as Brand from "effect/Brand"`
-          }]
-        }
-      )
-    })
-
-    it("brand & brand", () => {
+    it("omits brands", () => {
       assertSchema(
         {
           schema: Schema.String.pipe(Schema.brand("a"), Schema.brand("b"))
         },
         {
-          codes: makeCode(
-            `Schema.String.pipe(Schema.brand("a"), Schema.brand("b"))`,
-            `string & Brand.Brand<"a"> & Brand.Brand<"b">`
-          ),
-          artifacts: [{
-            _tag: "Import",
-            importDeclaration: `import type * as Brand from "effect/Brand"`
-          }]
+          codes: makeCode(`Schema.String`, `string`)
         }
       )
     })
 
-    it("check & brand", () => {
+    it("omits brands from unions", () => {
       assertSchema(
         {
-          schema: Schema.String.check(Schema.isMinLength(1)).pipe(Schema.brand("b"))
+          schema: Schema.Union([Schema.String, Schema.Number]).pipe(Schema.brand("a"))
         },
         {
-          codes: makeCode(
-            `Schema.String.check(Schema.isMinLength(1)).pipe(Schema.brand("b"))`,
-            `string & Brand.Brand<"b">`
-          ),
-          artifacts: [{
-            _tag: "Import",
-            importDeclaration: `import type * as Brand from "effect/Brand"`
-          }]
+          codes: makeCode(`Schema.Union([Schema.String, Schema.Number])`, `string | number`)
         }
       )
     })
 
-    it("brand & check & brand", () => {
-      assertSchema(
-        {
-          schema: Schema.String.pipe(Schema.brand("a")).check(Schema.isMinLength(1)).pipe(Schema.brand("b"))
-        },
-        {
-          codes: makeCode(
-            `Schema.String.pipe(Schema.brand("a")).check(Schema.isMinLength(1)).pipe(Schema.brand("b"))`,
-            `string & Brand.Brand<"a"> & Brand.Brand<"b">`
-          ),
-          artifacts: [{
-            _tag: "Import",
-            importDeclaration: `import type * as Brand from "effect/Brand"`
-          }]
-        }
-      )
-    })
+    it("preserves checks added by fromBrand", () => {
+      type Int = number & Brand.Brand<"Int">
+      const Int = Brand.check<Int>(Schema.isInt())
+      type Positive = number & Brand.Brand<"Positive">
+      const Positive = Brand.check<Positive>(Schema.isGreaterThan(0))
 
-    it("check & brand & check", () => {
       assertSchema(
         {
-          schema: Schema.String.check(Schema.isMinLength(1)).pipe(Schema.brand("b")).check(Schema.isMaxLength(2))
+          schema: Schema.Number.pipe(
+            Schema.fromBrand("Int", Int),
+            Schema.fromBrand("Positive", Positive)
+          )
         },
         {
           codes: makeCode(
-            `Schema.String.check(Schema.isMinLength(1)).pipe(Schema.brand("b")).check(Schema.isMaxLength(2))`,
-            `string & Brand.Brand<"b">`
-          ),
-          artifacts: [{
-            _tag: "Import",
-            importDeclaration: `import type * as Brand from "effect/Brand"`
-          }]
+            `Schema.Int.check(Schema.isGreaterThan(0).annotate({ "expected": "a value greater than 0" }))`,
+            `number`
+          )
         }
       )
     })
@@ -1677,7 +1815,7 @@ describe("toCodeDocument", () => {
         assertSchema(
           { schema: Schema.Date.check(Schema.isGreaterThanDate(new Date(0))) },
           {
-            codes: makeCode(`Schema.Date.check(Schema.isGreaterThanDate(new Date(0)))`, "globalThis.Date")
+            codes: makeCode(`Schema.Date.check(Schema.isGreaterThanDate(new globalThis.Date(0)))`, "globalThis.Date")
           }
         )
       })
@@ -1686,7 +1824,10 @@ describe("toCodeDocument", () => {
         assertSchema(
           { schema: Schema.Date.check(Schema.isGreaterThanOrEqualToDate(new Date(0))) },
           {
-            codes: makeCode(`Schema.Date.check(Schema.isGreaterThanOrEqualToDate(new Date(0)))`, "globalThis.Date")
+            codes: makeCode(
+              `Schema.Date.check(Schema.isGreaterThanOrEqualToDate(new globalThis.Date(0)))`,
+              "globalThis.Date"
+            )
           }
         )
       })
@@ -1695,7 +1836,7 @@ describe("toCodeDocument", () => {
         assertSchema(
           { schema: Schema.Date.check(Schema.isLessThanDate(new Date(0))) },
           {
-            codes: makeCode(`Schema.Date.check(Schema.isLessThanDate(new Date(0)))`, "globalThis.Date")
+            codes: makeCode(`Schema.Date.check(Schema.isLessThanDate(new globalThis.Date(0)))`, "globalThis.Date")
           }
         )
       })
@@ -1704,7 +1845,10 @@ describe("toCodeDocument", () => {
         assertSchema(
           { schema: Schema.Date.check(Schema.isLessThanOrEqualToDate(new Date(0))) },
           {
-            codes: makeCode(`Schema.Date.check(Schema.isLessThanOrEqualToDate(new Date(0)))`, "globalThis.Date")
+            codes: makeCode(
+              `Schema.Date.check(Schema.isLessThanOrEqualToDate(new globalThis.Date(0)))`,
+              "globalThis.Date"
+            )
           }
         )
       })
@@ -1714,7 +1858,7 @@ describe("toCodeDocument", () => {
           { schema: Schema.Date.check(Schema.isBetweenDate({ minimum: new Date(0), maximum: new Date(1) })) },
           {
             codes: makeCode(
-              `Schema.Date.check(Schema.isBetweenDate({ minimum: new Date(0), maximum: new Date(1), exclusiveMinimum: undefined, exclusiveMaximum: undefined }))`,
+              `Schema.Date.check(Schema.isBetweenDate({ minimum: new globalThis.Date(0), maximum: new globalThis.Date(1), exclusiveMinimum: undefined, exclusiveMaximum: undefined }))`,
               "globalThis.Date"
             )
           }
@@ -1759,12 +1903,12 @@ describe("toCodeDocument", () => {
       })
     })
 
-    it("isSizeBetween", () => {
+    it("isBetweenSize", () => {
       assertSchema(
-        { schema: Schema.ReadonlySet(Schema.String).check(Schema.isSizeBetween(2, 2)) },
+        { schema: Schema.ReadonlySet(Schema.String).check(Schema.isBetweenSize(2, 2)) },
         {
           codes: makeCode(
-            `Schema.ReadonlySet(Schema.String).check(Schema.isSizeBetween(2, 2))`,
+            `Schema.ReadonlySet(Schema.String).check(Schema.isBetweenSize(2, 2))`,
             "globalThis.ReadonlySet<string>"
           )
         }
@@ -1824,7 +1968,8 @@ describe("toCodeDocument", () => {
                   properties: {
                     a: {
                       type: "string"
-                    }
+                    },
+                    b: {}
                   },
                   required: ["a"]
                 }
@@ -1835,7 +1980,8 @@ describe("toCodeDocument", () => {
               properties: {
                 b: {
                   type: "number"
-                }
+                },
+                a: {}
               },
               required: ["b"]
             }
@@ -1848,7 +1994,7 @@ describe("toCodeDocument", () => {
             {
               $ref: "A",
               code: makeCode(
-                `Schema.Struct({ "b": Schema.Number.check(Schema.isFinite()), "a": Schema.String }).annotate({ "identifier": "A" })`,
+                `Schema.Struct({ "b": Schema.Finite, "a": Schema.String }).annotate({ "identifier": "A" })`,
                 `{ readonly "b": number, readonly "a": string }`
               )
             }

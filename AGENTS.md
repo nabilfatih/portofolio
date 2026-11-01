@@ -6,23 +6,24 @@ This repository is Nabil Fatih's public portfolio. Keep the existing restrained 
 
 ## Architecture
 
-- `apps/www` is the deployable Next.js application.
-- `apps/www/content` is the single source for portfolio prose written in MDX.
-- `apps/www/components/mdx` owns the custom components used by that content.
+- `apps/www` is the deployable TanStack Start application. Every page is prerendered to a static file, and no server or Worker code runs in production. Keep it that way: requests to static assets are free and unlimited on Cloudflare, and Worker requests are not.
+- `apps/www/alchemy.run.ts` and `apps/www/deploy` own the Cloudflare infrastructure. Read the Alchemy docs and the provider source before changing a resource.
+- `apps/www/src/content` is the single source for portfolio prose written in MDX.
+- `apps/www/src/components/mdx` owns the custom components used by that content.
 - `packages/design-system` owns shadcn components, theme state, and shared styling.
 - `packages/typescript-config` owns shared TypeScript compiler settings.
 
 ## Commands
 
-Use Node 24 and pnpm from the root.
+Use Node 24 and Bun from the root.
 
-- `pnpm dev` starts the portfolio on port 3100.
-- `pnpm check` validates filenames, lint, type checks, tests, and the production build.
-- `pnpm filenames` enforces the repository filename convention.
-- `pnpm react-doctor` checks the React application for health and maintenance issues.
-- `pnpm bump-deps` updates workspace dependencies, then refreshes the lockfile.
-- `pnpm shadcn:diff` checks installed shadcn primitives against the current registry.
-- `pnpm --filter www generate:docs` refreshes agent-facing Markdown from the MDX source.
+- `bun run dev` starts the portfolio on port 3100.
+- `bun run check` validates filenames, lint, type checks, tests, and the production build.
+- `bun run filenames` enforces the repository filename convention.
+- `bun run react-doctor` checks the React application for health and maintenance issues.
+- `bun run bump-deps` updates workspace dependencies, then refreshes the lockfile.
+- `bun run shadcn:diff` checks installed shadcn primitives against the current registry.
+- `bun run --filter www generate:docs` refreshes agent-facing Markdown from the MDX source.
 
 ## Guardrails
 

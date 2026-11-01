@@ -114,6 +114,20 @@ describe("String", () => {
     it("does not change already capitalized", () => {
       strictEqual(S.capitalize("Hello"), "Hello")
     })
+
+    it("expands an eszett", () => {
+      strictEqual(S.capitalize("ß"), "SS")
+      strictEqual(S.capitalize("ßx"), "SSx")
+    })
+
+    it("capitalizes an astral letter", () => {
+      strictEqual(S.capitalize("𐐨foo"), "𐐀foo")
+      strictEqual(S.capitalize("\uD801x"), "\uD801x")
+    })
+
+    it("leaves an emoji code point unchanged", () => {
+      strictEqual(S.capitalize("😀x"), "😀x")
+    })
   })
 
   describe("uncapitalize", () => {
@@ -131,6 +145,15 @@ describe("String", () => {
 
     it("preserves rest of string", () => {
       strictEqual(S.uncapitalize("ABC"), "aBC")
+      strictEqual(S.uncapitalize("AΣ"), "aΣ")
+    })
+
+    it("uncapitalizes an astral letter", () => {
+      strictEqual(S.uncapitalize("𐐀FOO"), "𐐨FOO")
+    })
+
+    it("expands a dotted capital i", () => {
+      strictEqual(S.uncapitalize("İX"), "i\u0307X")
     })
   })
 
@@ -441,10 +464,13 @@ describe("String", () => {
   describe("repeat", () => {
     it("repeats the string", () => {
       strictEqual(pipe("ab", S.repeat(3)), "ababab")
+      strictEqual(pipe("ab", S.repeat(1.5)), "ab")
     })
 
-    it("returns empty for 0 repeats", () => {
+    it("returns an empty string for non-positive or NaN counts", () => {
       strictEqual(pipe("ab", S.repeat(0)), "")
+      strictEqual(pipe("ab", S.repeat(-1)), "")
+      strictEqual(pipe("ab", S.repeat(Number.NaN)), "")
     })
   })
 
@@ -480,17 +506,28 @@ describe("String", () => {
     it("converts to locale lowercase", () => {
       strictEqual(pipe("ABC", S.toLocaleLowerCase()), "abc")
     })
+
+    it("applies locale-specific rules", () => {
+      strictEqual(pipe("\u0130", S.toLocaleLowerCase("tr")), "i")
+      strictEqual(pipe("I", S.toLocaleLowerCase("tr")), "\u0131")
+    })
   })
 
   describe("toLocaleUpperCase", () => {
     it("converts to locale uppercase", () => {
       strictEqual(pipe("abc", S.toLocaleUpperCase()), "ABC")
     })
+
+    it("applies locale-specific rules", () => {
+      strictEqual(pipe("i\u0307", S.toLocaleUpperCase("lt-LT")), "I")
+      strictEqual(pipe("i", S.toLocaleUpperCase("tr")), "\u0130")
+    })
   })
 
   describe("takeLeft", () => {
     it("takes n characters from the start (data-first)", () => {
       strictEqual(S.takeLeft("Hello World", 5), "Hello")
+      strictEqual(S.takeLeft("abc", 1.5), "a")
     })
 
     it("takes n characters from the start (data-last)", () => {
@@ -501,15 +538,17 @@ describe("String", () => {
       strictEqual(S.takeLeft("abc", 10), "abc")
     })
 
-    it("returns empty string for n <= 0", () => {
+    it("returns an empty string for non-positive or NaN counts", () => {
       strictEqual(S.takeLeft("abc", 0), "")
       strictEqual(S.takeLeft("abc", -1), "")
+      strictEqual(S.takeLeft("abc", Number.NaN), "")
     })
   })
 
   describe("takeRight", () => {
     it("takes n characters from the end (data-first)", () => {
       strictEqual(S.takeRight("Hello World", 5), "World")
+      strictEqual(S.takeRight("abc", 1.5), "c")
     })
 
     it("takes n characters from the end (data-last)", () => {
@@ -520,9 +559,10 @@ describe("String", () => {
       strictEqual(S.takeRight("abc", 10), "abc")
     })
 
-    it("returns empty string for n <= 0", () => {
+    it("returns an empty string for non-positive or NaN counts", () => {
       strictEqual(S.takeRight("abc", 0), "")
       strictEqual(S.takeRight("abc", -1), "")
+      strictEqual(S.takeRight("abc", Number.NaN), "")
     })
   })
 
@@ -591,6 +631,11 @@ describe("String", () => {
     it("handles an empty string", () => {
       strictEqual(S.snakeToCamel(""), "")
     })
+
+    it("handles trailing and separator-only inputs", () => {
+      strictEqual(S.snakeToCamel("foo_"), "foo")
+      strictEqual(S.snakeToCamel("__"), "")
+    })
   })
 
   describe("snakeToPascal", () => {
@@ -602,12 +647,22 @@ describe("String", () => {
     it("handles an empty string", () => {
       strictEqual(S.snakeToPascal(""), "")
     })
+
+    it("handles trailing and separator-only inputs", () => {
+      strictEqual(S.snakeToPascal("foo_"), "Foo")
+      strictEqual(S.snakeToPascal("__"), "")
+    })
   })
 
   describe("snakeToKebab", () => {
     it("converts snake_case to kebab-case", () => {
       strictEqual(S.snakeToKebab("hello_world"), "hello-world")
       strictEqual(S.snakeToKebab("foo_bar_baz"), "foo-bar-baz")
+    })
+
+    it("keeps digits and edge separators", () => {
+      strictEqual(S.snakeToKebab("v2_api"), "v2-api")
+      strictEqual(S.snakeToKebab("foo_"), "foo-")
     })
   })
 
@@ -616,6 +671,13 @@ describe("String", () => {
       strictEqual(S.camelToSnake("helloWorld"), "hello_world")
       strictEqual(S.camelToSnake("fooBarBaz"), "foo_bar_baz")
     })
+
+    it("splits every capital and keeps separators", () => {
+      strictEqual(S.camelToSnake("XMLHttpRequest"), "_x_m_l_http_request")
+      strictEqual(S.camelToSnake("xmlHTTPResponse"), "xml_h_t_t_p_response")
+      strictEqual(S.camelToSnake("field2Value"), "field2_value")
+      strictEqual(S.camelToSnake("foo_"), "foo_")
+    })
   })
 
   describe("pascalToSnake", () => {
@@ -623,12 +685,21 @@ describe("String", () => {
       strictEqual(S.pascalToSnake("HelloWorld"), "hello_world")
       strictEqual(S.pascalToSnake("FooBarBaz"), "foo_bar_baz")
     })
+
+    it("splits every capital", () => {
+      strictEqual(S.pascalToSnake("XMLHttpRequest"), "x_m_l_http_request")
+      strictEqual(S.pascalToSnake("field2Value"), "field2_value")
+    })
   })
 
   describe("kebabToSnake", () => {
     it("converts kebab-case to snake_case", () => {
       strictEqual(S.kebabToSnake("hello-world"), "hello_world")
       strictEqual(S.kebabToSnake("foo-bar-baz"), "foo_bar_baz")
+    })
+
+    it("keeps repeated and edge separators", () => {
+      strictEqual(S.kebabToSnake("--foo--"), "__foo__")
     })
   })
 
@@ -666,6 +737,17 @@ describe("String", () => {
     it("splits digit-letter boundaries", () => {
       strictEqual(S.noCase("field2value"), "field 2 value")
       strictEqual(S.noCase("field2Value"), "field 2 value")
+    })
+
+    it("does not transform a word for inputs without words", () => {
+      const parts: Array<string> = []
+      const transform = (part: string) => {
+        parts.push(part)
+        return part
+      }
+      strictEqual(S.noCase("", { transform }), "")
+      strictEqual(S.noCase("---", { transform }), "")
+      deepStrictEqual(parts, [])
     })
   })
 
@@ -709,6 +791,11 @@ describe("String", () => {
       strictEqual(S.configCase("helloWorld"), "HELLO_WORLD")
       strictEqual(S.configCase("api-v2 xml"), "API_V2_XML")
       strictEqual(S.configCase("field2Value"), "FIELD2_VALUE")
+    })
+
+    it("is not idempotent", () => {
+      strictEqual(S.configCase("field2value"), "FIELD2VALUE")
+      strictEqual(S.configCase("FIELD2VALUE"), "FIELD2_VALUE")
     })
   })
 

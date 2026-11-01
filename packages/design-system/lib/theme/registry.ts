@@ -1,3 +1,5 @@
+import { Option } from "effect";
+
 /** Concrete visual appearance used by runtime renderers and integrations. */
 export type ThemeAppearance = "light" | "dark";
 
@@ -143,20 +145,46 @@ export const themes = [
 /** Theme identifier accepted by the shared runtime and document bootstrap. */
 export type ThemeValue = (typeof themes)[number]["value"];
 
-/** Local-storage key shared by the document bootstrap and next-themes. */
+/** Local-storage key shared by the document bootstrap and the theme store. */
 export const THEME_STORAGE_KEY = "theme";
 
-/** First-visit theme shared by the localized document and next-themes. */
+/** First-visit theme shared by the document bootstrap and the theme store. */
 export const DEFAULT_THEME = "system" satisfies ThemeValue;
+
+/** A visitor's stored choice, which "system" leaves to the device. */
+export type ThemeChoice = ThemeValue;
+
+/** A theme that names a class on the document root. */
+export type ConcreteTheme = Exclude<ThemeValue, "system">;
 
 /** Concrete class names managed on the document root. */
 export const concreteThemeValues = themes.flatMap((theme) =>
   theme.appearance === "dynamic" ? [] : [theme.value]
 );
 
+function isThemeChoice(value: string): value is ThemeChoice {
+  return themes.some((theme) => theme.value === value);
+}
+
+/** Reads a stored choice. An absent or unknown value is the default theme. */
+export function parseThemeChoice(stored: Option.Option<string>): ThemeChoice {
+  return Option.getOrElse(
+    Option.filter(stored, isThemeChoice),
+    () => DEFAULT_THEME
+  );
+}
+
+/** The concrete theme of a choice under the system appearance. */
+export function resolveThemeChoice(
+  theme: ThemeChoice,
+  systemAppearance: ThemeAppearance
+): ConcreteTheme {
+  return theme === "system" ? systemAppearance : theme;
+}
+
 /**
- * Resolves a next-themes runtime value to the concrete appearance consumers
- * should render. Unknown and pre-hydration values use Nakafa's light default.
+ * Resolves a runtime theme value to the concrete appearance consumers should
+ * render. Unknown and pre-hydration values use Nakafa's light default.
  */
 export function getThemeAppearance(
   resolvedTheme: string | undefined

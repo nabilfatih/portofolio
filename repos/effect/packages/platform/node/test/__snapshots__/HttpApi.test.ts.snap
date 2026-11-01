@@ -11,6 +11,8 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
             "type": "string",
           },
           "length": {
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991,
             "type": "integer",
           },
         },
@@ -24,6 +26,8 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
         "additionalProperties": false,
         "properties": {
           "id": {
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991,
             "type": "integer",
           },
           "name": {
@@ -51,16 +55,6 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
         ],
         "type": "object",
       },
-      "Union_": {
-        "anyOf": [
-          {
-            "type": "string",
-          },
-          {
-            "type": "null",
-          },
-        ],
-      },
       "UserEncoded": {
         "additionalProperties": false,
         "properties": {
@@ -68,13 +62,22 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
             "type": "string",
           },
           "id": {
+            "maximum": 9007199254740991,
+            "minimum": -9007199254740991,
             "type": "integer",
           },
           "name": {
             "type": "string",
           },
           "uuid": {
-            "$ref": "#/components/schemas/Union_",
+            "anyOf": [
+              {
+                "type": "string",
+              },
+              {
+                "type": "null",
+              },
+            ],
           },
         },
         "required": [
@@ -369,11 +372,7 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
             "name": "page",
             "required": false,
             "schema": {
-              "allOf": [
-                {
-                  "pattern": "^[+-]?\\d*\\.?\\d+(?:[Ee][+-]?\\d+)?$",
-                },
-              ],
+              "pattern": "^[+-]?(?:\\d+(?:\\.\\d+)?|\\.\\d+)(?:[Ee][+-]?\\d+)?$",
               "type": "string",
             },
           },
@@ -385,9 +384,6 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
               "anyOf": [
                 {
                   "type": "string",
-                },
-                {
-                  "type": "null",
                 },
               ],
               "description": "search query",
@@ -437,11 +433,7 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
             "name": "id",
             "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "pattern": "^[+-]?\\d*\\.?\\d+(?:[Ee][+-]?\\d+)?$",
-                },
-              ],
+              "pattern": "^[+-]?(?:\\d+(?:\\.\\d+)?|\\.\\d+)(?:[Ee][+-]?\\d+)?$",
               "type": "string",
             },
           },
@@ -456,7 +448,14 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
                     "type": "string",
                   },
                   "uuid": {
-                    "$ref": "#/components/schemas/Union_",
+                    "anyOf": [
+                      {
+                        "type": "string",
+                      },
+                      {
+                        "type": "null",
+                      },
+                    ],
                   },
                 },
                 "required": [
@@ -483,14 +482,7 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/UserErrorEncoded",
-                    },
-                    {
-                      "$ref": "#/components/schemas/UserErrorEncoded",
-                    },
-                  ],
+                  "$ref": "#/components/schemas/UserErrorEncoded",
                 },
               },
             },
@@ -516,7 +508,7 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
             "name": "0",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/Union_",
+              "type": "string",
             },
           },
         ],
@@ -551,6 +543,8 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
                       "type": "string",
                     },
                     "length": {
+                      "maximum": 9007199254740991,
+                      "minimum": -9007199254740991,
                       "type": "integer",
                     },
                   },
@@ -610,6 +604,8 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
                       "type": "string",
                     },
                     "length": {
+                      "maximum": 9007199254740991,
+                      "minimum": -9007199254740991,
                       "type": "integer",
                     },
                   },
@@ -643,11 +639,7 @@ exports[`HttpApi > original tests > OpenAPI spec > fixture 1`] = `
             "name": "id",
             "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "pattern": "^[+-]?\\d*\\.?\\d+(?:[Ee][+-]?\\d+)?$",
-                },
-              ],
+              "pattern": "^[+-]?(?:\\d+(?:\\.\\d+)?|\\.\\d+)(?:[Ee][+-]?\\d+)?$",
               "type": "string",
             },
           },

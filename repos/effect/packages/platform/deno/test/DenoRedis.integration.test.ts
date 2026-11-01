@@ -1,10 +1,13 @@
 import * as DenoRedis from "@effect/platform-deno/DenoRedis"
 import { assert, it } from "@effect/vitest"
 import { RedisContainer } from "@testcontainers/redis"
-import { Deferred, Effect, Fiber, Layer, Schema } from "effect"
-import { PersistedQueue, Persistence } from "effect/unstable/persistence"
-import * as PersistedCacheTest from "../../../effect/test/unstable/persistence/PersistedCacheTest.ts"
-import * as PersistedQueueTest from "../../../effect/test/unstable/persistence/PersistedQueueTest.ts"
+import { Deferred, Effect, Exit, Fiber, Layer, Queue, Schema } from "effect"
+import { CircuitBreaker, PersistedQueue, Persistence, Redis } from "effect/persistence"
+import { TestClock } from "effect/testing"
+import * as CircuitBreakerRedisTest from "../../../effect/test/persistence/CircuitBreakerRedisTest.ts"
+import * as CircuitBreakerTest from "../../../effect/test/persistence/CircuitBreakerTest.ts"
+import * as PersistedCacheTest from "../../../effect/test/persistence/PersistedCacheTest.ts"
+import * as PersistedQueueTest from "../../../effect/test/persistence/PersistedQueueTest.ts"
 
 const RedisLayer = Layer.unwrap(
   Effect.gen(function*() {
@@ -35,6 +38,15 @@ PersistedQueueTest.suite(
   }).pipe(Layer.provide(RedisLayer))
 )
 
+CircuitBreakerTest.suite(
+  "DenoRedis",
+  (options) => CircuitBreaker.layerStoreRedis(options).pipe(Layer.provide(RedisLayer)),
+  // the store reads Redis TIME, so time only moves on the wall clock
+  (duration) => TestClock.withLive(Effect.sleep(duration))
+)
+
+CircuitBreakerRedisTest.suite("DenoRedis", RedisLayer)
+
 const PersistedQueueRedisLayer = Layer.mergeAll(
   RedisLayer,
   PersistedQueue.layer.pipe(
@@ -47,6 +59,62 @@ const PersistedQueueRedisLayer = Layer.mergeAll(
 it.layer(PersistedQueueRedisLayer, { timeout: "30 seconds" })(
   "PersistedQueue (DenoRedis)",
   (it) => {
+    it.effect("receives published messages", () =>
+      Effect.gen(function*() {
+        const redis = yield* Redis.Redis
+        const subscription = yield* redis.subscribe("effect-test")
+
+        const subscribers = yield* redis.send<number>("PUBLISH", "effect-test", "hello")
+        assert.strictEqual(subscribers, 1)
+
+        assert.deepStrictEqual(yield* Queue.take(subscription), {
+          channel: "effect-test",
+          message: "hello"
+        })
+      }))
+
+    it.effect("runs blocking reads on a reserved connection without delaying shared commands", () =>
+      Effect.gen(function*() {
+        const redis = yield* Redis.Redis
+        const read = yield* redis.reserve.pipe(
+          Effect.flatMap((connection) =>
+            connection.send("XREAD", "BLOCK", "5000", "STREAMS", "effect-test-reserve", "$")
+          ),
+          Effect.scoped,
+          Effect.forkChild
+        )
+        // XREAD with "$" only sees entries added after it starts blocking
+        yield* redis.send<string>("CLIENT", "LIST").pipe(
+          Effect.repeat({ until: (clients) => clients.includes("cmd=xread") })
+        )
+        yield* redis.send("XADD", "effect-test-reserve", "*", "key", "value")
+
+        assert.include(JSON.stringify(yield* Fiber.join(read)), "value")
+      }))
+
+    it.effect("fails a reserved command when its connection drops instead of replaying it", () =>
+      Effect.gen(function*() {
+        const redis = yield* Redis.Redis
+        const list = "effect-test-reserve-drop"
+        const exit = yield* Effect.scoped(Effect.gen(function*() {
+          const connection = yield* redis.reserve
+          const id = yield* connection.send<number>("CLIENT", "ID")
+          const pop = yield* connection.send("BLPOP", list, "0").pipe(Effect.forkChild)
+          yield* redis.send<string>("CLIENT", "LIST").pipe(
+            Effect.repeat({
+              until: (clients) =>
+                clients.split("\n").some((client) => client.startsWith(`id=${id} `) && client.includes("cmd=blpop"))
+            })
+          )
+          yield* redis.send("CLIENT", "KILL", "ID", String(id))
+          yield* redis.send("LPUSH", list, "item")
+          return yield* Fiber.await(pop)
+        }))
+
+        assert.isTrue(Exit.isFailure(exit))
+        assert.strictEqual(yield* redis.send<number>("LLEN", list), 1)
+      }))
+
     it.effect("moves exhausted elements to the failed list", () =>
       Effect.gen(function*() {
         const redis = yield* DenoRedis.DenoRedis
@@ -54,10 +122,11 @@ it.layer(PersistedQueueRedisLayer, { timeout: "30 seconds" })(
 
         const queue = yield* PersistedQueue.make({
           name: queueName,
-          schema: RedisItem
+          schema: RedisItem,
+          maxAttempts: 1
         })
         const id = yield* queue.offer({ n: 42 })
-        const error = yield* queue.take(() => Effect.fail("boom"), { maxAttempts: 1 }).pipe(Effect.flip)
+        const error = yield* queue.take(() => Effect.fail("boom")).pipe(Effect.flip)
         assert.strictEqual(error, "boom")
 
         const failed = yield* redis.use((client) => client.lrange(`effectq:${queueName}:failed`, 0, -1))
@@ -121,6 +190,48 @@ it.effect("uses the URL username for two-argument AUTH", () =>
     assert.strictEqual(
       yield* Fiber.join(server),
       "*3\r\n$4\r\nAUTH\r\n$5\r\nalice\r\n$6\r\nsecret\r\n"
+    )
+  }))
+
+it.effect("decodes URL authority credentials once", () =>
+  Effect.gen(function*() {
+    const listener = yield* makeListener
+    const server = yield* Effect.gen(function*() {
+      const connection = yield* accept(listener)
+      const request = yield* read(connection)
+      yield* write(connection, "+OK\r\n")
+      return request
+    }).pipe(Effect.forkChild)
+
+    const port = (listener.addr as Deno.NetAddr).port
+    yield* Layer.build(DenoRedis.layer({
+      url: `redis://app%3A%2540:p%40ss%2525@127.0.0.1:${port}`
+    }))
+
+    assert.strictEqual(
+      yield* Fiber.join(server),
+      "*3\r\n$4\r\nAUTH\r\n$7\r\napp:%40\r\n$7\r\np@ss%25\r\n"
+    )
+  }))
+
+it.effect("does not decode a query-string password twice", () =>
+  Effect.gen(function*() {
+    const listener = yield* makeListener
+    const server = yield* Effect.gen(function*() {
+      const connection = yield* accept(listener)
+      const request = yield* read(connection)
+      yield* write(connection, "+OK\r\n")
+      return request
+    }).pipe(Effect.forkChild)
+
+    const port = (listener.addr as Deno.NetAddr).port
+    yield* Layer.build(DenoRedis.layer({
+      url: `redis://alice@127.0.0.1:${port}/?password=p%2540ss`
+    }))
+
+    assert.strictEqual(
+      yield* Fiber.join(server),
+      "*3\r\n$4\r\nAUTH\r\n$5\r\nalice\r\n$6\r\np%40ss\r\n"
     )
   }))
 

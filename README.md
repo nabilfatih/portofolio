@@ -6,15 +6,15 @@ The source for [nabilfatih.com](https://nabilfatih.com), a small portfolio focus
 
 This repository is a pnpm and Turborepo monorepo:
 
-- `apps/www` contains the production Next.js application.
+- `apps/www` contains the production TanStack Start application, prerendered to static files, and the Alchemy stack that deploys it to Cloudflare.
 - `packages/design-system` contains the shared shadcn Base UI components and Nakafa theme system.
 - `packages/typescript-config` contains shared strict TypeScript settings.
 
-The app uses Next.js 16, React 19, Tailwind CSS 4, shadcn, Base UI, Hugeicons, EvilCharts, Recharts, MDX, Effect, Vitest, Biome, and Ultracite.
+The app uses TanStack Start, Vite, React 19, Tailwind CSS 4, shadcn, Base UI, Hugeicons, EvilCharts, Recharts, MDX, Effect, Vitest, Biome, and Ultracite.
 
-Portfolio copy lives in `apps/www/content` as local MDX. Route files provide metadata and layout only. Custom MDX components live in `apps/www/components/mdx`, and `apps/www/mdx-components.tsx` provides the shared component registry. Keep measured evidence in typed modules so prose can reference verified values without duplicating them.
+Portfolio copy lives in `apps/www/src/content` as local MDX. Route files in `apps/www/src/routes` provide metadata and layout only. Custom MDX components live in `apps/www/src/components/mdx`, and `registry.tsx` there provides the shared component registry. Keep measured evidence in typed modules so prose can reference verified values without duplicating them.
 
-Cache Components and Partial Prefetching are enabled. Public pages are prerendered, while the live GitHub contribution block is isolated behind Suspense and omitted when GitHub data is unavailable.
+Every page is a static file. The build also writes the social images and reads the GitHub contribution data, which `apps/www/src/content/contributions.json` keeps, so the site has no server, no server functions, and no runtime data fetching. A route must never add a server function or a loader that needs a server, because nothing answers it in production.
 
 ## Local development
 
@@ -41,9 +41,9 @@ pnpm security:audit
 pnpm shadcn:diff
 ```
 
-`pnpm check` runs linting, type checks, tests, and a production build across the workspace.
+`pnpm check` runs linting, type checks, tests, and a production build across the workspace. The build fails when a listed page is missing or incomplete.
 
-`pnpm react-doctor` runs React Doctor against the web app. Agent-friendly routes are available at `/llms.txt`, `/llms-full.txt`, and matching `.md` routes for every public content page. Each matching HTML page also returns Markdown when a request sends `Accept: text/markdown`. With the production app running on port 3100, use `pnpm agent-docs` to validate the full setup with AFDocs.
+`pnpm react-doctor` runs React Doctor against the web app. Agent-friendly routes are available at `/llms.txt`, `/llms-full.txt`, and matching `.md` routes for every public content page. In production, a Cloudflare Transform Rule on the zone also answers each matching HTML page with its Markdown when a request sends `Accept: text/markdown`. `pnpm agent-docs` validates the live site with AFDocs, and the deploy workflow runs it after every deploy.
 
 The Markdown and text files are generated from the same MDX before development and production builds. Run this command after changing content when you need to inspect them directly:
 
@@ -63,13 +63,22 @@ pnpm bump-deps
 
 The portfolio has no required environment variables, user input, authentication, or private runtime data. Response headers restrict framing, browser permissions, referrers, content types, and content sources.
 
-The Content Security Policy permits inline scripts and styles because Next.js needs them for its static bootstrap and generated styles. A nonce-based policy would make these static pages render dynamically, so this project keeps the smaller static output while allowing no remote script sources. See the [Next.js Content Security Policy guide](https://nextjs.org/docs/app/guides/content-security-policy) for that tradeoff.
+Response headers live in `apps/www/public/_headers`. The Content Security Policy permits inline scripts and styles because the static pages carry their hydration data and theme bootstrap inline, and a static file cannot use a per-request nonce. It allows no remote script sources.
 
-## Vercel
+## Deployment
 
-The connected Vercel project uses `apps/www` as its Root Directory and Node.js 24. Vercel detects the repository workspace and installs from the root lockfile. Corepack is enabled in the project so every deployment honors the root `pnpm@11.20.0` pin.
+Alchemy deploys the site to Cloudflare, as it deploys Nakafa. `apps/www/alchemy.run.ts` is the stack, and `apps/www/deploy` holds its stage rules and the `nabilfatih.com` zone resources.
 
-Automatic Git deployments are enabled through the type-safe `apps/www/vercel.ts` configuration. Feature branches create preview deployments, while a merge to `main` creates the production deployment after the repository checks pass.
+The site is a `Website.StaticSite` with no `main`, so Alchemy uploads no Worker code and Cloudflare's asset layer answers every request. Static asset requests are free and unlimited on every plan, so traffic costs nothing. Do not add `main`, `script`, `runWorkerFirst`, or Workers Cache, and do not switch to `Website.Vite`, which would run the server bundle as a Worker: each of these turns free requests into billed ones.
+
+Connect Cloudflare once, then deploy production:
+
+```bash
+pnpm --filter www exec alchemy profile edit --add Cloudflare
+pnpm deploy:prod
+```
+
+`pnpm --filter www plan` shows the changes without applying them. Every deploy rebuilds the site, so it also refreshes the GitHub contribution data.
 
 ## License
 

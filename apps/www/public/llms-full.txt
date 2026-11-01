@@ -4,7 +4,7 @@
 
 I'm a product engineer who takes software from idea to production. I build web products and the APIs, data workflows, internal tools, and applied AI behind them. Read more about [my work](https://nabilfatih.com/work) or visit [Nakafa](https://nakafa.com), the source-available learning platform I started. Outside work, I love Maine Coon cats, traveling, and being with my [lovely person](https://instagram.com/nisrinahn%5F).
 
-[3,793 contributions in the last year](https://github.com/nabilfatih)
+[7,186 contributions in the last year](https://github.com/nabilfatih)
 
 Case studies
 
@@ -476,15 +476,12 @@ That can mean auditing the current search foundation, building a programmatic co
 
 > For AI agents: use [llms.txt](https://nabilfatih.com/llms.txt) for the site index. Markdown versions are available at the `.md` routes or by sending `Accept: text/markdown`.
 
-Last updated August 8, 2026.
+Last updated November 1, 2026.
 
-This portfolio uses Vercel Web Analytics for anonymous, aggregate traffic statistics. Vercel says its Web Analytics product does not use third-party cookies or associate a visit with an individual or an IP address.
+This portfolio runs no analytics, tracking scripts, or cookies. Your theme choice stays in your own browser.
 
-Vercel Speed Insights collects Core Web Vitals so I can understand how the site performs for visitors.
+Cloudflare hosts the site. It processes standard request data, such as IP addresses, to deliver and protect the pages.
 
 The site has no account system, contact form, advertising, or visitor database. I do not use it to build personal profiles.
-
-- [Vercel Web Analytics privacy documentation](https://vercel.com/docs/analytics/privacy-policy)
-- [Vercel Speed Insights metrics documentation](https://vercel.com/docs/speed-insights/metrics)
 
 If you have a question about privacy on this site, contact me through [LinkedIn](https://www.linkedin.com/in/nabilfatih).

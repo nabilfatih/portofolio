@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": [
-    "ultracite/biome/core",
-    "ultracite/biome/react",
-    "ultracite/biome/next"
-  ],
+  "extends": ["ultracite/biome/core", "ultracite/biome/react"],
   "files": {
-    "includes": ["!!repos/effect"]
+    "includes": [
+      "!!repos/effect",
+      "!!apps/www/src/routeTree.gen.ts",
+      "!!apps/www/src/content/contributions.json"
+    ]
   },
   "formatter": {
     "indentStyle": "space"
@@ -17,6 +17,19 @@
       "quoteStyle": "double"
     }
   },
+  "overrides": [
+    {
+      // TanStack Router reads dynamic segments from file names such as work.$slug.tsx.
+      "includes": ["apps/www/src/routes/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useFilenamingConvention": "off"
+          }
+        }
+      }
+    }
+  ],
   "linter": {
     "rules": {
       "correctness": {

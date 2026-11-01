@@ -1,5 +1,6 @@
 import * as Node from "@effect/platform-node/NodeMultipartParser"
-import * as Multipart from "effect/unstable/http/MultipartParser"
+import * as ByteSize from "effect/ByteSize"
+import * as Multipart from "effect/http/MultipartParser"
 import { assert, describe, expectTypeOf, test } from "vitest"
 
 type Expected = Array<
@@ -167,7 +168,7 @@ const cases: ReadonlyArray<MultipartCase> = [
     ],
     boundary: "----WebKitFormBoundaryTB2MiQ36fnSJlrhY",
     config: {
-      maxPartSize: 100
+      maxPartSize: ByteSize.bytes(100)
     },
     expected: [
       ["field", "first", "A".repeat(32), "text/plain"],
@@ -209,7 +210,7 @@ const cases: ReadonlyArray<MultipartCase> = [
     ],
     boundary: "---------------------------paZqsnEHRufoShdX6fh0lUhXBP4k",
     config: {
-      maxFieldSize: 5
+      maxFieldSize: ByteSize.bytes(5)
     },
     expected: [],
     errors: ["ReachedLimit"],
@@ -228,7 +229,7 @@ const cases: ReadonlyArray<MultipartCase> = [
     ],
     boundary: "---------------------------paZqsnEHRufoShdX6fh0lUhXBP4k",
     config: {
-      maxPartSize: 13
+      maxPartSize: ByteSize.bytes(13)
     },
     expected: [],
     errors: ["ReachedLimit"],
@@ -348,9 +349,9 @@ const cases: ReadonlyArray<MultipartCase> = [
     ],
     boundary: "----WebKitFormBoundaryTB2MiQ36fnSJlrhY",
     expected: [
-      ["field", "cont", "some random content", "text/plain"],
-      ["field", "", "some random pass", "text/plain"]
+      ["field", "cont", "some random content", "text/plain"]
     ],
+    errors: ["InvalidDisposition"],
     name: "Empty content-type and empty content-disposition"
   },
   {
@@ -467,7 +468,8 @@ const cases: ReadonlyArray<MultipartCase> = [
       ].join("\r\n")
     ],
     boundary: "---------------------------paZqsnEHRufoShdX6fh0lUhXBP4k",
-    expected: [["file", "file", 26, "%ZZ", "application/octet-stream"]],
+    expected: [],
+    errors: ["InvalidDisposition"],
     name: "Malformed encoded filenames"
   },
   {
@@ -700,7 +702,7 @@ describe("node api", () => {
       headers: {
         "content-type": "multipart/form-data; boundary=boundary"
       },
-      maxPartSize: 100
+      maxPartSize: ByteSize.bytes(100)
     })
     let file: Node.FileStream | undefined
     parser.on("file", (part) => {
@@ -825,7 +827,8 @@ describe("node async-iterable api", () => {
   })
 })
 
-describe("random data", () => {
+// Synchronous parsing can starve the async suites.
+describe("random data", { concurrent: false }, () => {
   test("smoke test", () => {
     const boundary = "------WebKitFormBoundaryTB2MiQ36fnSJlrhY--"
     let seed = 0x9e3779b9
@@ -881,5 +884,5 @@ describe("random data", () => {
       parser.end()
       assert.isTrue(success)
     }
-  }, 30_000)
+  }, 90_000)
 })

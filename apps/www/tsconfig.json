@@ -1,19 +1,12 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
+  "extends": "@repo/typescript-config/vite.json",
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "paths": {
-      "@/*": ["./*"],
+      "@/*": ["./src/*"],
       "@repo/*": ["../../packages/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "next.config.ts",
-    "**/*.mdx",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": ["node_modules", ".next", "out", "dist", "build"]
+  "include": ["**/*.mdx", "**/*.ts", "**/*.tsx", "*.mts"],
+  "exclude": ["node_modules", "dist"]
 }

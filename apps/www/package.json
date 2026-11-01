@@ -3,29 +3,30 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "imports": {
+    "#www/*": "./*.ts"
+  },
   "scripts": {
     "agent-docs": "vitest run --config vitest.agent-docs.config.mts --coverage.enabled=false",
-    "analyze": "pnpm generate:docs && ANALYZE=true next build",
-    "build": "pnpm generate:docs && next build",
-    "dev": "pnpm generate:docs && next dev --turbopack -p 3100",
-    "generate:docs": "node --experimental-strip-types scripts/agent-docs.ts",
-    "start": "next start -p 3100",
+    "build": "pnpm generate:docs && pnpm generate:social && vite build && node scripts/verify-pages.ts",
+    "deploy": "alchemy deploy --stage prod",
+    "dev": "pnpm generate:docs && vite dev",
+    "generate:docs": "node scripts/agent-docs.ts",
+    "generate:social": "node scripts/social-images.ts",
+    "plan": "alchemy plan --stage prod",
+    "start": "vite preview",
     "test": "vitest run",
-    "typecheck": "next typegen && tsc --noEmit"
+    "typecheck": "tsr generate && tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
     "@hugeicons/core-free-icons": "^4.2.3",
-    "@mdx-js/loader": "3.1.1",
-    "@mdx-js/react": "3.1.1",
-    "@next/mdx": "16.3.1",
     "@repo/design-system": "workspace:*",
-    "@vercel/analytics": "^2.0.1",
-    "@vercel/speed-insights": "^2.0.0",
-    "effect": "4.0.0-rc.110",
-    "geist": "^1.7.2",
+    "@tanstack/react-router": "^1.170.46",
+    "@tanstack/react-start": "^1.169.4",
+    "effect": "4.1.0",
     "mermaid": "11.16.1",
-    "next": "16.3.1",
-    "next-themes": "^0.4.6",
     "node-html-parser": "9.0.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -33,17 +34,23 @@
     "takumi-js": "2.10.0"
   },
   "devDependencies": {
-    "@effect/vitest": "4.0.0-rc.110",
+    "@alchemy.run/cloudflare": "2.0.0-beta.84",
+    "@effect/platform-bun": "4.1.0",
+    "@effect/platform-node": "4.1.0",
+    "@effect/vitest": "4.1.0",
     "@mdx-js/rollup": "3.1.1",
     "@repo/typescript-config": "workspace:*",
+    "@tailwindcss/vite": "^4.3.3",
+    "@tanstack/router-cli": "1.167.46",
     "@types/mdx": "2.0.14",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "@vercel/config": "^0.6.1",
+    "@vitejs/plugin-react": "^6.1.2",
     "afdocs": "0.19.0",
+    "alchemy": "2.0.0-beta.84",
     "node-html-markdown": "2.0.0",
     "tailwindcss": "^4.3.3",
-    "vite": "8.2.1",
-    "vitest": "^4.1.11"
+    "vite": "8.3.5",
+    "vitest": "^4.1.12"
   }
 }

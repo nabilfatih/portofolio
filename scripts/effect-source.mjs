@@ -1,9 +1,9 @@
 import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 
-const EXPECTED_SOURCE_COMMIT = "66114151c2b4640bf773f2b3456ce70d679422f6";
-const EXPECTED_SOURCE_TAG = "effect@4.0.0-rc.110";
-const EXPECTED_SOURCE_TREE = "e5cfbd6b0885c55d4e8f0f7605669960334bdcf5";
+const EXPECTED_SOURCE_COMMIT = "9a91b1926a5fbfaffd302a7a41a94d4d53a1154e";
+const EXPECTED_SOURCE_TAG = "effect@4.1.0";
+const EXPECTED_SOURCE_TREE = "0a7c256f351561fef785c03ab1e825ee6e78bd5a";
 
 async function readJson(path) {
   return JSON.parse(await readFile(path, "utf8"));

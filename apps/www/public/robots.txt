@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://nabilfatih.com
+Sitemap: https://nabilfatih.com/sitemap.xml

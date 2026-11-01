@@ -9,8 +9,9 @@ import * as Trie from "effect/Trie"
 
 describe("Trie", () => {
   it("equality rejects tries with different numbers of entries after a hash collision", () => {
+    // Makes the "a" entry collide with the empty trie.
     const value = {
-      [Hash.symbol]: () => Hash.hash("a") * 53
+      [Hash.symbol]: () => -1520130700
     }
     const empty = Trie.empty<typeof value>()
     const nonEmpty = Trie.make(["a", value])
@@ -88,6 +89,23 @@ describe("Trie", () => {
       [Array.from(before), Trie.size(before), Array.from(after), Trie.size(after)],
       [[["a", 1]], 1, [["a", 2]], 1],
       "replacement must be immutable and preserve size"
+    )
+  })
+
+  it("stores the empty string key like any other key", () => {
+    const base = Trie.make(["a", 2])
+    const withEmpty = Trie.insert(base, "", 1)
+    const removed = Trie.remove(withEmpty, "")
+
+    deepStrictEqual(
+      [Trie.size(withEmpty), Trie.has(withEmpty, ""), Array.from(withEmpty)],
+      [2, true, [["", 1], ["a", 2]]]
+    )
+    deepStrictEqual(Array.from(Trie.make(["a", 2], ["", 1])), [["", 1], ["a", 2]])
+    deepStrictEqual(
+      [Array.from(base), Array.from(removed), Trie.size(removed)],
+      [[["a", 2]], [["a", 2]], 1],
+      "inserting and removing the empty key must not mutate other tries"
     )
   })
 
@@ -233,6 +251,12 @@ describe("Trie", () => {
     deepStrictEqual(Array.from(trie2), [["me", 1], ["mid", 3], ["mind", 2]])
   })
 
+  it("remove preserves a valued prefix", () => {
+    const trie = Trie.make(["ab", 1], ["abc", 2]).pipe(Trie.remove("abc"))
+
+    deepStrictEqual(Array.from(trie), [["ab", 1]], "valued prefix should remain after removing its extension")
+  })
+
   it("keys returns keys in sorted order", () => {
     const trie = Trie.empty<number>().pipe(
       Trie.insert("cab", 0),
@@ -242,6 +266,16 @@ describe("Trie", () => {
 
     const result = Array.from(Trie.keys(trie))
     deepStrictEqual(result, ["abc", "bca", "cab"])
+  })
+
+  it("entries stays exhausted while the trie remains reusable", () => {
+    const trie = Trie.make(["app", 1])
+    const iterator = Trie.entries(trie)
+
+    deepStrictEqual(Array.from(iterator), [["app", 1]])
+    deepStrictEqual(Array.from(iterator), [])
+    deepStrictEqual(Array.from(trie), [["app", 1]])
+    deepStrictEqual(Array.from(trie), [["app", 1]])
   })
 
   it("keys orders nested prefixes alphabetically", () => {
@@ -341,6 +375,15 @@ describe("Trie", () => {
     deepStrictEqual(result, [3, 0])
   })
 
+  it("valuesWithPrefix resumes iteration with matching values", () => {
+    const trie = Trie.make(["app", 1], ["apple", 2], ["banana", 3])
+    const iterator = Trie.valuesWithPrefix(trie, "app")
+
+    deepStrictEqual(iterator.next(), { done: false, value: 1 })
+    deepStrictEqual(Array.from(iterator), [2])
+    deepStrictEqual(Array.from(iterator), [])
+  })
+
   it("entriesWithPrefix returns matching entries in key order", () => {
     const trie = pipe(
       Trie.empty<number>(),
@@ -377,6 +420,14 @@ describe("Trie", () => {
     assertSome(Trie.longestPrefixOf(trie, "sells"), ["sells", 1])
     assertSome(Trie.longestPrefixOf(trie, "shell"), ["she", 2])
     assertSome(Trie.longestPrefixOf(trie, "shellsort"), ["shells", 0])
+  })
+
+  it("longestPrefixOf falls back to a stored empty key", () => {
+    const trie = Trie.make(["", 1], ["a", 2])
+
+    assertSome(Trie.longestPrefixOf(trie, "xyz"), ["", 1])
+    assertSome(Trie.longestPrefixOf(trie, ""), ["", 1])
+    assertSome(Trie.longestPrefixOf(trie, "ab"), ["a", 2])
   })
 
   it("longestPrefixOf ignores valued sibling nodes that do not match the input", () => {

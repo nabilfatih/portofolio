@@ -118,7 +118,7 @@ describe("theme bootstrap", () => {
     expect(mediaFallback.classes).toEqual(new Set(["font-variable", "light"]));
   });
 
-  it("mirrors next-themes for unknown persisted identifiers", () => {
+  it("keeps the theme store behavior for unknown persisted identifiers", () => {
     const result = runBootstrap({ storedTheme: "future-theme" });
 
     expect(result.classes).toEqual(new Set(["font-variable", "future-theme"]));

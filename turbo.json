@@ -4,8 +4,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
-      "passThroughEnv": ["ENABLE_EXPERIMENTAL_COREPACK"]
+      "outputs": ["dist/**"]
     },
     "dev": {
       "cache": false,

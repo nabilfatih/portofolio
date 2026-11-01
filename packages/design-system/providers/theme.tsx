@@ -1,25 +1,43 @@
 import {
-  concreteThemeValues,
-  DEFAULT_THEME,
-  THEME_STORAGE_KEY,
-} from "@repo/design-system/lib/theme/registry";
-import type { ThemeProviderProps } from "next-themes";
-import { ThemeProvider as NextThemeProvider } from "next-themes";
+  connectThemeStore,
+  createThemeStore,
+  type ThemeState,
+  type ThemeStore,
+} from "@repo/design-system/lib/theme/store";
+import { createContext, type ReactNode, use, useEffect, useState } from "react";
+import { useStore } from "zustand";
 
-/** Configures Nakafa's concrete themes and delegates system resolution to next-themes. */
-export const ThemeProvider = ({
-  children,
-  ...properties
-}: ThemeProviderProps) => (
-  <NextThemeProvider
-    attribute="class"
-    defaultTheme={DEFAULT_THEME}
-    disableTransitionOnChange
-    enableSystem
-    storageKey={THEME_STORAGE_KEY}
-    themes={concreteThemeValues}
-    {...properties}
-  >
-    {children}
-  </NextThemeProvider>
-);
+const ThemeContext = createContext<ThemeStore | null>(null);
+
+/**
+ * Provides the visitor's theme to every reader below it. The store is created
+ * once per provider, and the context carries only that store, which never
+ * changes after hydration. Readers select the part they need, and the store's
+ * first state is the one the prerender wrote.
+ */
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [store] = useState(createThemeStore);
+
+  useEffect(() => connectThemeStore(store), [store]);
+
+  return <ThemeContext value={store}>{children}</ThemeContext>;
+}
+
+/** Returns the theme store and rejects a missing provider. */
+function useThemeStore(): ThemeStore {
+  const store = use(ThemeContext);
+  if (store === null) {
+    throw new TypeError("useTheme must be used within ThemeProvider");
+  }
+  return store;
+}
+
+/**
+ * Selects one part of the theme: the stored choice, the theme it resolves to,
+ * or setTheme. A reader re-renders only when its selection changes.
+ */
+export function useTheme<Selected>(
+  selector: (state: ThemeState) => Selected
+): Selected {
+  return useStore(useThemeStore(), selector);
+}

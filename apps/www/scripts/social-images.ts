@@ -1,4 +1,4 @@
-import { NodeRuntime, NodeServices } from "@effect/platform-node";
+import { BunRuntime, BunServices } from "@effect/platform-bun";
 import { Effect, FileSystem, Path } from "effect";
 import { loadModule, MdxServer, webRoot } from "#www/scripts/mdx-server";
 import type * as Cases from "#www/src/lib/cases";
@@ -46,6 +46,6 @@ const generateSocialImages = Effect.gen(function* () {
 
 generateSocialImages.pipe(
   Effect.scoped,
-  Effect.provide(NodeServices.layer),
-  NodeRuntime.runMain
+  Effect.provide(BunServices.layer),
+  BunRuntime.runMain
 );

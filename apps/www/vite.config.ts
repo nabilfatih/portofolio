@@ -24,9 +24,12 @@ export default defineConfig({
       prerender: {
         autoStaticPathsDiscovery: false,
         autoSubfolderIndex: false,
+        // Set, so the build machine's core count never changes the output.
+        concurrency: 4,
         crawlLinks: false,
         enabled: true,
         failOnError: true,
+        retryCount: 3,
       },
     }),
     react({ include: /\.(mdx|tsx?)$/ }),

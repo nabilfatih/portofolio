@@ -4,7 +4,7 @@ The source for [nabilfatih.com](https://nabilfatih.com), a small portfolio focus
 
 ## Architecture
 
-This repository is a pnpm and Turborepo monorepo:
+This repository is a Bun and Turborepo monorepo:
 
 - `apps/www` contains the production TanStack Start application, prerendered to static files, and the Alchemy stack that deploys it to Cloudflare.
 - `packages/design-system` contains the shared shadcn Base UI components and Nakafa theme system.
@@ -21,13 +21,13 @@ Every page is a static file. The build also writes the social images and reads t
 Requirements:
 
 - Node.js 24
-- pnpm 11.20.0
+- Bun 1.4.4
 
 Install dependencies and start the app:
 
 ```bash
-pnpm install
-pnpm dev
+bun install
+bun run dev
 ```
 
 The portfolio runs at [http://localhost:3100](http://localhost:3100). Port 3000 is intentionally not used.
@@ -35,20 +35,20 @@ The portfolio runs at [http://localhost:3100](http://localhost:3100). Port 3000 
 ## Quality checks
 
 ```bash
-pnpm check
-pnpm react-doctor
-pnpm security:audit
-pnpm shadcn:diff
+bun run check
+bun run react-doctor
+bun run security:audit
+bun run shadcn:diff
 ```
 
-`pnpm check` runs linting, type checks, tests, and a production build across the workspace. The build fails when a listed page is missing or incomplete.
+`bun run check` runs linting, type checks, tests, and a production build across the workspace. The build fails when a listed page is missing or incomplete.
 
-`pnpm react-doctor` runs React Doctor against the web app. Agent-friendly routes are available at `/llms.txt`, `/llms-full.txt`, and matching `.md` routes for every public content page. In production, a Cloudflare Transform Rule on the zone also answers each matching HTML page with its Markdown when a request sends `Accept: text/markdown`. `pnpm agent-docs` validates the live site with AFDocs, and the deploy workflow runs it after every deploy.
+`bun run react-doctor` runs React Doctor against the web app. Agent-friendly routes are available at `/llms.txt`, `/llms-full.txt`, and matching `.md` routes for every public content page. In production, a Cloudflare Transform Rule on the zone also answers each matching HTML page with its Markdown when a request sends `Accept: text/markdown`. `bun run agent-docs` validates the live site with AFDocs, and the deploy workflow runs it after every deploy.
 
 The Markdown and text files are generated from the same MDX before development and production builds. Run this command after changing content when you need to inspect them directly:
 
 ```bash
-pnpm --filter www generate:docs
+bun run --filter www generate:docs
 ```
 
 Do not edit generated files in `apps/www/public` by hand.
@@ -56,7 +56,7 @@ Do not edit generated files in `apps/www/public` by hand.
 To refresh dependencies and the lockfile:
 
 ```bash
-pnpm bump-deps
+bun run bump-deps
 ```
 
 ## Security
@@ -74,11 +74,11 @@ The site is a `Website.StaticSite` with no `main`, so Alchemy uploads no Worker 
 Connect Cloudflare once, then deploy production:
 
 ```bash
-pnpm --filter www exec alchemy profile edit --add Cloudflare
-pnpm deploy:prod
+bunx alchemy profile edit --add Cloudflare --config apps/www/alchemy.run.ts
+bun run deploy:prod
 ```
 
-`pnpm --filter www plan` shows the changes without applying them. Every deploy rebuilds the site, so it also refreshes the GitHub contribution data.
+`bun run --filter www plan` shows the changes without applying them. Every deploy rebuilds the site, so it also refreshes the GitHub contribution data.
 
 ## License
 

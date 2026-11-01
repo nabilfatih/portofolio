@@ -1,4 +1,4 @@
-import { NodeRuntime, NodeServices } from "@effect/platform-node";
+import { BunRuntime, BunServices } from "@effect/platform-bun";
 import { Effect, FileSystem, Path, Schema } from "effect";
 import { webRoot } from "#www/scripts/mdx-server";
 import { staticPages } from "#www/src/lib/pages";
@@ -70,4 +70,4 @@ const verifyPages = Effect.gen(function* () {
   yield* Effect.log(`Verified ${staticPages.length} static pages.`);
 });
 
-verifyPages.pipe(Effect.provide(NodeServices.layer), NodeRuntime.runMain);
+verifyPages.pipe(Effect.provide(BunServices.layer), BunRuntime.runMain);

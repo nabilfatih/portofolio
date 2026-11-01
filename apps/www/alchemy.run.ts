@@ -43,7 +43,7 @@ export default Stack(
         // A path with no asset answers the prerendered `404.html`.
         notFoundHandling: "404-page",
       },
-      command: "pnpm build",
+      command: "bun run build",
       dev: { port: 3100, strictPort: true },
       // Every deploy rebuilds, which also refreshes the GitHub contribution data.
       memo: false,

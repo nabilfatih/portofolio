@@ -1,4 +1,4 @@
-import { NodeRuntime, NodeServices } from "@effect/platform-node";
+import { BunRuntime, BunServices } from "@effect/platform-bun";
 import { Effect, FileSystem, Path, Schema } from "effect";
 import {
   loadModule,
@@ -77,6 +77,6 @@ const generateAgentDocs = Effect.gen(function* () {
 
 generateAgentDocs.pipe(
   Effect.scoped,
-  Effect.provide(NodeServices.layer),
-  NodeRuntime.runMain
+  Effect.provide(BunServices.layer),
+  BunRuntime.runMain
 );

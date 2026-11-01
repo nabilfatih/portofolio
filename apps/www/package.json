@@ -8,11 +8,11 @@
   },
   "scripts": {
     "agent-docs": "vitest run --config vitest.agent-docs.config.mts --coverage.enabled=false",
-    "build": "pnpm generate:docs && pnpm generate:social && vite build && node scripts/verify-pages.ts",
+    "build": "bun run generate:docs && bun run generate:social && vite build && bun scripts/verify-pages.ts",
     "deploy": "alchemy deploy --stage prod",
-    "dev": "pnpm generate:docs && vite dev",
-    "generate:docs": "node scripts/agent-docs.ts",
-    "generate:social": "node scripts/social-images.ts",
+    "dev": "bun run generate:docs && vite dev",
+    "generate:docs": "bun scripts/agent-docs.ts",
+    "generate:social": "bun scripts/social-images.ts",
     "plan": "alchemy plan --stage prod",
     "start": "vite preview",
     "test": "vitest run",
@@ -34,7 +34,7 @@
     "takumi-js": "2.10.0"
   },
   "devDependencies": {
-    "@alchemy.run/cloudflare": "2.0.0-beta.84",
+    "@alchemy.run/cloudflare": "https://pkg.alchemy.run/@alchemy.run/cloudflare/-/7ab6a6e898217421d56affee30688194eb4a9ce22abc21660634c8afe977eebf.tgz",
     "@effect/platform-bun": "4.1.0",
     "@effect/platform-node": "4.1.0",
     "@effect/vitest": "4.1.0",
@@ -47,7 +47,7 @@
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.2",
     "afdocs": "0.19.0",
-    "alchemy": "2.0.0-beta.84",
+    "alchemy": "https://pkg.alchemy.run/alchemy/-/e7670ec4be7543453ff4dfb68321d9a4a1bb4450a5608fb20731df35d0523bfa.tgz",
     "node-html-markdown": "2.0.0",
     "tailwindcss": "^4.3.3",
     "vite": "8.3.5",

@@ -1,0 +1,7 @@
+[install]
+# Exact saves pin each dependency the way the repository's manifests already do.
+exact = true
+# Isolated linking keeps each workspace to the dependencies it declares.
+linker = "isolated"
+# A release must be a day old before it installs.
+minimumReleaseAge = 86400

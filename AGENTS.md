@@ -15,15 +15,15 @@ This repository is Nabil Fatih's public portfolio. Keep the existing restrained 
 
 ## Commands
 
-Use Node 24 and pnpm from the root.
+Use Node 24 and Bun from the root.
 
-- `pnpm dev` starts the portfolio on port 3100.
-- `pnpm check` validates filenames, lint, type checks, tests, and the production build.
-- `pnpm filenames` enforces the repository filename convention.
-- `pnpm react-doctor` checks the React application for health and maintenance issues.
-- `pnpm bump-deps` updates workspace dependencies, then refreshes the lockfile.
-- `pnpm shadcn:diff` checks installed shadcn primitives against the current registry.
-- `pnpm --filter www generate:docs` refreshes agent-facing Markdown from the MDX source.
+- `bun run dev` starts the portfolio on port 3100.
+- `bun run check` validates filenames, lint, type checks, tests, and the production build.
+- `bun run filenames` enforces the repository filename convention.
+- `bun run react-doctor` checks the React application for health and maintenance issues.
+- `bun run bump-deps` updates workspace dependencies, then refreshes the lockfile.
+- `bun run shadcn:diff` checks installed shadcn primitives against the current registry.
+- `bun run --filter www generate:docs` refreshes agent-facing Markdown from the MDX source.
 
 ## Guardrails
 
